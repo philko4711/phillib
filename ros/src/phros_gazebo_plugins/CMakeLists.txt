@@ -166,7 +166,7 @@ add_library(velodyne32_motor_plugin SHARED src/PluginMotorVelodyne.cpp)
 #   ${catkin_LIBRARIES}
 # )
 
-target_link_libraries(velodyne32_sensor_plugin ${GAZEBO_libraries} GpuRayPlugin ${catkin_LIBRARIES})
+target_link_libraries(velodyne32_sensor_plugin ${GAZEBO_libraries} RayPlugin ${catkin_LIBRARIES})
 target_link_libraries(velodyne32_motor_plugin ${GAZEBO_libraries} ${catkin_LIBRARIES})
 
 #############

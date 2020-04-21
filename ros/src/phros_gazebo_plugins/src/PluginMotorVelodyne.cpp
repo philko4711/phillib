@@ -72,7 +72,7 @@ public:
     _node =  gazebo::transport::NodePtr(new gazebo::transport::Node());
   _node->Init();
 
-    _pub = _node->Advertise<gazebo::msgs::Vector3d>("hurensohn");
+    _pub = _node->Advertise<gazebo::msgs::Vector3d>("motor_angle");
     _pub->WaitForConnection();
     _t = std::thread(&PluginMotorVelodyne::loop, this);
   }

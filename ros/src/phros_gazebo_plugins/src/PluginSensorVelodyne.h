@@ -26,7 +26,7 @@
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Events.hh>
 #include <gazebo/sensors/SensorTypes.hh>
-#include <gazebo/plugins/GpuRayPlugin.hh>
+#include <gazebo/plugins/RayPlugin.hh>
 
 #include <sdf/sdf.hh>
 
@@ -35,7 +35,7 @@
 namespace gazebo
 {
 
-class PluginSensorVelodyne : public GpuRayPlugin
+class PluginSensorVelodyne : public RayPlugin
 {
 public:
   PluginSensorVelodyne();
@@ -49,7 +49,7 @@ private:
   void OnMsg(ConstVector3dPtr &_msg);
   std::string _worldName;
   physics::WorldPtr _world;
-  sensors::GpuRaySensorPtr _parentRaySensor;
+  sensors::RaySensorPtr _parentRaySensor;
   ros::NodeHandle* _rosNode;
   ros::Publisher   _pub;
   std::string      _frameName;
@@ -63,6 +63,7 @@ private:
   std::string _topicName;
   int _laserConnectCount;
   PubMultiQueue _pmq;
+  //PubQueue<sensor_msgs::LaserScan>::Ptr _pubQueue;
   PubQueue<pcl::PointCloud<pcl::PointXYZ> >::Ptr _pubQueue;
    transport::SubscriberPtr _sub;
    transport::NodePtr _node;
