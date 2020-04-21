@@ -155,7 +155,7 @@ void PluginSensorVelodyne::OnScan(ConstLaserScanStampedPtr& msg)
   std::cout << __PRETTY_FUNCTION__ << " huhu " << std::endl;
   // We got a new message from the Gazebo sensor.  Stuff a
   // corresponding ROS message and publish it.
-    static pcl::PointCloud<pcl::PointXYZ> cloud;
+    pcl::PointCloud<pcl::PointXYZ> cloud;
     static double arsch = 0.0;
   cloud.header.stamp          = pcl_conversions::toPCL(ros::Time(msg->time().sec(), msg->time().nsec()));
   cloud.header.frame_id       = _frameName;
