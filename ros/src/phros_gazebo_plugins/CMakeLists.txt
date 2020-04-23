@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_ros
   dynamic_reconfigure
   tf
+  laser_geometry
 )
 
 find_package(gazebo REQUIRED)
@@ -152,7 +153,8 @@ add_library(plugin_sensor_ray SHARED src/PluginSensorRay.cpp)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/phros_gazebo_plugins_node.cpp)
+add_executable(sensor_velodyne src/sensor_velodyne.cpp
+                               src/SensorVelodyne.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -173,6 +175,7 @@ target_link_libraries(velodyne32_sensor_plugin ${GAZEBO_libraries} RayPlugin ${c
 target_link_libraries(velodyne32_motor_plugin ${GAZEBO_libraries} ${catkin_LIBRARIES})
 target_link_libraries(plugin_joint_rotary ${GAZEBO_libraries} ${catkin_LIBRARIES})
 target_link_libraries(plugin_sensor_ray ${GAZEBO_libraries} RayPlugin ${catkin_LIBRARIES})
+target_link_libraries(sensor_velodyne ${catkin_LIBRARIES})
 
 #############
 ## Install ##
