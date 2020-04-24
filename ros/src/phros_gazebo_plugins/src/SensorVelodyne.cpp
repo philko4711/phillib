@@ -22,6 +22,7 @@ SensorVelodyne::~SensorVelodyne(){};
 
 void SensorVelodyne::callBackScan(const sensor_msgs::LaserScan& scan)
 {
+  static double anglePrev = 0.0;
   laser_geometry::LaserProjection projector;
   if(!_listener->waitForTransform(scan.header.frame_id, _tfBaseFrame, scan.header.stamp + ros::Duration().fromSec(scan.ranges.size() * scan.time_increment),
                                   ros::Duration(1.0)))
@@ -29,6 +30,25 @@ void SensorVelodyne::callBackScan(const sensor_msgs::LaserScan& scan)
     ROS_ERROR_STREAM(__PRETTY_FUNCTION__ << "timeout looking up transform from " << scan.header.frame_id << " to " << _tfBaseFrame);
     return;
   }
+  tf::StampedTransform tf;
+  try
+  {
+    _listener->lookupTransform("velodyne::top", "velodyne::base", ros::Time(0), tf);
+  }
+  catch(tf::TransformException& ex)
+  {
+    std::cout << ex.what() << '\n';
+    return;
+  }
+  double roll = 0.0;
+  double pitch = 0.0;
+  double yaw = 0.0;
+  //tf::Quaternion quat = ;
+  tf::Matrix3x3 mat(tf.getRotation());
+  mat.getRPY(roll, pitch, yaw);
+  std::cout << __PRETTY_FUNCTION__ << " rpy " << roll << " " << pitch << " " << yaw << std::endl;
+  
+  
 
   sensor_msgs::PointCloud cloud;
   projector.transformLaserScanToPointCloud(_tfBaseFrame, scan, cloud, *_listener);
@@ -37,7 +57,12 @@ void SensorVelodyne::callBackScan(const sensor_msgs::LaserScan& scan)
     pcl::PointXYZ pointPCL(iter.x, iter.y, iter.z);
     _cloud->push_back(pointPCL);
   }
+  if((yaw * anglePrev < 0.0) && ((yaw * anglePrev > -0.5)))
+  {
   _cloud->header.stamp = pcl_conversions::toPCL(ros::Time::now());
   _cloud->header.seq++;
   _pubCloud.publish(*_cloud);
+  _cloud->clear();
+  }
+  anglePrev = yaw;
 }

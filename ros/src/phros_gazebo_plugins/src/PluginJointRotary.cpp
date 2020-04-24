@@ -117,12 +117,12 @@ void PluginJointRotary::eventLoop()
 
     gazebo::msgs::Set(&msg, ignition::math::Vector3d(pos, 0, 0));
     _pub->Publish(msg);
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     tf::Quaternion quat;
     quat.setRPY(0.0, 0.0, pos);
     _tf.setRotation(quat);
     _tf.stamp_          = ros::Time::now();
     _bc.sendTransform(_tf);
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 }
 GZ_REGISTER_MODEL_PLUGIN(PluginJointRotary)
