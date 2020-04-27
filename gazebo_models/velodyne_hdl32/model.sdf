@@ -3,7 +3,7 @@
   <model name="velodyne">
  <!-- <plugin name="velodyne_motor" filename="libvelodyne32_motor_plugin.so"> -->
  <plugin name="velodyne_motor" filename="libplugin_joint_rotary.so">
-    <velocity>10.0</velocity>
+    <velocity>0.0</velocity>
     <joint_name>velodyne::joint</joint_name>
     <topic_gazebo_name>motor_angle</topic_gazebo_name>
      </plugin> 
@@ -69,7 +69,7 @@
       </visual>
 
       <sensor type="ray" name="sensor">
-        <pose>0 0 -0.004645 1.5707 0 0</pose>
+        <pose>0 0 -0.004645 0 0 0</pose>
         <visualize>true</visualize>
         <update_rate>30</update_rate>
         <ray>
@@ -81,11 +81,17 @@
 
           <scan>
             <horizontal>
+              <samples>1000</samples>
+              <resolution>1</resolution>
+              <min_angle>0.0</min_angle>
+              <max_angle>6.28</max_angle>
+            </horizontal>
+            <vertical>
               <samples>32</samples>
               <resolution>1</resolution>
               <min_angle>-0.53529248</min_angle>
               <max_angle>0.18622663</max_angle>
-            </horizontal>
+            </vertical>
           </scan>
 
           <range>
@@ -94,7 +100,7 @@
             <resolution>0.0001</resolution>
           </range>
         </ray>
- <plugin name="velodyne_control" filename="libplugin_sensor_ray.so">   <!-- libvelodyne32_sensor_plugin.so -->
+ <plugin name="velodyne_control" filename="libros_block_laser.so">   <!--  -->
     <frame_name>laser</frame_name>
     <topic_name>scan</topic_name>
      </plugin> 
