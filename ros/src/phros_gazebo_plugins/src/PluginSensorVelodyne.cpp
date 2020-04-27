@@ -37,12 +37,12 @@ PluginSensorVelodyne::~PluginSensorVelodyne()
 void PluginSensorVelodyne::Load(sensors::SensorPtr parent, sdf::ElementPtr sdf)
 {
   _sdf = sdf;
-  RayPlugin::Load(parent, sdf);
+  GpuRayPlugin::Load(parent, sdf);
   // std::string _worldName = parent->GetWorldName();
   _world = physics::get_world(_worldName);
 
   GAZEBO_SENSORS_USING_DYNAMIC_POINTER_CAST;
-  _parentRaySensor = dynamic_pointer_cast<sensors::RaySensor>(parent);
+  _parentRaySensor = dynamic_pointer_cast<sensors::GpuRaySensor>(parent);
 
   if(!_parentRaySensor)
     gzthrow("GazeboRosLaser controller requires a Ray Sensor as its parent");
@@ -94,7 +94,16 @@ void PluginSensorVelodyne::Load(sensors::SensorPtr parent, sdf::ElementPtr sdf)
   _node->Init();
 #endif
 
-  _sub = _node->Subscribe("motor_angle", &PluginSensorVelodyne::OnMsg, this);
+  //_sub = _node->Subscribe("motor_angle", &PluginSensorVelodyne::OnMsg, this);
+  physics::ModelPtr model = _world->ModelByName("velodyne");  
+  if(model)
+  {
+    _jointi = model->GetJoint("velodyne::joint");
+    if(_jointi)
+    {
+      std::cout << " juhuuuu " << std::endl;
+    }
+  }
 }
 
 void PluginSensorVelodyne::loadThread()
@@ -152,33 +161,60 @@ void PluginSensorVelodyne::laserDisconnect()
 
 void PluginSensorVelodyne::OnScan(ConstLaserScanStampedPtr& msg)
 {
-  std::cout << __PRETTY_FUNCTION__ << " huhu " << std::endl;
+  _parentRaySensor->SetActive(false);
+  // std::cout << __PRETTY_FUNCTION__ << " huhu " << std::endl;
+  // const double       angleStep = 0.1;
+  // const unsigned int n         = static_cast<unsigned int>(std::round((2.0 * M_PI) / angleStep));
+  double popo = 0.0;
+  if(_jointi)
+  {
+      double       pos = _jointi->Position();
+    const double nTp = std::floor(pos / (2.0 * M_PI));
+    pos              = pos - nTp * (2.0 * M_PI); 
+    popo = pos;
+  }
+
+  std::cout << __PRETTY_FUNCTION__ << " popo " << popo << std::endl;
+   static double      angleLast = _angle;
   // We got a new message from the Gazebo sensor.  Stuff a
   // corresponding ROS message and publish it.
-    pcl::PointCloud<pcl::PointXYZ> cloud;
-    static double arsch = 0.0;
-  cloud.header.stamp          = pcl_conversions::toPCL(ros::Time(msg->time().sec(), msg->time().nsec()));
-  cloud.header.frame_id       = _frameName;
-  const double angleMin       = (M_PI / 2.0) - 1.0 * msg->scan().angle_min();
-  const double angleIncrement = -1.0 * msg->scan().angle_step();
+  static pcl::PointCloud<pcl::PointXYZ> cloud;
+  cloud.header.stamp                   = pcl_conversions::toPCL(ros::Time(msg->time().sec(), msg->time().nsec()));
+  cloud.header.frame_id                = _frameName;
+  const double angleMin                = (M_PI / 2.0) - 1.0 * msg->scan().angle_min();
+  const double angleIncrement          = -1.0 * msg->scan().angle_step();
+//unsigned int nSteps = 0;
+  //std::cout << __PRETTY_FUNCTION__ << " min " << angleMin << " incr " << angleIncrement << std::endl;
+//  std::cout << __PRETTY_FUNCTION__ << " (" << _angle  << " - "  << angleLast << ") > " << angleStep << " ? " << std::endl;
+  // if((_angle - angleLast) > angleStep)
+  // {
+    for(unsigned int i = 0; i < msg->scan().ranges().size(); i++)
+    {
 
-  std::cout << __PRETTY_FUNCTION__ << " min " << angleMin  << " incr " << angleIncrement << std::endl;
-
-  for(unsigned int i = 0; i < msg->scan().ranges().size(); i++)
+      const double theta = angleMin + static_cast<double>(i) * angleIncrement;
+      const double phi   = popo;
+      const double r     = msg->scan().ranges()[i];
+      // if(std::isinf(r))
+      //   continue;
+      //std::cout << __PRETTY_FUNCTION__ << " theta " << theta << " r " << r << " phi " << phi << " incr " << angleIncrement << std::endl;
+      pcl::PointXYZ point(r * std::sin(theta) * std::cos(phi), r * std::sin(theta) * std::sin(phi), r * std::cos(theta)); //,
+      //std::cout << __PRETTY_FUNCTION__ << " x = " << r * std::sin(theta) << " y = " << r * std::cos(theta) << std::endl;
+      // pcl::PointXYZ point(r * std::sin(theta) , 0.0 , r * std::cos(theta));
+      //std::cout << __PRETTY_FUNCTION__ << " point " << point << std::endl;
+      cloud.push_back(point);
+    }
+    //_pubQueue->push(cloud, _pub);
+  
+  //}
+  //std::cout << __PRETTY_FUNCTION__ << _angle << " - " <<  angleLast << std::endl;
+  if(std::abs(popo - angleLast) > M_PI)
   {
-
-    const double theta = angleMin + static_cast<double>(i) * angleIncrement;
-    const double  phi = _angle;
-    const double  r   = msg->scan().ranges()[i];
-    // if(std::isinf(r))
-    //   continue;
-    std::cout << __PRETTY_FUNCTION__ << " theta " << theta << " r " << r << " phi " << phi << " incr " << angleIncrement << std::endl;
-    pcl::PointXYZ point(r * std::sin(theta) * std::cos(phi), r * std::sin(theta) * std::sin(phi) , r * std::cos(theta)); //, 
-    std::cout << __PRETTY_FUNCTION__ << " x = " << r * std::sin(theta) << " y = " << r * std::cos(theta) << std::endl;
-    //pcl::PointXYZ point(r * std::sin(theta) , 0.0 , r * std::cos(theta));
-    std::cout << __PRETTY_FUNCTION__ << " point " << point << std::endl;
-    cloud.push_back(point);
+  _pubQueue->push(cloud, _pub);
+  //nSteps = 0;
+  cloud.clear();
   }
+  angleLast = popo;
+  _parentRaySensor->SetActive(true);
   // sensor_msgs::LaserScan laserMsg;
   // laserMsg.header.stamp          = ros::Time::now();
   // laserMsg.header.frame_id       = _frameName;
@@ -201,8 +237,8 @@ void PluginSensorVelodyne::OnScan(ConstLaserScanStampedPtr& msg)
   // if(arsch > 0.1)
   //   arsch = 0.0;
   // std::cout << __PRETTY_FUNCTION__ << " arsch = " << arsch << std::endl;
+
   
-  _pubQueue->push(cloud, _pub);
   //_pubQueue->push(laserMsg, _pub);
 }
 
@@ -211,6 +247,11 @@ void PluginSensorVelodyne::OnMsg(ConstVector3dPtr& msg)
 
   // std::cout << __PRETTY_FUNCTION__ << " got angle " << msg->x() << std::endl;
   _angle = msg->x();
+}
+
+void PluginSensorVelodyne::onNewLaserScans()
+{
+
 }
 
 GZ_REGISTER_SENSOR_PLUGIN(PluginSensorVelodyne)
