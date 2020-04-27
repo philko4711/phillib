@@ -105,7 +105,7 @@ void PluginJointRotary::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
 
 void PluginJointRotary::eventLoop()
 {
-  std::cout << __PRETTY_FUNCTION__ << " huh " << std::endl;
+  //std::cout << __PRETTY_FUNCTION__ << " huh " << std::endl;
   while(1)
   {
     //ros::spinOnce();
@@ -122,7 +122,7 @@ void PluginJointRotary::eventLoop()
     _tf.setRotation(quat);
     _tf.stamp_          = ros::Time::now();
     _bc.sendTransform(_tf);
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+   // std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 }
 GZ_REGISTER_MODEL_PLUGIN(PluginJointRotary)
