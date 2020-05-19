@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg = "phros_gazebo_plugins" type = "sensor_velodyne" name = "sensor_velodyne" output = "screen">
+    </node>
+
+    <node pkg="tf"  type="static_transform_publisher" name = "tf_base" args = "0.0 0.0 0.0 0.0 0.0 0.0 base_link velodyne::base 10"/>
+    <node pkg="tf"  type="static_transform_publisher" name = "tf_laser" args = "0.0 0.0 0.0 0.0 0.0 1.5707 velodyne::top laser 10"/>
+    
+
+    </launch>

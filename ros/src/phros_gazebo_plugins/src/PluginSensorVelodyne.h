@@ -41,6 +41,8 @@ public:
   PluginSensorVelodyne();
   virtual ~PluginSensorVelodyne();
   virtual void Load(sensors::SensorPtr parent, sdf::ElementPtr sdf);
+  protected: 
+    virtual void onNewLaserScans();
 private:
   void loadThread();
   void laserConnect();
@@ -63,10 +65,12 @@ private:
   std::string _topicName;
   int _laserConnectCount;
   PubMultiQueue _pmq;
+  //PubQueue<sensor_msgs::LaserScan>::Ptr _pubQueue;
   PubQueue<pcl::PointCloud<pcl::PointXYZ> >::Ptr _pubQueue;
    transport::SubscriberPtr _sub;
    transport::NodePtr _node;
    double _angle;
+    physics::JointPtr _jointi;
 };
 
 }

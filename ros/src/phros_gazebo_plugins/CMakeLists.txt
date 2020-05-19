@@ -13,6 +13,9 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   gazebo_ros
   pcl_ros
+  dynamic_reconfigure
+  tf
+  laser_geometry
 )
 
 find_package(gazebo REQUIRED)
@@ -97,10 +100,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS} -std=c++17")
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
+generate_dynamic_reconfigure_options(
+   cfg/PluginJointRotary.cfg
 #   cfg/DynReconf2.cfg
-# )
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -140,7 +143,9 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 
 add_library(velodyne32_sensor_plugin SHARED src/PluginSensorVelodyne.cpp)
 add_library(velodyne32_motor_plugin SHARED src/PluginMotorVelodyne.cpp)
-
+add_library(plugin_joint_rotary SHARED src/PluginJointRotary.cpp)
+add_library(plugin_sensor_ray SHARED src/PluginSensorRay.cpp)
+add_library(ros_block_laser src/gazebo_ros_block_laser.cpp)
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -149,7 +154,8 @@ add_library(velodyne32_motor_plugin SHARED src/PluginMotorVelodyne.cpp)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/phros_gazebo_plugins_node.cpp)
+add_executable(sensor_velodyne src/sensor_velodyne.cpp
+                               src/SensorVelodyne.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -168,6 +174,11 @@ add_library(velodyne32_motor_plugin SHARED src/PluginMotorVelodyne.cpp)
 
 target_link_libraries(velodyne32_sensor_plugin ${GAZEBO_libraries} GpuRayPlugin ${catkin_LIBRARIES})
 target_link_libraries(velodyne32_motor_plugin ${GAZEBO_libraries} ${catkin_LIBRARIES})
+target_link_libraries(plugin_joint_rotary ${GAZEBO_libraries} ${catkin_LIBRARIES})
+target_link_libraries(plugin_sensor_ray ${GAZEBO_libraries} RayPlugin ${catkin_LIBRARIES})
+target_link_libraries(sensor_velodyne ${catkin_LIBRARIES})
+target_link_libraries(ros_block_laser ${GAZEBO_libraries} RayPlugin ${catkin_LIBRARIES})
+
 
 #############
 ## Install ##
