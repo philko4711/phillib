@@ -39,8 +39,7 @@
 #include <cstdlib>
 #include <ctime>
 
-namespace deep_ohm
-{
+
 
 QvtkWidget::QvtkWidget(QWidget* parent) :
                                                                            QVTKWidget(parent),
@@ -52,7 +51,8 @@ QvtkWidget::QvtkWidget(QWidget* parent) :
                                                                            _pointNormals(vtkSmartPointer<vtkDoubleArray>::New()),
                                                                            _lines(vtkSmartPointer<vtkCellArray>::New()),
                                                                            _linepoints(vtkSmartPointer<vtkPoints>::New()),
-                                                                           _actorArrow(vtkSmartPointer<vtkActor>::New())
+                                                                           _actorArrow(vtkSmartPointer<vtkActor>::New()),
+                                                                           _actorCubeArray(vtkSmartPointer<vtkActor>::New())
 
 {
   vtkObject::GlobalWarningDisplayOff();
@@ -969,8 +969,9 @@ void QvtkWidget::drawCubeArray(const std::vector<QColor>& colorVec, const stdVec
   mapper->SetInputConnection(glyph3D->GetOutputPort());
   vtkSmartPointer<vtkActor> actor =
       vtkSmartPointer<vtkActor>::New();
-  actor->SetMapper(mapper);
-  _renderer->AddActor(actor);
+  _actorCubeArray->SetMapper(mapper);
+  _actorCubeArray->GetProperty()->SetOpacity(0.5);
+  _renderer->AddActor(_actorCubeArray);
   this->update();
 }
 
@@ -1025,4 +1026,3 @@ void QvtkWidget::newLines(const std::vector<Line>& lines)
 
 }
 
-}

@@ -14,6 +14,7 @@
 
 #include <vtkSmartPointer.h>
 #include <vtkActor.h>
+#include <vtkRenderer.h>
 
 #include <vector>
 #include <string>
@@ -35,8 +36,6 @@ class vtkDoubleArray;
 class vtkCellArray;
 
 
-namespace deep_ohm
-{
 struct Line
 {
   Line():
@@ -98,6 +97,7 @@ public:
   void addPoints(const pcl::PointCloud<pcl::PointXYZRGBNormal>& cloud);
   void updateClouds(void);
   void clearClouds(void);//{_clouds.clear();}
+  void clearCubeArray(){_renderer->RemoveActor(_actorCubeArray);}
   void setBackGround(const QColor& rgb);
   void drawCylinder(const Eigen::Vector3d& center, const float radius, const float height, const QColor& color, const unsigned int res);
   void clearArrow(void);
@@ -118,7 +118,7 @@ private:
   std::vector<Line> _linesCropBox;
   std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr > _clouds;
   vtkSmartPointer<vtkActor> _actorArrow;
+  vtkSmartPointer<vtkActor> _actorCubeArray;
 };
 
-}
 #endif /* QVTKWIDGET_H_ */
