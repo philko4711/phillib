@@ -1,0 +1,10 @@
+CMakeCache.txt
+CMakeFiles/
+Makefile
+bin/
+cmake_install.cmake
+src/gui/moc_QvtkWidget.cpp
+src/gui/moc_QvtkWidget.cpp_parameters
+src/moc_Widget.cpp_parameters
+
+
