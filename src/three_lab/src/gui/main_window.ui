@@ -41,12 +41,24 @@
     </property>
     <addaction name="actionCreateRandomPlane"/>
    </widget>
+   <widget class="QMenu" name="menumath">
+    <property name="title">
+     <string>math</string>
+    </property>
+    <addaction name="actionPlaneFit"/>
+   </widget>
    <addaction name="menugenerate_Points"/>
+   <addaction name="menumath"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionCreateRandomPlane">
    <property name="text">
     <string>random plane</string>
+   </property>
+  </action>
+  <action name="actionPlaneFit">
+   <property name="text">
+    <string>plane fit</string>
    </property>
   </action>
  </widget>

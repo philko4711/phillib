@@ -45,6 +45,7 @@ add_executable(three_lab src/three_lab.cpp
          src/gui/MainWindowLab.cpp
          src/gui/DialogSlopedCloud.cpp
          src/RandomClouds.cpp
+         src/mathClouds.cpp
                           ${MOC_GENERATEDV}
                           ${UI_GENERATED}
                           )
