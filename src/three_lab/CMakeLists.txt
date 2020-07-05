@@ -27,17 +27,23 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/gui
 )
                         
-set(MOCV src/gui/QvtkWidget.h)
+set(MOCV src/gui/QvtkWidget.h
+         src/gui/MainWindowLab.h
+         src/gui/DialogSlopedCloud.h)
 
-set(UI src/gui/main_window.ui)
+set(UI src/gui/main_window.ui
+       src/gui/dialog_sloped_cloud.ui)
 
 qt5_wrap_cpp(MOC_GENERATEDV ${MOCV})
 qt5_wrap_ui(UI_GENERATED ${UI})
  
 add_executable(three_lab src/three_lab.cpp
-		     src/gui/QvtkWidget.cpp
+         src/gui/QvtkWidget.cpp
+         src/gui/MainWindowLab.cpp
+         src/gui/DialogSlopedCloud.cpp
                           ${MOC_GENERATEDV}
                           ${UI_GENERATED}
                           )
