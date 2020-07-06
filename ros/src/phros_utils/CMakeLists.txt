@@ -11,6 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   dynamic_reconfigure
   roscpp
   tf
+  pcl_ros
+  tf_conversions
+  visualization_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -90,7 +93,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 generate_dynamic_reconfigure_options(
    cfg/ReconfigureFrameChanger.cfg
-#   cfg/DynReconf2.cfg
+   cfg/ReconfigureStatTf.cfg
+   cfg/ReconfigureCropBoxFilter.cfg
  )
 
 ###################################
@@ -134,6 +138,9 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(tf_frame_changer src/tf_frame_changer.cpp)
+add_executable(cloud_transformer src/cloud_transformer.cpp)
+add_executable(static_tf_recon src/static_tf_recon.cpp)
+add_executable(cropbox_filter src/cropbox_filter.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -149,6 +156,20 @@ add_executable(tf_frame_changer src/tf_frame_changer.cpp)
 target_link_libraries(tf_frame_changer
    ${catkin_LIBRARIES}
  )
+
+ target_link_libraries(cloud_transformer
+   ${catkin_LIBRARIES}
+ )
+
+ target_link_libraries(static_tf_recon
+   ${catkin_LIBRARIES}
+ )
+
+ target_link_libraries(cropbox_filter
+   ${catkin_LIBRARIES}
+ )
+
+
 
 #############
 ## Install ##
