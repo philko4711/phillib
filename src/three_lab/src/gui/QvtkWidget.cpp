@@ -489,7 +489,7 @@ void QvtkWidget::drawPlanes(const stdVecEig3f& points1, const stdVecEig3f& point
     planeSource->SetXResolution(resolutionX);
     planeSource->SetYResolution(resolutionY);
     double ctr[3] = {centers[i].x(), centers[i].y(), centers[i].z()};
-    planeSource->SetCenter(ctr);
+    planeSource->SetOrigin(ctr);
     planeSource->Update();
 
     vtkMath::RandomSeed(8775070); // for reproducibility
@@ -523,6 +523,7 @@ void QvtkWidget::drawPlanes(const stdVecEig3f& points1, const stdVecEig3f& point
         vtkSmartPointer<vtkActor>::New();
     actor->SetMapper(mapper);
     _renderer->AddActor(actor);
+    _actorsPlane.push_back(actor);
   }
   this->update();
 }
@@ -603,7 +604,9 @@ void QvtkWidget::drawOccuPancyGrid(const Eigen::Vector3d& ax0, const Eigen::Vect
 
 void QvtkWidget::clearPlanes(void)
 {
-
+  for(auto& iter : _actorsPlane)
+    _renderer->RemoveActor(iter);
+  this->update();  
 }
 
 void QvtkWidget::drawCropBox(const Eigen::Vector3d& pointMin, const Eigen::Vector3d& pointMax)

@@ -20,9 +20,9 @@ Eigen::Vector3f leastSquarePlaneFit(const stdVecEig3f& pointCloud)
     m(2, 0) = m(0, 2);
     m(2, 1) = m(1, 2);
     
-    c(0) = iter.x() * iter.z();
-    c(1) = iter.y() * iter.z();
-    c(2) = iter.z();
+    c(0) += iter.x() * iter.z();
+    c(1) += iter.y() * iter.z();
+    c(2) += iter.z();
   }
   m(2, 2) = static_cast<float>(pointCloud.size());
   Eigen::Vector3f sol = m.inverse() * c;

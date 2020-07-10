@@ -119,6 +119,7 @@ private:
   std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr > _clouds;
   vtkSmartPointer<vtkActor> _actorArrow;
   vtkSmartPointer<vtkActor> _actorCubeArray;
+  std::vector<vtkSmartPointer<vtkActor> > _actorsPlane;
 };
 
 #endif /* QVTKWIDGET_H_ */
