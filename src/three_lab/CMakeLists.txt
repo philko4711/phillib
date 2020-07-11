@@ -35,7 +35,8 @@ set(MOCV src/gui/QvtkWidget.h
          src/gui/DialogSlopedCloud.h)
 
 set(UI src/gui/main_window.ui
-       src/gui/dialog_sloped_cloud.ui)
+       src/gui/dialog_sloped_cloud.ui
+       src/gui/dialog_random_plane.ui)
 
 qt5_wrap_cpp(MOC_GENERATEDV ${MOCV})
 qt5_wrap_ui(UI_GENERATED ${UI})
