@@ -14,6 +14,7 @@ class MainWindowLab : public QMainWindow
     virtual ~MainWindowLab(){}
     public slots:
       void slopedInput();
+      void randomPlaneInput();
       void drawPointCloud(pcl::PointCloud<pcl::PointXYZ>& cloud){_guiUi->widget->drawPoints(cloud);}
       void planeFit();
     private:

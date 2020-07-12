@@ -37,13 +37,14 @@
    </property>
    <widget class="QMenu" name="menugenerate_Points">
     <property name="title">
-     <string>generate Points</string>
+     <string>&amp;generate Points</string>
     </property>
+    <addaction name="actionCreateSlopedPlane"/>
     <addaction name="actionCreateRandomPlane"/>
    </widget>
    <widget class="QMenu" name="menumath">
     <property name="title">
-     <string>math</string>
+     <string>&amp;math</string>
     </property>
     <addaction name="actionPlaneFit"/>
    </widget>
@@ -51,14 +52,22 @@
    <addaction name="menumath"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionCreateRandomPlane">
+  <action name="actionCreateSlopedPlane">
    <property name="text">
-    <string>random plane</string>
+    <string>&amp;sloped plane</string>
+   </property>
+   <property name="toolTip">
+    <string>sloped plane</string>
    </property>
   </action>
   <action name="actionPlaneFit">
    <property name="text">
-    <string>plane fit</string>
+    <string>&amp;plane fit</string>
+   </property>
+  </action>
+  <action name="actionCreateRandomPlane">
+   <property name="text">
+    <string>&amp;random plane</string>
    </property>
   </action>
  </widget>

@@ -1,5 +1,6 @@
 #include "MainWindowLab.h"
 #include "DialogSlopedCloud.h"
+#include "DialogRandomPlane.h"
 #include "RandomClouds.h"
 #include "mathClouds.h"
 #include <memory>
@@ -11,7 +12,8 @@ _cloud(std::unique_ptr<pcl::PointCloud<pcl::PointXYZ> >(new pcl::PointCloud<pcl:
 {
   _guiUi->setupUi(this);
   _guiUi->widget->drawAxissystem();
-  connect(_guiUi->actionCreateRandomPlane, SIGNAL(triggered()), this, SLOT(slopedInput()));
+  connect(_guiUi->actionCreateRandomPlane, SIGNAL(triggered()), this, SLOT(randomPlaneInput()));
+  connect(_guiUi->actionCreateSlopedPlane, SIGNAL(triggered()), this, SLOT(slopedInput()));
   connect(_guiUi->actionPlaneFit, SIGNAL(triggered()), this, SLOT(planeFit()));
 }
 
@@ -32,9 +34,23 @@ void MainWindowLab::slopedInput()
    else
    {
      return;
-   }
-   
+   }   
 }
+
+void MainWindowLab::randomPlaneInput()
+{
+  static DialogRandomPlane dialog;
+  int retVal = dialog.exec();
+  if(retVal == QDialog::DialogCode::Accepted)
+   {
+     _cloud->clear();
+     _guiUi->widget->resetPoints();
+     RandomClouds::roughPlain(*_cloud, dialog.threshX(), dialog.threshY(), dialog.nPoints(), dialog.variance(), dialog.slopeX(), dialog.slopeY());
+     this->drawPointCloud(*_cloud);
+     this->update();
+   }
+}
+
 void MainWindowLab::planeFit()
 {
   _guiUi->widget->clearPlanes();
