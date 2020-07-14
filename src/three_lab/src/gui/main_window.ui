@@ -48,6 +48,7 @@
     </property>
     <addaction name="actionPlaneFit"/>
     <addaction name="actionSingDecom"/>
+    <addaction name="actionFitPclPlane"/>
    </widget>
    <addaction name="menugenerate_Points"/>
    <addaction name="menumath"/>
@@ -74,6 +75,11 @@
   <action name="actionSingDecom">
    <property name="text">
     <string>&amp;sing decom</string>
+   </property>
+  </action>
+  <action name="actionFitPclPlane">
+   <property name="text">
+    <string>&amp;fit pcl plane</string>
    </property>
   </action>
  </widget>

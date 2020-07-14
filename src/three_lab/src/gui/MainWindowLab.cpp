@@ -6,6 +6,13 @@
 #include <memory>
 #include <QDebug>
 #include <QColor>
+#include <pcl/ModelCoefficients.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/segmentation/sac_segmentation.h>
+
 MainWindowLab::MainWindowLab():
 _guiUi(std::unique_ptr<Ui::MainWindowThLab>(new Ui::MainWindowThLab())),
 _cloud(std::unique_ptr<pcl::PointCloud<pcl::PointXYZ> >(new pcl::PointCloud<pcl::PointXYZ>()))
@@ -16,6 +23,7 @@ _cloud(std::unique_ptr<pcl::PointCloud<pcl::PointXYZ> >(new pcl::PointCloud<pcl:
   connect(_guiUi->actionCreateSlopedPlane, SIGNAL(triggered()), this, SLOT(slopedInput()));
   connect(_guiUi->actionPlaneFit, SIGNAL(triggered()), this, SLOT(planeFit()));
   connect(_guiUi->actionSingDecom, SIGNAL(triggered()), this, SLOT(singDecom()));
+  connect(_guiUi->actionFitPclPlane, SIGNAL(triggered()), this, SLOT(pclPlaneFit()));
 }
 
 void MainWindowLab::slopedInput()
@@ -120,4 +128,51 @@ void MainWindowLab::singDecom()
   const float sloapX = -M_PI / 2.0 + std::acos(n.dot(subbo) / (n.norm() * subbo.norm()));
 const float sloapY = -M_PI / 2.0 + std::acos(n.dot(subboInEcht) / (n.norm() * subboInEcht.norm()));
 qDebug() << __PRETTY_FUNCTION__ << " slope x / y " << sloapX << " " << sloapY;
+}
+
+void MainWindowLab::pclPlaneFit()
+{
+if(!_cloud->size())
+  {
+    qDebug() << __PRETTY_FUNCTION__ << " cloud empty";
+    return;
+  }
+  _guiUi->widget->clearPlanes();
+  _guiUi->widget->resetLines();
+
+  pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
+  pcl::PointIndices::Ptr inliers (new pcl::PointIndices);
+  // Create the segmentation object
+  pcl::SACSegmentation<pcl::PointXYZ> seg;
+  // Optional
+  seg.setOptimizeCoefficients (true);
+  // Mandatory
+  seg.setModelType (pcl::SACMODEL_PLANE);
+  seg.setMethodType (pcl::SAC_RANSAC);
+  seg.setDistanceThreshold (0.01);
+
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>(*_cloud));
+  seg.setInputCloud (cloud);
+  seg.segment (*inliers, *coefficients);
+
+  if (inliers->indices.size () == 0)
+  {
+    qDebug() << "Could not estimate a planar model for the given dataset.";
+    return;
+  }
+ qDebug() << __PRETTY_FUNCTION__ << "E:=" << coefficients->values[0] <<"x + " << coefficients->values[1] << "y + " << coefficients->values[2]
+          << "z + " << coefficients->values[3] << " = 0";
+
+  Eigen::Vector3f origin(-1.0, -1.0, -1.0 * -coefficients->values[0] + -1.0 * -coefficients->values[1] - coefficients->values[3]);
+ Eigen::Vector3f point0(-1.0, 1.0,   -1.0 * -coefficients->values[0] + 1.0 * -coefficients->values[1] - coefficients->values[3]);
+ Eigen::Vector3f point1(1.0, -1.0,    1.0 * -coefficients->values[0] + -1.0 * -coefficients->values[1] - coefficients->values[3]);
+
+ stdVecEig3f origins;
+ origins.push_back(origin);
+ stdVecEig3f points0;
+ points0.push_back(point0);
+ stdVecEig3f points1;
+ points1.push_back(point1);
+
+ _guiUi->widget->drawPlanes(points0, points1, origins, Qt::black);        
 }

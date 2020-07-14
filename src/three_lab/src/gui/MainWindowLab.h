@@ -18,6 +18,7 @@ class MainWindowLab : public QMainWindow
       void drawPointCloud(pcl::PointCloud<pcl::PointXYZ>& cloud){_guiUi->widget->drawPoints(cloud);}
       void planeFit();
       void singDecom();
+      void pclPlaneFit();
     private:
       std::unique_ptr<Ui::MainWindowThLab> _guiUi;
       std::unique_ptr<pcl::PointCloud<pcl::PointXYZ> > _cloud;
