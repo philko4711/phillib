@@ -15,6 +15,7 @@ _cloud(std::unique_ptr<pcl::PointCloud<pcl::PointXYZ> >(new pcl::PointCloud<pcl:
   connect(_guiUi->actionCreateRandomPlane, SIGNAL(triggered()), this, SLOT(randomPlaneInput()));
   connect(_guiUi->actionCreateSlopedPlane, SIGNAL(triggered()), this, SLOT(slopedInput()));
   connect(_guiUi->actionPlaneFit, SIGNAL(triggered()), this, SLOT(planeFit()));
+  connect(_guiUi->actionSingDecom, SIGNAL(triggered()), this, SLOT(singDecom()));
 }
 
 void MainWindowLab::slopedInput()
@@ -53,12 +54,13 @@ void MainWindowLab::randomPlaneInput()
 
 void MainWindowLab::planeFit()
 {
-  _guiUi->widget->clearPlanes();
   if(!_cloud->size())
   {
     qDebug() << __PRETTY_FUNCTION__ << " cloud empty";
     return;
   }
+  _guiUi->widget->resetLines();
+  _guiUi->widget->clearPlanes();
   stdVecEig3f bfr;
   for(auto& iter : *_cloud)
     bfr.push_back(Eigen::Vector3f(iter.x, iter.y, iter.z));
@@ -82,5 +84,40 @@ const float slopeX = (point1.z() - origin.z()) / 2.0;
 
 qDebug() << __PRETTY_FUNCTION__ << "slopexy (" << slopeX << " / " << slopeY << ")";
 this->update();
+}
 
+void MainWindowLab::singDecom()
+{
+ 
+  if(!_cloud->size())
+  {
+    qDebug() << __PRETTY_FUNCTION__ << " cloud empty";
+    return;
+  }
+  _guiUi->widget->clearPlanes();
+  _guiUi->widget->resetLines();
+  stdVecEig3f bfr;
+  for(auto& iter : *_cloud)
+    bfr.push_back(Eigen::Vector3f(iter.x, iter.y, iter.z));   
+
+  Eigen::MatrixXd* axes = pcaAnalysis(bfr);
+
+  std::cout << __PRETTY_FUNCTION__ << "axes\n" << *axes << std::endl;
+
+  Line xAxis(Eigen::Vector3d((*axes)(0, 0), (*axes)(0, 2), (*axes)(0, 4)), Eigen::Vector3d((*axes)(0, 1), (*axes)(0, 3), (*axes)(0, 5)));
+  xAxis._color = Qt::red;
+  Line yAxis(Eigen::Vector3d((*axes)(1, 0), (*axes)(1, 2), (*axes)(1, 4)), Eigen::Vector3d((*axes)(1, 1), (*axes)(1, 3), (*axes)(1, 5)));
+  yAxis._color = Qt::green;
+  _guiUi->widget->addLine(xAxis);
+  _guiUi->widget->addLine(yAxis);
+  _guiUi->widget->drawLines();
+
+  Eigen::Vector3f v0 = Eigen::Vector3f((*axes)(0, 1), (*axes)(0, 3), (*axes)(0, 5)) - Eigen::Vector3f((*axes)(0, 0), (*axes)(0, 2), (*axes)(0, 4));
+  Eigen::Vector3f v1 = Eigen::Vector3f((*axes)(1, 1), (*axes)(1, 3), (*axes)(1, 5)) - Eigen::Vector3f((*axes)(1, 0), (*axes)(1, 2), (*axes)(1, 4));
+  Eigen::Vector3f n = v0.cross(v1);
+  Eigen::Vector3f subbo(1.0f, 0.0f, 0.0f);
+  Eigen::Vector3f subboInEcht(0.0f, 1.0f, 0.0f);
+  const float sloapX = -M_PI / 2.0 + std::acos(n.dot(subbo) / (n.norm() * subbo.norm()));
+const float sloapY = -M_PI / 2.0 + std::acos(n.dot(subboInEcht) / (n.norm() * subboInEcht.norm()));
+qDebug() << __PRETTY_FUNCTION__ << " slope x / y " << sloapX << " " << sloapY;
 }

@@ -47,6 +47,7 @@
      <string>&amp;math</string>
     </property>
     <addaction name="actionPlaneFit"/>
+    <addaction name="actionSingDecom"/>
    </widget>
    <addaction name="menugenerate_Points"/>
    <addaction name="menumath"/>
@@ -68,6 +69,11 @@
   <action name="actionCreateRandomPlane">
    <property name="text">
     <string>&amp;random plane</string>
+   </property>
+  </action>
+  <action name="actionSingDecom">
+   <property name="text">
+    <string>&amp;sing decom</string>
    </property>
   </action>
  </widget>
