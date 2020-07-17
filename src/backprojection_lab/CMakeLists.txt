@@ -27,18 +27,23 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/gui
 )
                         
-set(MOCV src/gui/QvtkWidget.h)
+set(MOCV src/gui/QvtkWidget.h
+        src/gui/MainWindow.h)
 
-#set(UI src/expl.ui)
+set(UI src/gui/main_window.ui
+       src/gui/dialog_add_sensor.ui)
 
 qt5_wrap_cpp(MOC_GENERATEDV ${MOCV})
+qt5_wrap_ui(UI_GENERATED ${UI})
  
 add_executable(back_proj_lab src/lab.cpp
-		     src/gui/QvtkWidget.cpp
+         src/gui/QvtkWidget.cpp
+         src/gui/MainWindow.cpp
                           ${MOC_GENERATEDV}
-#                          ${UI_GENERATED}
+                          ${UI_GENERATED}
                           )
                                                   
 target_link_libraries(back_proj_lab

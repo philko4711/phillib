@@ -174,5 +174,13 @@ if(!_cloud->size())
  stdVecEig3f points1;
  points1.push_back(point1);
 
- _guiUi->widget->drawPlanes(points0, points1, origins, Qt::black);        
+ _guiUi->widget->drawPlanes(points0, points1, origins, Qt::black); 
+
+ Eigen::Vector3f axisX(1.0f, 0.0f, 0.0f);
+  Eigen::Vector3f axisY(0.0f, 1.0f, 0.0f);   
+  Eigen::Vector3f n(coefficients->values[0], coefficients->values[1], coefficients->values[2]);
+
+const float slopeX = axisX.dot(n) / (axisX.norm() * n.norm());
+const float slopeY = axisY.dot(n) / (axisX.norm() * n.norm());
+qDebug() << __PRETTY_FUNCTION__ << " slopexy " << slopeX << " " << slopeY;
 }
