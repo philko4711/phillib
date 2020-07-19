@@ -317,15 +317,45 @@
       <pose frame=''>9.52022 -2.33408 1.58297 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>735 26000000</sim_time>
-      <real_time>739 132150242</real_time>
-      <wall_time>1595157950 76071310</wall_time>
-      <iterations>735026</iterations>
+      <sim_time>1012 33000000</sim_time>
+      <real_time>278 96495185</real_time>
+      <wall_time>1595165853 817451777</wall_time>
+      <iterations>277007</iterations>
+      <model name='Hole Board'>
+        <pose frame=''>1.47385 1.52476 0.598122 0 0 -1.57686</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>1.47385 1.52476 0.598122 0 0 -1.57686</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='Ramp30Deg'>
         <pose frame=''>1.07893 -6.55019 0 0 -0 1.57492</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose frame=''>1.07893 -6.55019 0 0 -0 1.57492</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='Ramp30Deg_0'>
+        <pose frame=''>1.80588 -1.03859 0 0 0 -1.56513</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>1.80588 -1.03859 0 0 0 -1.56513</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='Ramp30Deg_0_clone'>
+        <pose frame=''>1.07638 4.06304 -0.00265 0 -0 1.57033</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>1.07638 4.06304 -0.00265 0 -0 1.57033</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -342,20 +372,20 @@
         </link>
       </model>
       <model name='Wall_0'>
-        <pose frame=''>-0.648158 -1.63902 1.58297 0 -0 0</pose>
+        <pose frame=''>-0.159088 -1.63902 1.58297 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-0.648158 -1.63902 1.58297 0 -0 0</pose>
+          <pose frame=''>-0.159088 -1.63902 1.58297 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='Wall_0_clone'>
-        <pose frame=''>3.24718 -1.85559 1.58297 0 -0 0</pose>
+        <pose frame=''>3.07524 -1.85559 1.58297 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>3.24718 -1.85559 1.58297 0 -0 0</pose>
+          <pose frame=''>3.07524 -1.85559 1.58297 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -387,10 +417,139 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>10.4034 -30.0036 33.6851 0 0.953799 1.58019</pose>
+        <pose frame=''>1.92975 -15.9003 17.8637 0 0.705798 1.26337</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
+    <model name='Ramp30Deg_0'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>0</gravity>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_30/meshes/ramp30.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_30/meshes/ramp30.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>0.575109 -15.7201 0 0 -0 0</pose>
+    </model>
+    <model name='Hole Board'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>1</gravity>
+        <inertial>
+          <pose frame=''>0 0 0.4 0 -0 0</pose>
+          <mass>500</mass>
+          <inertia>
+            <ixx>51.2096</ixx>
+            <iyy>51.2096</iyy>
+            <izz>25</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://hole_board/meshes/hole_board.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://hole_board/meshes/hole_board.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>1.82357 1.45968 0 0 -0 0</pose>
+    </model>
+    <model name='Ramp30Deg_0_clone'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>0</gravity>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_30/meshes/ramp30.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_30/meshes/ramp30.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>2.25609 7.03709 0 0 0 -1.56513</pose>
+    </model>
   </world>
 </sdf>
