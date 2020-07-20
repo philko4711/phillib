@@ -317,10 +317,20 @@
       <pose frame=''>9.52022 -2.33408 1.58297 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>1631 719000000</sim_time>
-      <real_time>649 965809735</real_time>
-      <wall_time>1595254263 497624729</wall_time>
-      <iterations>619686</iterations>
+      <sim_time>2050 987000000</sim_time>
+      <real_time>419 976462622</real_time>
+      <wall_time>1595287186 455389323</wall_time>
+      <iterations>419268</iterations>
+      <model name='Cleft Board Min'>
+        <pose frame=''>7.66018 -1.86066 0.682158 0 0 -1.57887</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>7.66018 -1.86066 0.682158 0 0 -1.57887</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='Hole Board'>
         <pose frame=''>1.47385 1.52476 0.598122 0 0 -1.57686</pose>
         <scale>1 1 1</scale>
@@ -371,6 +381,16 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
+      <model name='Ramp15Deg_clone_1'>
+        <pose frame=''>8.02516 -5.66604 0 0 0 -1.56788</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.02516 -5.66604 0 0 0 -1.56788</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='Ramp15Deg_clone_clone'>
         <pose frame=''>4.1483 -5.2413 0.389095 0 -0 1.55755</pose>
         <scale>1 1 1</scale>
@@ -386,6 +406,16 @@
         <scale>1 1 1</scale>
         <link name='link'>
           <pose frame=''>4.92893 1.11069 0.344809 0 0 -1.58085</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='Ramp15Deg_clone_clone_1'>
+        <pose frame=''>8.05473 -4.47774 0.344809 0 0 -1.58085</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.05473 -4.47774 0.344809 0 0 -1.58085</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -411,11 +441,31 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
+      <model name='Ramp15Deg_clone_clone_clone_1'>
+        <pose frame=''>7.34751 0.764078 0.363033 0 -0 1.55755</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>7.34751 0.764078 0.363033 0 -0 1.55755</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='Ramp15Deg_clone_clone_clone_clone'>
         <pose frame=''>4.24496 7.4299 0.05345 0 -0 1.55755</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose frame=''>4.24496 7.4299 0.05345 0 -0 1.55755</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='Ramp15Deg_clone_clone_clone_clone_0'>
+        <pose frame=''>7.34936 1.97938 0.018992 0 -0 1.55755</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>7.34936 1.97938 0.018992 0 -0 1.55755</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -462,10 +512,10 @@
         </link>
       </model>
       <model name='Wall'>
-        <pose frame=''>12.2718 -2.35123 1.60059 0 -0 0</pose>
+        <pose frame=''>9.26364 -1.92225 1.60059 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>12.2718 -2.35123 1.60059 0 -0 0</pose>
+          <pose frame=''>9.26364 -1.92225 1.60059 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -492,10 +542,10 @@
         </link>
       </model>
       <model name='Wall_0_clone_clone'>
-        <pose frame=''>6.14274 -1.85555 1.58297 0 -0 0</pose>
+        <pose frame=''>6.20057 -1.86782 1.58297 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>6.14274 -1.85555 1.58297 0 -0 0</pose>
+          <pose frame=''>6.20057 -1.86782 1.58297 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -512,50 +562,50 @@
         </link>
       </model>
       <model name='Wall_1_clone'>
-        <pose frame=''>22.034 -12.4057 1.5777 0 0 -1.58397</pose>
+        <pose frame=''>18.9747 -12.0022 1.5777 0 0 -1.58397</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>22.034 -12.4057 1.5777 0 0 -1.58397</pose>
+          <pose frame=''>18.9747 -12.0022 1.5777 0 0 -1.58397</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='Wall_1_clone_clone'>
-        <pose frame=''>22.2004 -32.045 1.5777 0 0 -1.58397</pose>
+        <pose frame=''>19.1497 -31.8412 1.5777 0 0 -1.58397</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>22.2004 -32.045 1.5777 0 0 -1.58397</pose>
+          <pose frame=''>19.1497 -31.8412 1.5777 0 0 -1.58397</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='Wall_1_clone_clone_0'>
-        <pose frame=''>2.62974 -31.7649 1.5777 0 0 -1.58397</pose>
+        <pose frame=''>-0.544928 -31.5823 1.5777 0 0 -1.58397</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>2.62974 -31.7649 1.5777 0 0 -1.58397</pose>
+          <pose frame=''>-0.544928 -31.5823 1.5777 0 0 -1.58397</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='Wall_1_clone_clone_1'>
-        <pose frame=''>-17.145 -31.5094 1.5777 0 0 -1.58397</pose>
+        <pose frame=''>-20.3135 -31.3388 1.5777 0 0 -1.58397</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-17.145 -31.5094 1.5777 0 0 -1.58397</pose>
+          <pose frame=''>-20.3135 -31.3388 1.5777 0 0 -1.58397</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='Wall_clone'>
-        <pose frame=''>32.0241 -22.3221 1.60059 0 -0 0</pose>
+        <pose frame=''>28.9541 -21.9698 1.60059 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>32.0241 -22.3221 1.60059 0 -0 0</pose>
+          <pose frame=''>28.9541 -21.9698 1.60059 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -587,7 +637,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-3.37823 -24.1312 129.875 -0 1.5138 -0.051824</pose>
+        <pose frame=''>8.2921 -48.7213 22.8822 0 0.569796 1.63857</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -1491,6 +1541,213 @@
         <kinematic>0</kinematic>
       </link>
       <pose frame=''>-17.145 -31.5094 1.5777 0 0 -1.58397</pose>
+    </model>
+    <model name='Ramp15Deg_clone_1'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>0</gravity>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>8.02516 -5.66604 0 0 0 -1.56788</pose>
+    </model>
+    <model name='Ramp15Deg_clone_clone_1'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>0</gravity>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>8.05473 -4.47774 0.344809 0 0 -1.58085</pose>
+    </model>
+    <model name='Cleft Board Min'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>1</gravity>
+        <inertial>
+          <pose frame=''>0 0 0.4 0 -0 0</pose>
+          <mass>500</mass>
+          <inertia>
+            <ixx>51.2096</ixx>
+            <iyy>51.2096</iyy>
+            <izz>25</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://cleft_board_min/meshes/cleft_board_min.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://cleft_board_min/meshes/cleft_board_min.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>9.29183 -2.50054 0 0 -0 0</pose>
+    </model>
+    <model name='Ramp15Deg_clone_clone_clone_clone_0'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>0</gravity>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>7.34709 1.80831 0.05345 0 -0 1.55755</pose>
+    </model>
+    <model name='Ramp15Deg_clone_clone_clone_1'>
+      <static>1</static>
+      <link name='link'>
+        <gravity>0</gravity>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>model://ramp_15/meshes/ramp15.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>7.34686 0.714767 0.389095 0 -0 1.55755</pose>
     </model>
   </world>
 </sdf>
