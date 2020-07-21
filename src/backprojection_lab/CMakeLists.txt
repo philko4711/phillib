@@ -34,7 +34,8 @@ set(MOCV src/gui/QvtkWidget.h
         src/gui/MainWindow.h)
 
 set(UI src/gui/main_window.ui
-       src/gui/dialog_add_sensor.ui)
+       src/gui/dialog_add_sensor.ui
+       src/gui/dialog_voxelgrid.ui)
 
 qt5_wrap_cpp(MOC_GENERATEDV ${MOCV})
 qt5_wrap_ui(UI_GENERATED ${UI})
