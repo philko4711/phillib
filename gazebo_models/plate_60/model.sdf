@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <model name="Ramp15Deg">
+  <model name="Plate60">
         <static>true</static>
     <link name="link">
     <gravity>0</gravity>
@@ -8,7 +8,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://ramp_15/meshes/nist15.dae</uri>
+            <uri>model://plate_60/meshes/plate60.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -16,7 +16,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://ramp_15/meshes/nist15.dae</uri>
+            <uri>model://plate_60/meshes/plate60.dae</uri>
           </mesh>
         </geometry>
       </visual>
