@@ -3,10 +3,10 @@
   <asset>
     <contributor>
       <author>Blender User</author>
-      <authoring_tool>Blender 2.83.5 commit date:2020-08-19, commit time:06:07, hash:c2b144df395f</authoring_tool>
+      <authoring_tool>Blender 2.90.0 commit date:2020-08-31, commit time:11:26, hash:0330d1af29c0</authoring_tool>
     </contributor>
-    <created>2020-08-29T12:02:33</created>
-    <modified>2020-08-29T12:02:33</modified>
+    <created>2020-09-12T01:44:39</created>
+    <modified>2020-09-12T01:44:39</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -75,7 +75,45 @@
       </extra>
     </light>
   </library_lights>
-  <library_images/>
+  <library_effects>
+    <effect id="osb-effect">
+      <profile_COMMON>
+        <newparam sid="osb_texture_jpg-surface">
+          <surface type="2D">
+            <init_from>osb_texture_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="osb_texture_jpg-sampler">
+          <sampler2D>
+            <source>osb_texture_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="osb_texture_jpg-sampler" texcoord="UVMap"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="osb_texture_jpg" name="osb_texture_jpg">
+      <init_from>osb_texture.jpg</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="osb-material" name="osb">
+      <instance_effect url="#osb-effect"/>
+    </material>
+  </library_materials>
   <library_geometries>
     <geometry id="Nist15Deg_001-mesh" name="Nist15Deg.001">
       <mesh>
@@ -99,13 +137,23 @@
             </accessor>
           </technique_common>
         </source>
+        <source id="Nist15Deg_001-mesh-map-0">
+          <float_array id="Nist15Deg_001-mesh-map-0-array" count="48">0 0 1 0 1 1 0 0 1 0 1 1 0 0 1 0 1 1 0 0 1 0 1 1 0 0 1 0 1 1 0 0 1 0 1 1 0 0 1 0 1 1 0 0 1 0 1 1</float_array>
+          <technique_common>
+            <accessor source="#Nist15Deg_001-mesh-map-0-array" count="24" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
         <vertices id="Nist15Deg_001-mesh-vertices">
           <input semantic="POSITION" source="#Nist15Deg_001-mesh-positions"/>
         </vertices>
-        <triangles count="8">
+        <triangles material="osb-material" count="8">
           <input semantic="VERTEX" source="#Nist15Deg_001-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#Nist15Deg_001-mesh-normals" offset="1"/>
-          <p>0 0 1 0 2 0 2 1 3 1 4 1 4 1 0 1 2 1 1 2 5 2 3 2 3 2 2 2 1 2 0 3 4 3 5 3 5 3 1 3 0 3 3 4 5 4 4 4</p>
+          <input semantic="TEXCOORD" source="#Nist15Deg_001-mesh-map-0" offset="2" set="0"/>
+          <p>0 0 0 1 0 1 2 0 2 2 1 3 3 1 4 4 1 5 4 1 6 0 1 7 2 1 8 1 2 9 5 2 10 3 2 11 3 2 12 2 2 13 1 2 14 0 3 15 4 3 16 5 3 17 5 3 18 1 3 19 0 3 20 3 4 21 5 4 22 4 4 23</p>
         </triangles>
       </mesh>
     </geometry>
@@ -114,7 +162,15 @@
     <visual_scene id="Scene" name="Scene">
       <node id="Nist15Deg" name="Nist15Deg" type="NODE">
         <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
-        <instance_geometry url="#Nist15Deg_001-mesh" name="Nist15Deg"/>
+        <instance_geometry url="#Nist15Deg_001-mesh" name="Nist15Deg">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="osb-material" target="#osb-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
       </node>
       <node id="Camera" name="Camera" type="NODE">
         <matrix sid="transform">0.6859207 -0.3240135 0.6515582 7.358891 0.7276763 0.3054208 -0.6141704 -6.925791 0 0.8953956 0.4452714 4.958309 0 0 0 1</matrix>
