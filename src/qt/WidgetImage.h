@@ -1,8 +1,8 @@
 #ifndef PHILLIB_QT_WIDGET_IMAGE_H_
 #define PHILLIB_QT_WIDGET_IMAGE_H_
 
-#include <QtWidgets/QWidget>
 #include "datatypes.h"
+#include <QtWidgets/QWidget>
 
 namespace phillib
 {
@@ -16,6 +16,8 @@ public:
   virtual ~WidgetImage() {}
   virtual void paintEvent(QPaintEvent* event) override;
   void         setPoints(const QVector<QPoint>& points) { _points = points; }
+  void         setPointsRGB(const QVector<QPointRGB>& pointsRGB) { _pointsRGB = pointsRGB; }
+  void         addPointRGB(const QPointRGB& pointRGB) { _pointsRGB.push_back(pointRGB); }
   void         setRects(const QVector<QRect>& rects) { _rects = rects; }
   void         setRectsFilled(const QVector<QRectFilled>& rectsFilled) { _rectsFilled = rectsFilled; }
   void         setRectsCustom(const QVector<QRectCustom>& rectsCustom) { _rectsCustom = rectsCustom; }
@@ -26,6 +28,7 @@ public:
   // void         addPointRGB(const QPointRGB& var) { _pointsRGB.push_back(var); }
 private:
   void                 drawPoints(QPainter& painter);
+  void                 drawPointsRGB(QPainter& painter);
   void                 drawRects(QPainter& painter);
   void                 drawRectsFilled(QPainter& painter);
   void                 drawRectsCustom(QPainter& painter);

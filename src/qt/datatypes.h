@@ -1,24 +1,33 @@
 #ifndef PHILLIB_QT_DATATYPES_H_
 #define PHILLIB_QT_DATATYPES_H_
 
+#include <QtGui/QColor>
+#include <QtCore/QPoint>
+#include <QtCore/QLine>
+#include <QtCore/QRect>
+
 namespace phillib
 {
 namespace qt
 {
 struct QPointRGB
 {
-  QPointRGB(const QPoint& point, const QColor& rgb = Qt::black, const int size = 1)
+  QPointRGB(const QPoint& point, const QColor& rgb = Qt::black, const int size = 1, Qt::BrushStyle styleBrush = Qt::SolidPattern)
       : _point(point)
       , _rgb(rgb)
       , _size(size)
+      , _styleBrush(styleBrush)
   {
   }
-  const QPoint& point(void) const { return _point; }
-  const QColor& rgb(void) const { return _rgb; }
-  const int&    size(void) const { return _size; }
-  QPoint        _point;
-  QColor        _rgb;
-  int           _size;
+  QPointRGB(){}
+  const QPoint&         point(void) const { return _point; }
+  const QColor&         rgb(void) const { return _rgb; }
+  const int&            size(void) const { return _size; }
+  const Qt::BrushStyle& styleBrush(void) const { return _styleBrush; }
+  QPoint                _point;
+  QColor                _rgb;
+  int                   _size;
+  Qt::BrushStyle        _styleBrush;
 };
 struct QLineRGB
 {

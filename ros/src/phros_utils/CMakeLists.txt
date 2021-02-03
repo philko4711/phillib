@@ -141,6 +141,7 @@ add_executable(tf_frame_changer src/tf_frame_changer.cpp)
 add_executable(cloud_transformer src/cloud_transformer.cpp)
 add_executable(static_tf_recon src/static_tf_recon.cpp)
 add_executable(cropbox_filter src/cropbox_filter.cpp)
+add_executable(cloud_topic_frame_adjust src/cloud_topic_frame_adjust.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -169,7 +170,9 @@ target_link_libraries(tf_frame_changer
    ${catkin_LIBRARIES}
  )
 
-
+target_link_libraries(cloud_topic_frame_adjust
+   ${catkin_LIBRARIES}
+ )
 
 #############
 ## Install ##

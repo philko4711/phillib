@@ -1,5 +1,5 @@
 #include "WidgetImage.h"
-#include <QDebug>
+#include <QtCore/QDebug>
 #include <QtGui/QPainter>
 
 namespace phillib
@@ -10,6 +10,7 @@ namespace qt
 WidgetImage::WidgetImage(QWidget* parent)
     : QWidget(parent)
 {
+  this->setMouseTracking(true);
 }
 
 void WidgetImage::drawPoints(QPainter& painter)
@@ -27,10 +28,29 @@ void WidgetImage::drawPoints(QPainter& painter)
   painter.restore();
 }
 
+void WidgetImage::drawPointsRGB(QPainter& painter)
+{
+  for(auto& iter : _pointsRGB)
+  {
+    painter.save();
+    QPen   pen(Qt::SolidLine);
+    QBrush brush(iter.styleBrush());
+    pen.setColor(Qt::black);
+    brush.setColor(iter.rgb());
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _points.size() << " points";
+
+    painter.drawEllipse(iter.point(), iter.size(), iter.size());
+    painter.restore();
+  }
+}
+
 void WidgetImage::paintEvent(QPaintEvent* event)
 {
   QPainter painter(this);
   this->drawPoints(painter);
+  this->drawPointsRGB(painter);
   this->drawRects(painter);
   this->drawRectsCustom(painter);
   this->drawRectsFilled(painter);
@@ -51,7 +71,7 @@ void WidgetImage::drawRects(QPainter& painter)
 
 void WidgetImage::drawRectsFilled(QPainter& painter)
 {
-  //qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsFilled.size() << " rectsfilled ";
+  // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsFilled.size() << " rectsfilled ";
   for(auto& iter : _rectsFilled)
   {
     painter.save();
@@ -69,7 +89,7 @@ void WidgetImage::drawRectsFilled(QPainter& painter)
 
 void WidgetImage::drawRectsCustom(QPainter& painter)
 {
-  //qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsCustom.size() << " rectsCustom ";
+  // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsCustom.size() << " rectsCustom ";
   for(auto& iter : _rectsCustom)
   {
     painter.save();
@@ -82,6 +102,6 @@ void WidgetImage::drawRectsCustom(QPainter& painter)
   }
 }
 
-}
+} // namespace qt
 
-}
+} // namespace phillib
