@@ -16,6 +16,7 @@ public:
   virtual ~WidgetImage() {}
   virtual void paintEvent(QPaintEvent* event) override;
   void         setPoints(const QVector<QPoint>& points) { _points = points; }
+  void         addPoint(const QPoint& point) { _points.push_back(point); }
   void         setPointsRGB(const QVector<QPointRGB>& pointsRGB) { _pointsRGB = pointsRGB; }
   void         addPointRGB(const QPointRGB& pointRGB) { _pointsRGB.push_back(pointRGB); }
   void         setRects(const QVector<QRect>& rects) { _rects = rects; }
