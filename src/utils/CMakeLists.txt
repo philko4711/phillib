@@ -19,7 +19,7 @@ INCLUDE_DIRECTORIES(
 
 add_library(phillib_utils SHARED random.cpp MutexSingleton.cpp)
 
-set(HEADER random.h MutexSingleton.h)
+set(HEADER random.h MutexSingleton.h Fifo.h)
                                     
                           
  install(TARGETS phillib_utils DESTINATION lib)
