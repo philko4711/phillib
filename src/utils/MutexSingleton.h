@@ -11,7 +11,7 @@ class MutexSingleton
     static MutexSingleton& getInstance(void);//{return **_instance;}
     void lock(void){_mutex.lock();}
     void unlock(void){_mutex.unlock();}
-    bool tryLock(void){_mutex.try_lock();}
+    bool tryLock(void){return _mutex.try_lock();}
     virtual ~MutexSingleton(void){}
     private:
     MutexSingleton(void){}
