@@ -1,0 +1,13 @@
+*_parameters
+bin
+CMakeFiles
+CMakeCache.txt
+Makefile
+lib
+*.vscode
+.clang-format
+cmake_install.cmake
+moc_*
+ui_*
+install_manifest.txt
+build
