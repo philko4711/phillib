@@ -31,18 +31,22 @@ set(UI src/gui/main_window.ui)
 qt5_wrap_cpp(MOC_GENERATED_CPP_HELPER ${MOC_CPP_HELPER})
 qt5_wrap_ui(UI_GENERATED ${UI})
 
-add_executable(cpp_helper src/CppHelper.cpp src/cpp_helper.cpp
-src/gui/MainWindow.cpp ${MOC_GENERATED_CPP_HELPER} ${UI_GENERATED})
+add_executable(cpp_helper 
+  src/CppHelper.cpp 
+  src/cpp_helper.cpp
+  src/gui/MainWindow.cpp 
+  ${MOC_GENERATED_CPP_HELPER} 
+  ${UI_GENERATED})
 
-target_link_libraries(phillib_qt
+target_link_libraries(cpp_helper
     PUBLIC
   Qt5::Core
   Qt5::Gui 
   Qt5::Widgets
     )
 
-set(HEADER datatypes.h WidgetImage.h)
+#set(HEADER datatypes.h WidgetImage.h)
                                     
                           
- install(TARGETS phillib_qt DESTINATION lib)
-install(FILES ${HEADER} DESTINATION include/phillib_qt)
+ #install(TARGETS phillib_qt DESTINATION lib)
+#install(FILES ${HEADER} DESTINATION include/phillib_qt)

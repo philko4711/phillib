@@ -2,16 +2,19 @@
 #define PHILLIB_UTILS_CPP_HELPER_CPP_HELPER_H_
 
 #include <QtCore/QObject>
+#include "gui/MainWindow.h"
 
 namespace phillib
 {
   namespace cpp_helper
   {
-    class CPPHelper : public QObject
+    class CppHelper : public QObject
     {
       public:
-      CPPHelper();
-      virtual ~CPPHelper(){}
+      CppHelper();
+      virtual ~CppHelper(){}
+      private:
+        MainWindow _gui;
 
     };
   }

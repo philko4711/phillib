@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <memory>
+#include "ui_main_window.h"
 namespace phillib
 {
   namespace cpp_helper
@@ -13,7 +14,7 @@ namespace phillib
         MainWindow();
         virtual ~MainWindow(){}
         private:
-          
+          std::unique_ptr<Ui::MainWindow> _guiUi;
     };
   }
 }

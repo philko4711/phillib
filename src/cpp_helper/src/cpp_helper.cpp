@@ -1,5 +1,8 @@
-int main(int argc, char const *argv[])
+#include "CppHelper.h"
+
+int main(int argc, char** argv)
 {
-  /* code */
-  return 0;
+  QApplication app(argc, argv);
+  phillib::cpp_helper::CppHelper cppHelper;
+  return app.exec();
 }
