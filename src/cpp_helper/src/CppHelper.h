@@ -10,9 +10,12 @@ namespace phillib
   {
     class CppHelper : public QObject
     {
+      Q_OBJECT
       public:
       CppHelper();
       virtual ~CppHelper(){}
+      public slots:
+        void writeFile(void);
       private:
         MainWindow _gui;
 

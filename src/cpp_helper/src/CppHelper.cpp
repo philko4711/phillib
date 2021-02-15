@@ -1,4 +1,5 @@
 #include "CppHelper.h"
+#include <sstream>
 
 namespace phillib
 {
@@ -9,6 +10,9 @@ namespace phillib
   {
       _gui.show();
   }
+  void CppHelper::writeFile(void)
+  {
 
+  }
   }
 }
