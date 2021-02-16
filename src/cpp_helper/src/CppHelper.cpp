@@ -43,7 +43,7 @@ namespace phillib
     ss << "#ifndef " << QString(stringNameSpaces.c_str()).toUpper().toStdString() << std::endl;
     ss << "#define" << QString(stringNameSpaces.c_str()).toUpper().toStdString() << std::endl;
     ss << std::endl << std::endl;
-    ss << "\tclass " << className.toStdString() << "\n\t{\n\t\t" << className.toStdString() << "();" << "\n\t\tvirtual~" << className.toStdString() << "();";
+    ss << "  class " << className.toStdString() << "\n  {\n    " << className.toStdString() << "();" << "\n    virtual~" << className.toStdString() << "();\n";
     ss << "#endif";
     qDebug() << __PRETTY_FUNCTION__ << "\n" <<ss.str().c_str();
   }
