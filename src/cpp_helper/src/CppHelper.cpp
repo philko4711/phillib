@@ -1,14 +1,17 @@
 #include "CppHelper.h"
 #include <sstream>
+#include <iostream>
+#include <QtCore/QtDebug>
 
 namespace phillib
 {
   namespace cpp_helper
   {
 
-  CppHelper::CppHelper()
+  CppHelper::CppHelper():_gui(*this)
   {
       _gui.show();
+
   }
   void CppHelper::writeFile(void)
   {
@@ -28,6 +31,21 @@ namespace phillib
       stringNameSpaces += iter.toStdString();
       stringNameSpaces += '_';
     }
+    QString className = _gui.className();
+    QStringList strList = className.split(".");
+    for(auto& iter : strList)
+      qDebug() << __PRETTY_FUNCTION__ << iter << " ";  
+    stringNameSpaces += strList.begin()->toStdString(); 
+    stringNameSpaces += "_";
+
+    qDebug() << __PRETTY_FUNCTION__ << " namespaces: " << QString(stringNameSpaces.c_str()).toUpper();
+
+    ss << "#ifndef " << QString(stringNameSpaces.c_str()).toUpper().toStdString() << std::endl;
+    ss << "#define" << QString(stringNameSpaces.c_str()).toUpper().toStdString() << std::endl;
+    ss << std::endl << std::endl;
+    ss << "\tclass " << className.toStdString() << "\n\t{\n\t\t" << className.toStdString() << "();" << "\n\t\tvirtual~" << className.toStdString() << "();";
+    ss << "#endif";
+    qDebug() << __PRETTY_FUNCTION__ << "\n" <<ss.str().c_str();
   }
   }
 }

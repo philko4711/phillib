@@ -10,10 +10,11 @@ namespace phillib
 {
   namespace cpp_helper
   {
+    class CppHelper;
     class MainWindow : public QMainWindow
     {
       public: 
-        MainWindow();
+        MainWindow(CppHelper& parent);
         virtual ~MainWindow(){}
         unsigned int nameSpaces(QVector<QString>& nameSpaces)const;
         unsigned int baseClasses(QVector<QString>& baseClasses)const;
@@ -21,6 +22,7 @@ namespace phillib
         QString className()const;
                 private:
           std::unique_ptr<Ui::MainWindow> _guiUi;
+          CppHelper& _parent;
     };
   }
 }
