@@ -12,7 +12,22 @@ namespace phillib
   }
   void CppHelper::writeFile(void)
   {
+    QVector<QString> nameSpaces;
+    _gui.nameSpaces(nameSpaces);
 
+    QVector<QString> baseClasses;
+    _gui.baseClasses(baseClasses);
+
+    QVector<QString> headerFiles;
+    _gui.headerFiles(headerFiles);
+
+    std::stringstream ss;
+    std::string stringNameSpaces;
+    for(auto& iter : nameSpaces)
+    {
+      stringNameSpaces += iter.toStdString();
+      stringNameSpaces += '_';
+    }
   }
   }
 }

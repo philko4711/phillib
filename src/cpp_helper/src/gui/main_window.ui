@@ -36,16 +36,6 @@
             <property name="editable">
              <bool>true</bool>
             </property>
-            <item>
-             <property name="text">
-              <string>hure</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>sohn</string>
-             </property>
-            </item>
            </widget>
           </item>
          </layout>
@@ -67,16 +57,6 @@
             <property name="editable">
              <bool>true</bool>
             </property>
-            <item>
-             <property name="text">
-              <string>hure</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>sohn</string>
-             </property>
-            </item>
            </widget>
           </item>
          </layout>
@@ -123,16 +103,6 @@
             <property name="editable">
              <bool>true</bool>
             </property>
-            <item>
-             <property name="text">
-              <string>hure</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>sohn</string>
-             </property>
-            </item>
            </widget>
           </item>
          </layout>

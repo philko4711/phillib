@@ -4,6 +4,8 @@
 #include <QtWidgets/QMainWindow>
 #include <memory>
 #include "ui_main_window.h"
+#include <QtCore/QVector>
+#include <QtCore/QString>
 namespace phillib
 {
   namespace cpp_helper
@@ -13,7 +15,11 @@ namespace phillib
       public: 
         MainWindow();
         virtual ~MainWindow(){}
-        private:
+        unsigned int nameSpaces(QVector<QString>& nameSpaces)const;
+        unsigned int baseClasses(QVector<QString>& baseClasses)const;
+        unsigned int headerFiles(QVector<QString>& headerFiles)const;
+        QString className()const;
+                private:
           std::unique_ptr<Ui::MainWindow> _guiUi;
     };
   }
