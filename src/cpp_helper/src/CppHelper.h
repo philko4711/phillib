@@ -15,7 +15,7 @@ namespace phillib
       CppHelper();
       virtual ~CppHelper(){}
       public slots:
-        void writeFile(void);
+        void writeFile();
       private:
         MainWindow _gui;
 

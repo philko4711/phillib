@@ -13,21 +13,21 @@ MainWindow::MainWindow(CppHelper& parent)
 }
 unsigned int MainWindow::nameSpaces(QVector<QString>& nameSpaces) const
 {
-  for(unsigned int i = 0; i < _guiUi->comboBoxNamespaces->count(); i++)
+  for(int i = 0; i < _guiUi->comboBoxNamespaces->count(); i++)
     nameSpaces.push_back(_guiUi->comboBoxNamespaces->itemText(i));
   return nameSpaces.size();
 }
 
 unsigned int MainWindow::baseClasses(QVector<QString>& baseClasses) const
 {
-  for(unsigned int i = 0; i < _guiUi->comboBoxNamespaces->count(); i++)
+  for(int i = 0; i < _guiUi->comboBoxNamespaces->count(); i++)
     baseClasses.push_back(_guiUi->comboBoxNamespaces->itemText(i));
   return baseClasses.size();
 }
 
 unsigned int MainWindow::headerFiles(QVector<QString>& headerFiles) const
 {
-  for(unsigned int i = 0; i < _guiUi->comboBoxHeaderFiles->count(); i++)
+  for(int i = 0; i < _guiUi->comboBoxHeaderFiles->count(); i++)
     headerFiles.push_back(_guiUi->comboBoxHeaderFiles->itemText(i));
   return headerFiles.size();
 }
