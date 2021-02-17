@@ -20,8 +20,8 @@ unsigned int MainWindow::nameSpaces(QVector<QString>& nameSpaces) const
 
 unsigned int MainWindow::baseClasses(QVector<QString>& baseClasses) const
 {
-  for(int i = 0; i < _guiUi->comboBoxNamespaces->count(); i++)
-    baseClasses.push_back(_guiUi->comboBoxNamespaces->itemText(i));
+  for(int i = 0; i < _guiUi->comboBoxBaseClasses->count(); i++)
+    baseClasses.push_back(_guiUi->comboBoxBaseClasses->itemText(i));
   return baseClasses.size();
 }
 

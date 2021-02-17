@@ -49,5 +49,5 @@ target_link_libraries(cpp_helper
 #set(HEADER datatypes.h WidgetImage.h)
                                     
                           
- #install(TARGETS phillib_qt DESTINATION lib)
+install(TARGETS cpp_helper RUNTIME DESTINATION)
 #install(FILES ${HEADER} DESTINATION include/phillib_qt)

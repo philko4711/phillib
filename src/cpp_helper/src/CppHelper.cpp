@@ -47,8 +47,12 @@ namespace phillib
     ss << "#ifndef " << QString(stringNameSpaces.c_str()).toUpper().toStdString() << std::endl;
     ss << "#define " << QString(stringNameSpaces.c_str()).toUpper().toStdString() << std::endl;
     ss << std::endl << std::endl;
+    for(auto& iter : headerFiles)
+      ss << "#include \"" << iter.toStdString() << "\"\n";
+    ss << "\n";  
+    
     for(auto& iter : nameSpaces)
-      ss << iter.toStdString() <<"\n{\n";
+      ss << "namespace " << iter.toStdString() <<"\n{\n";
 
   
     ss << "  class " << className.toStdString();
@@ -80,8 +84,14 @@ namespace phillib
 
     ss.str("");
     ss << "#include \"" << className.toStdString() << ".h\"";
-    ss << "\n\n\n";
-    ss << className.toStdString() << "::" << className.toStdString() << "()\n{\n}\n";
+    ss << "\n\n";
+     for(auto& iter : nameSpaces)
+      ss << "namespace " << iter.toStdString() <<"\n{\n";
+    ss << className.toStdString() << "::" << className.toStdString() << "()\n  {\n  }\n";
+    ss << "\n\n";
+
+     for(int i = 0; i < nameSpaces.size(); i++)
+      ss << "}\n";
 
     QFile fileCpp(path + QString("/") + className + QString(".cpp"));
     if (!fileCpp.open(QIODevice::WriteOnly | QIODevice::Text))
