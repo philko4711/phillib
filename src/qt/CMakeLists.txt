@@ -62,9 +62,16 @@ set(MOC_PHILLIB_QT
                 WidgetImage.h
               )
 
-qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT ${MOC_PHILLIB_QT})
+              set(MOC_TEST_QVTK 
+                TestQvtk.h
+                WidgetNewQvtk.h
+              )
 
-add_executable(test_vtk test_qvtk.cpp WidgetNewQvtk.cpp)# WidgetQvtk.cpp)
+
+qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT ${MOC_PHILLIB_QT})
+qt5_wrap_cpp(MOC_GENERATED_TEST_QVTK ${MOC_TEST_QVTK})
+
+add_executable(test_vtk test_qvtk.cpp TestQvtk.cpp WidgetNewQvtk.cpp ${MOC_GENERATED_TEST_QVTK})# WidgetQvtk.cpp)
 
 add_library(phillib_qt SHARED WidgetImage.cpp ${MOC_GENERATED_PHILLIB_QT})
 
@@ -87,6 +94,8 @@ target_link_libraries(phillib_qt
   Qt5::OpenGL
   ${VTK_LIBRARIES}
   #${PCL_LIBRARIES}
+  phillib_utils
+  tinyxml2
     )
 
     vtk_module_autoinit(
