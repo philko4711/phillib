@@ -22,6 +22,7 @@ public:
   void addAxes();  
   //void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
   void drawPoints(const pcl::PointCloud<pcl::PointXYZ>& cloud);
+  void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
 private:
   vtkSmartPointer<vtkRenderer>          _renderer;
   vtkSmartPointer<vtkPolyData>          _pointPolyData;

@@ -30,7 +30,7 @@ vtkSmartPointer<vtkPolyDataMapper> pointMapper = vtkSmartPointer<vtkPolyDataMapp
 
   vtkSmartPointer<vtkActor> pointActor = vtkSmartPointer<vtkActor>::New();
   pointActor->SetMapper(pointMapper);
-  pointActor->GetProperty()->SetPointSize(1);
+  pointActor->GetProperty()->SetPointSize(10);
   _renderer->AddActor(pointActor);
 
   _renderer->SetBackground(1.0, 1.0, 1.0);
@@ -59,36 +59,36 @@ void WidgetNewQvtk::addAxes()
   _renderer->AddActor(axes);
 }
 
-// void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud)
-// {
-//  _pointPolyData->Reset();
-//   _points->Reset();
-//   vtkSmartPointer<vtkUnsignedCharArray> colors = vtkSmartPointer<vtkUnsignedCharArray>::New();
-//   colors->SetNumberOfComponents(3);
-//   colors->SetName ("Colors");
-//   for(auto& iter : cloud.points)
-//   {
-//     _points->InsertNextPoint(iter.x, iter.y, iter.z);
-//     unsigned char temp[3];
-//     temp[0] = iter.r;
-//     temp[1] = iter.g;
-//     temp[2] = iter.b;
-//     colors->InsertNextTuple(temp);
-//   }
-//   _pointPolyData->GetPointData()->SetScalars(colors);
-//   _pointPolyData->GetPointData()->SetNormals(NULL);
-//   _pointPolyData->SetPoints(_points);
-//   vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
-// #if VTK_MAJOR_VERSION <= 5
-//   vertexFilter->SetInputConnection(polydata->GetProducerPort());
-// #else
-//   vertexFilter->SetInputData(_pointPolyData);
-// #endif
-//   vertexFilter->Update();
-//   _pointPolyData->ShallowCopy(vertexFilter->GetOutput());
-//   _points->Modified();
-//   this->update();
-// }
+void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud)
+{
+ _pointPolyData->Reset();
+  _points->Reset();
+  vtkSmartPointer<vtkUnsignedCharArray> colors = vtkSmartPointer<vtkUnsignedCharArray>::New();
+  colors->SetNumberOfComponents(3);
+  colors->SetName ("Colors");
+  for(auto& iter : cloud.points)
+  {
+    _points->InsertNextPoint(iter.x, iter.y, iter.z);
+    unsigned char temp[3];
+    temp[0] = iter.r;
+    temp[1] = iter.g;
+    temp[2] = iter.b;
+    colors->InsertNextTypedTuple(temp);
+  }
+  _pointPolyData->GetPointData()->SetScalars(colors);
+  _pointPolyData->GetPointData()->SetNormals(NULL);
+  _pointPolyData->SetPoints(_points);
+  vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
+#if VTK_MAJOR_VERSION <= 5
+  vertexFilter->SetInputConnection(polydata->GetProducerPort());
+#else
+  vertexFilter->SetInputData(_pointPolyData);
+#endif
+  vertexFilter->Update();
+  _pointPolyData->ShallowCopy(vertexFilter->GetOutput());
+  _points->Modified();
+  this->update();
+}
 
 void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZ>& cloud)
 {
