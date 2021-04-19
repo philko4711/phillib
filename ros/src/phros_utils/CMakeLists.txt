@@ -138,7 +138,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(tf_frame_changer src/tf_frame_changer.cpp)
-add_executable(cloud_transformer src/cloud_transformer.cpp)
+add_executable(cloud_transformer_pcl src/cloud_transformer_pcl.cpp)
+add_executable(cloud_transformer_tf src/cloud_transformer_tf.cpp)
 add_executable(static_tf_recon src/static_tf_recon.cpp)
 add_executable(cropbox_filter src/cropbox_filter.cpp)
 add_executable(cloud_topic_frame_adjust src/cloud_topic_frame_adjust.cpp)
@@ -158,7 +159,11 @@ target_link_libraries(tf_frame_changer
    ${catkin_LIBRARIES}
  )
 
- target_link_libraries(cloud_transformer
+ target_link_libraries(cloud_transformer_pcl
+   ${catkin_LIBRARIES}
+ )
+
+ target_link_libraries(cloud_transformer_tf
    ${catkin_LIBRARIES}
  )
 
