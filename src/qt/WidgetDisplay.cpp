@@ -8,15 +8,15 @@ WidgetDisplay::WidgetDisplay() { this->resize(800, 800); }
 
 void WidgetDisplay::wheelEvent(QWheelEvent *event) 
 {
-  int increment = 0;
+  float increment = 0.0f;
   if(event->angleDelta().y() > 0)
-    increment = 1;
+    increment = 0.1f;
   else if(event->angleDelta().y() < 0)  
-    increment = -1;
+    increment = -0.1f;
   else  
-    increment = 0;
+    increment = 0.0f;
   _scale += increment;  
-  qDebug() << __PRETTY_FUNCTION__ << "  scale " << _scale;
+  qDebug() << __PRETTY_FUNCTION__ << "  scale " << _scale << " pos " << event->pos();
   _mousePtr = event->pos();
 
 }

@@ -18,7 +18,7 @@ namespace qt
       void paintEvent(QPaintEvent* event)override;
       private:
       QPoint _mousePtr;
-      int _scale = 1;
+      float _scale = 1.0f;
 };
 }
 }
