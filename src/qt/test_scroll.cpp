@@ -7,6 +7,7 @@ int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
     phillib::qt::WidgetDisplay display;
+    display.loadImage("/home/phil/Pictures/dicpr.jpeg");
     display.show();
     // phillib::qt::WidgetImage widget;
     // widget.resize(500, 500);
