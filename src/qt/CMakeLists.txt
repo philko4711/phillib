@@ -56,6 +56,7 @@ find_package(VTK COMPONENTS
 find_package(PCL 1.7 REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
+link_directories(/usr/local/lib)
 add_definitions(${PCL_DEFINITIONS})
 
 set(MOC_PHILLIB_QT 
@@ -72,6 +73,7 @@ qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT ${MOC_PHILLIB_QT})
 qt5_wrap_cpp(MOC_GENERATED_TEST_QVTK ${MOC_TEST_QVTK})
 
 add_executable(test_vtk test_qvtk.cpp TestQvtk.cpp WidgetNewQvtk.cpp ${MOC_GENERATED_TEST_QVTK})# WidgetQvtk.cpp)
+add_executable(test_scroll test_scroll.cpp WidgetDisplay.cpp)
 
 add_library(phillib_qt SHARED WidgetImage.cpp ${MOC_GENERATED_PHILLIB_QT})
 
@@ -96,6 +98,16 @@ target_link_libraries(phillib_qt
   #${PCL_LIBRARIES}
   phillib_utils
   tinyxml2
+    )
+
+    target_link_libraries(test_scroll
+    PUBLIC
+  Qt5::Core
+  Qt5::Gui 
+  Qt5::Widgets
+  
+  phillib_qt
+  
     )
 
     vtk_module_autoinit(
