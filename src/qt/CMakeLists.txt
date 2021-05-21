@@ -74,6 +74,7 @@ qt5_wrap_cpp(MOC_GENERATED_TEST_QVTK ${MOC_TEST_QVTK})
 
 add_executable(test_vtk test_qvtk.cpp TestQvtk.cpp WidgetNewQvtk.cpp ${MOC_GENERATED_TEST_QVTK})# WidgetQvtk.cpp)
 add_executable(test_scroll test_scroll.cpp WidgetDisplay.cpp)
+add_executable(image_magic image_magic.cpp ImageMagic.cpp WidgetNewQvtk.cpp)
 
 add_library(phillib_qt SHARED WidgetImage.cpp ${MOC_GENERATED_PHILLIB_QT})
 
@@ -108,6 +109,20 @@ target_link_libraries(phillib_qt
   
   phillib_qt
   
+    )
+
+    target_link_libraries(image_magic
+    PUBLIC
+    
+    VTK::CommonCore
+    #VTK::GUISupportQt
+    VTK::ViewsQt
+  Qt5::Core
+  Qt5::Gui 
+  Qt5::Widgets
+  Qt5::OpenGL
+  ${VTK_LIBRARIES}
+  #${PCL_LIBRARIES}
     )
 
     vtk_module_autoinit(

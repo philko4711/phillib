@@ -2,24 +2,24 @@
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkDoubleArray.h>
+#include <vtkPlaneSource.h>
 #include <vtkPointData.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkTransform.h>
+#include <vtkUnsignedCharArray.h>
 #include <vtkVertexGlyphFilter.h>
-#include <vtkProperty.h>
-
-WidgetNewQvtk::WidgetNewQvtk(QWidget* parent)
-    : QVTKOpenGLNativeWidget(parent)
-    , _renderer(vtkRenderer::New())
-    , _pointPolyData(vtkSmartPointer<vtkPolyData>::New())
-    , _points(vtkSmartPointer<vtkPoints>::New())
-    , _pointColors(vtkSmartPointer<vtkUnsignedCharArray>::New())
-    , _pointNormals(vtkSmartPointer<vtkDoubleArray>::New())
-{
-vtkSmartPointer<vtkPolyDataMapper> pointMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+WidgetNewQvtk::WidgetNewQvtk(QWidget *parent)
+    : QVTKOpenGLNativeWidget(parent), _renderer(vtkRenderer::New()),
+      _pointPolyData(vtkSmartPointer<vtkPolyData>::New()),
+      _points(vtkSmartPointer<vtkPoints>::New()),
+      _pointColors(vtkSmartPointer<vtkUnsignedCharArray>::New()),
+      _pointNormals(vtkSmartPointer<vtkDoubleArray>::New()) {
+  vtkSmartPointer<vtkPolyDataMapper> pointMapper =
+      vtkSmartPointer<vtkPolyDataMapper>::New();
 #if VTK_MAJOR_VERSION <= 5
   pointMapper->SetInputConnection(_pointPolyData->GetProducerPort());
 #else
@@ -33,14 +33,14 @@ vtkSmartPointer<vtkPolyDataMapper> pointMapper = vtkSmartPointer<vtkPolyDataMapp
   pointActor->GetProperty()->SetPointSize(10);
   _renderer->AddActor(pointActor);
 
-  _renderer->SetBackground(1.0, 1.0, 1.0);
+  _renderer->SetBackground(0.0, 0.0, 0.0);
   _renderer->GetActiveCamera()->Yaw(180);
   this->GetRenderWindow()->AddRenderer(_renderer);
 }
 
-void WidgetNewQvtk::addAxes()
-{
-  vtkSmartPointer<vtkTransform> transform = vtkSmartPointer<vtkTransform>::New();
+void WidgetNewQvtk::addAxes() {
+  vtkSmartPointer<vtkTransform> transform =
+      vtkSmartPointer<vtkTransform>::New();
   transform->Translate(0.0, 0.0, 0.0);
 
   vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
@@ -59,15 +59,14 @@ void WidgetNewQvtk::addAxes()
   _renderer->AddActor(axes);
 }
 
-void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud)
-{
- _pointPolyData->Reset();
+void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZRGB> &cloud) {
+  _pointPolyData->Reset();
   _points->Reset();
-  vtkSmartPointer<vtkUnsignedCharArray> colors = vtkSmartPointer<vtkUnsignedCharArray>::New();
+  vtkSmartPointer<vtkUnsignedCharArray> colors =
+      vtkSmartPointer<vtkUnsignedCharArray>::New();
   colors->SetNumberOfComponents(3);
-  colors->SetName ("Colors");
-  for(auto& iter : cloud.points)
-  {
+  colors->SetName("Colors");
+  for (auto &iter : cloud.points) {
     _points->InsertNextPoint(iter.x, iter.y, iter.z);
     unsigned char temp[3];
     temp[0] = iter.r;
@@ -78,7 +77,8 @@ void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud)
   _pointPolyData->GetPointData()->SetScalars(colors);
   _pointPolyData->GetPointData()->SetNormals(NULL);
   _pointPolyData->SetPoints(_points);
-  vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
+  vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter =
+      vtkSmartPointer<vtkVertexGlyphFilter>::New();
 #if VTK_MAJOR_VERSION <= 5
   vertexFilter->SetInputConnection(polydata->GetProducerPort());
 #else
@@ -90,15 +90,14 @@ void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud)
   this->update();
 }
 
-void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZ>& cloud)
-{
+void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZ> &cloud) {
   _pointPolyData->Reset();
   _points->Reset();
-  vtkSmartPointer<vtkUnsignedCharArray> colors = vtkSmartPointer<vtkUnsignedCharArray>::New();
+  vtkSmartPointer<vtkUnsignedCharArray> colors =
+      vtkSmartPointer<vtkUnsignedCharArray>::New();
   colors->SetNumberOfComponents(3);
   colors->SetName("Colors");
-  for(auto& iter : cloud.points)
-  {
+  for (auto &iter : cloud.points) {
     _points->InsertNextPoint(iter.x, iter.y, iter.z);
     unsigned char temp[3];
     temp[0] = 0;
@@ -109,7 +108,8 @@ void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZ>& cloud)
   _pointPolyData->GetPointData()->SetScalars(colors);
   _pointPolyData->GetPointData()->SetNormals(NULL);
   _pointPolyData->SetPoints(_points);
-  vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
+  vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter =
+      vtkSmartPointer<vtkVertexGlyphFilter>::New();
 #if VTK_MAJOR_VERSION <= 5
   vertexFilter->SetInputConnection(polydata->GetProducerPort());
 #else
@@ -118,5 +118,23 @@ void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZ>& cloud)
   vertexFilter->Update();
   _pointPolyData->ShallowCopy(vertexFilter->GetOutput());
   _points->Modified();
+  this->update();
+}
+
+void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
+                             const Eigen::Vector3f &point1,
+                             const Eigen::Vector3f &center) {
+                               //vtkNew<vtkNamedColors> colors;
+  vtkNew<vtkPlaneSource> planeSource;
+  planeSource->SetPoint1(point0.x(), point0.y(), point0.z());
+  planeSource->SetPoint2(point1.x(), point1.y(), point1.z());
+  planeSource->SetCenter(center.x(), center.y(), center.z());
+  planeSource->Update();
+  vtkPolyData *plane = planeSource->GetOutput();
+  vtkNew<vtkPolyDataMapper> mapper;
+  mapper->SetInputData(plane);
+  vtkNew<vtkActor> actor;
+  actor->SetMapper(mapper);
+  _renderer->AddActor(actor);
   this->update();
 }
