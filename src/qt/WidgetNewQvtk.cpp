@@ -11,7 +11,16 @@
 #include <vtkRenderer.h>
 #include <vtkTransform.h>
 #include <vtkUnsignedCharArray.h>
+#include <vtkImageImport.h>
 #include <vtkVertexGlyphFilter.h>
+#include <vtkImageReader2.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkTexture.h>
+
+// #include <vtkTextureMapToPlane.h>
+// #include <vtkTexture.h>
+#include <vtkImageViewer2.h>
+#include <phillib_utils/random.h>
 WidgetNewQvtk::WidgetNewQvtk(QWidget *parent)
     : QVTKOpenGLNativeWidget(parent), _renderer(vtkRenderer::New()),
       _pointPolyData(vtkSmartPointer<vtkPolyData>::New()),
@@ -126,15 +135,57 @@ void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
                              const Eigen::Vector3f &center) {
                                //vtkNew<vtkNamedColors> colors;
   vtkNew<vtkPlaneSource> planeSource;
+  planeSource->SetOrigin(center.x(), center.y(), center.z());
   planeSource->SetPoint1(point0.x(), point0.y(), point0.z());
   planeSource->SetPoint2(point1.x(), point1.y(), point1.z());
-  planeSource->SetCenter(center.x(), center.y(), center.z());
+  planeSource->SetXResolution(10);
+  planeSource->SetYResolution(10);
   planeSource->Update();
+  
+  char color[10 * 10 * 3];
+  std::vector<int> rs;
+  std::vector<int> gs;
+  std::vector<int> bs;
+
+  
+  phillib::utils::randomInts(10 * 10, rs, 0, 255);
+  phillib::utils::randomInts(10 * 10, gs, 0, 255);
+  phillib::utils::randomInts(10 * 10, bs, 0, 255);
+
+  
+  for (unsigned int i = 0; i < 10; i++)
+  {
+    for (unsigned int j = 0; j < 10; j++)
+    {
+      color[(i * 10 + j) * 3] = rs[i * 10 + j];
+      color[(i * 10 + j) * 3 + 1] = gs[i * 10 + j];    
+      color[(i * 10 + j) * 3 + 2] = bs[i * 10 + j];
+    }
+
+  }
+ 
+vtkNew<vtkImageReader2Factory> readerFactory;
+  vtkSmartPointer<vtkImageReader2> textureFile;
+  textureFile.TakeReference(readerFactory->CreateImageReader2("/home/phil/Pictures/dicpr.jpeg"));
+  textureFile->SetFileName("/home/phil/Pictures/dicpr.jpeg");
+  textureFile->Update();
+
+  vtkNew<vtkTexture> atext;
+  atext->SetInputConnection(textureFile->GetOutputPort());
+  atext->InterpolateOn();
+
+ 
+
+
   vtkPolyData *plane = planeSource->GetOutput();
   vtkNew<vtkPolyDataMapper> mapper;
   mapper->SetInputData(plane);
+  mapper->SetScalarModeToUsePointFieldData();
+   mapper->SelectColorArray(color);
   vtkNew<vtkActor> actor;
   actor->SetMapper(mapper);
+  actor->SetTexture(atext);
+  //actor->GetProperty()->SetColor();
   _renderer->AddActor(actor);
   this->update();
 }
