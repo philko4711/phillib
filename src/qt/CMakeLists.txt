@@ -17,6 +17,10 @@ find_package(Qt5OpenGL REQUIRED)
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIRS})
  
+#find_package(PCL  REQUIRED)
+#include_directories(${PCL_INCLUDE_DIRS})
+
+
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
@@ -101,8 +105,10 @@ find_package(VTK COMPONENTS
 find_package(PCL 1.7 REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
-link_directories(/usr/local/lib)
 add_definitions(${PCL_DEFINITIONS})
+
+link_directories(/usr/local/lib)
+
 
 set(MOC_PHILLIB_QT 
                 WidgetImage.h
@@ -172,7 +178,7 @@ target_link_libraries(phillib_qt
   Qt5::Widgets
   Qt5::OpenGL
   ${VTK_LIBRARIES}
-  #${PCL_LIBRARIES}
+  ${PCL_LIBRARIES}
   phillib_utils
   tinyxml2
     )
@@ -233,7 +239,7 @@ target_link_libraries(phillib_qt
   Qt5::Widgets
   Qt5::OpenGL
   ${VTK_LIBRARIES}
-  #${PCL_LIBRARIES}
+  ${PCL_LIBRARIES}
   phillib_utils
   tinyxml2
     )

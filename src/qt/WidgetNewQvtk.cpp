@@ -16,6 +16,7 @@
 #include <vtkImageReader2.h>
 #include <vtkImageReader2Factory.h>
 #include <vtkTexture.h>
+#include <pcl/io/ply_io.h>
 
 // #include <vtkTextureMapToPlane.h>
 // #include <vtkTexture.h>
@@ -109,9 +110,9 @@ void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZ> &cloud) {
   for (auto &iter : cloud.points) {
     _points->InsertNextPoint(iter.x, iter.y, iter.z);
     unsigned char temp[3];
-    temp[0] = 0;
-    temp[1] = 0;
-    temp[2] = 0;
+    temp[0] = 255;
+    temp[1] = 255;
+    temp[2] = 255;
     colors->InsertNextTypedTuple(temp);
   }
   _pointPolyData->GetPointData()->SetScalars(colors);
@@ -130,9 +131,18 @@ void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZ> &cloud) {
   this->update();
 }
 
+void WidgetNewQvtk::drawPoints(const std::string& pathPly)
+{
+  pcl::PointCloud<pcl::PointXYZ> cloud;
+  pcl::PLYReader reader;
+  reader.read(pathPly, cloud);
+  this->drawPoints(cloud);
+  this->update();
+}
+
 void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
                              const Eigen::Vector3f &point1,
-                             const Eigen::Vector3f &center) {
+                             const Eigen::Vector3f &center, const std::string& pathToImage) {
                                //vtkNew<vtkNamedColors> colors;
   vtkNew<vtkPlaneSource> planeSource;
   planeSource->SetOrigin(center.x(), center.y(), center.z());
@@ -166,8 +176,8 @@ void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
  
 vtkNew<vtkImageReader2Factory> readerFactory;
   vtkSmartPointer<vtkImageReader2> textureFile;
-  textureFile.TakeReference(readerFactory->CreateImageReader2("/home/phil/Pictures/dicpr.jpeg"));
-  textureFile->SetFileName("/home/phil/Pictures/dicpr.jpeg");
+  textureFile.TakeReference(readerFactory->CreateImageReader2(pathToImage.c_str()));
+  textureFile->SetFileName(pathToImage.c_str());
   textureFile->Update();
 
   vtkNew<vtkTexture> atext;

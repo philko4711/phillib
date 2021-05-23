@@ -142,6 +142,7 @@ add_executable(cloud_transformer_pcl src/cloud_transformer_pcl.cpp)
 add_executable(cloud_transformer_tf src/cloud_transformer_tf.cpp)
 add_executable(static_tf_recon src/static_tf_recon.cpp)
 add_executable(cropbox_filter src/cropbox_filter.cpp)
+add_executable(cloud_saver src/cloud_saver.cpp)
 #add_executable(cloud_topic_frame_adjust src/cloud_topic_frame_adjust.cpp)
 
 ## Rename C++ executable without prefix
@@ -174,6 +175,10 @@ add_executable(cropbox_filter src/cropbox_filter.cpp)
  target_link_libraries(cropbox_filter
    ${catkin_LIBRARIES}
  )
+
+ target_link_libraries(cloud_saver
+ ${catkin_LIBRARIES}
+)
 
 #target_link_libraries(cloud_topic_frame_adjust
 #   ${catkin_LIBRARIES}

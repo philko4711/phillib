@@ -11,7 +11,7 @@ namespace qt
   class ImageMagic : public QObject
   {
     public:
-    ImageMagic();
+    ImageMagic(const std::string& pathToImage, const std::string& pathToPcl);
     virtual ~ImageMagic(){}
     private:
       WidgetNewQvtk _viewer;

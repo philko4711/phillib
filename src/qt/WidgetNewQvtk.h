@@ -7,6 +7,7 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
+
 class vtkRenderer;
 class vtkPolyData;
 class vtkPoints;
@@ -23,7 +24,8 @@ public:
   //void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
   void drawPoints(const pcl::PointCloud<pcl::PointXYZ>& cloud);
   void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
-  void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center);
+  void drawPoints(const std::string& pathPly);
+  void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const std::string& pathToImage);
 private:
   vtkSmartPointer<vtkRenderer>          _renderer;
   vtkSmartPointer<vtkPolyData>          _pointPolyData;
