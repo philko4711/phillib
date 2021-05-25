@@ -18,9 +18,9 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-add_library(phillib_utils SHARED random.cpp MutexSingleton.cpp utilsmath.cpp WrapperTinyXML.cpp)
+add_library(phillib_utils SHARED random.cpp MutexSingleton.cpp utilsmath.cpp WrapperTinyXML.cpp ProjectionPinHole.cpp)
 
-set(HEADER random.h MutexSingleton.h Fifo.h utilsmath.h typedefs_eigen.h WrapperTinyXML.h)
+set(HEADER random.h MutexSingleton.h Fifo.h utilsmath.h typedefs_eigen.h WrapperTinyXML.h ProjectionPinHole.h)
 
 target_link_libraries(phillib_utils Eigen3::Eigen)
                           
