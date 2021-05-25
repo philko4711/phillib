@@ -15,8 +15,10 @@
 #include <vtkVertexGlyphFilter.h>
 #include <vtkImageReader2.h>
 #include <vtkImageReader2Factory.h>
+#include <vtkTextureMapToPlane.h>
 #include <vtkTexture.h>
 #include <pcl/io/ply_io.h>
+#include <QtCore/QByteArray>
 
 // #include <vtkTextureMapToPlane.h>
 // #include <vtkTexture.h>
@@ -171,18 +173,32 @@ void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
       color[(i * 10 + j) * 3 + 1] = gs[i * 10 + j];    
       color[(i * 10 + j) * 3 + 2] = bs[i * 10 + j];
     }
-
   }
- 
-vtkNew<vtkImageReader2Factory> readerFactory;
-  vtkSmartPointer<vtkImageReader2> textureFile;
-  textureFile.TakeReference(readerFactory->CreateImageReader2(pathToImage.c_str()));
-  textureFile->SetFileName(pathToImage.c_str());
-  textureFile->Update();
 
-  vtkNew<vtkTexture> atext;
-  atext->SetInputConnection(textureFile->GetOutputPort());
-  atext->InterpolateOn();
+  vtkSmartPointer<vtkTexture> texture = vtkSmartPointer<vtkTexture>::New();
+  vtkSmartPointer<vtkImageImport> imageImport = vtkSmartPointer<vtkImageImport>::New();
+  imageImport->SetDataSpacing(1, 1, 1);
+  imageImport->SetDataOrigin(0, 0, 0);
+  imageImport->SetWholeExtent(0, 10 - 1, 0, 10 - 1, 0, 0);
+  imageImport->SetDataExtentToWholeExtent();
+  imageImport->SetDataScalarTypeToUnsignedChar();
+  imageImport->SetNumberOfScalarComponents(3);
+  imageImport->SetImportVoidPointer(color);
+  imageImport->Update();
+  texture->SetInputConnection(imageImport->GetOutputPort());
+  // vtkSmartPointer<vtkTextureMapToPlane> texturePlane =
+  //     vtkSmartPointer<vtkTextureMapToPlane>::New();
+  // texturePlane->SetInputConnection(planeSource->GetOutputPort());
+ 
+// vtkNew<vtkImageReader2Factory> readerFactory;
+//   vtkSmartPointer<vtkImageReader2> textureFile;
+//   textureFile.TakeReference(readerFactory->CreateImageReader2(pathToImage.c_str()));
+//   textureFile->SetFileName(pathToImage.c_str());
+//   textureFile->Update();
+
+//   vtkNew<vtkTexture> atext;
+//   atext->SetInputConnection(textureFile->GetOutputPort());
+//   atext->InterpolateOn();
 
  
 
@@ -191,11 +207,53 @@ vtkNew<vtkImageReader2Factory> readerFactory;
   vtkNew<vtkPolyDataMapper> mapper;
   mapper->SetInputData(plane);
   mapper->SetScalarModeToUsePointFieldData();
-   mapper->SelectColorArray(color);
+  // mapper->SetInputConnection(texturePlane->GetOutputPort());
   vtkNew<vtkActor> actor;
-  actor->SetMapper(mapper);
-  actor->SetTexture(atext);
+  _actorPlaneImage = vtkSmartPointer<vtkActor>::New();
+  _actorPlaneImage->SetMapper(mapper);
+  //actor->SetTexture(atext);
+  _actorPlaneImage->SetTexture(texture);
   //actor->GetProperty()->SetColor();
-  _renderer->AddActor(actor);
+  _renderer->AddActor(_actorPlaneImage);
+  this->update();
+}
+
+void WidgetNewQvtk::updatePlaneImage(vtkSmartPointer<vtkActor>& plane, const QImage& image)
+{
+// char color[10 * 10 * 3];
+//   std::vector<int> rs;
+//   std::vector<int> gs;
+//   std::vector<int> bs;
+
+  
+//   phillib::utils::randomInts(10 * 10, rs, 0, 255);
+//   phillib::utils::randomInts(10 * 10, gs, 0, 255);
+//   phillib::utils::randomInts(10 * 10, bs, 0, 255);
+
+  
+//   for (unsigned int i = 0; i < 10; i++)
+//   {
+//     for (unsigned int j = 0; j < 10; j++)
+//     {
+//       color[(i * 10 + j) * 3] = rs[i * 10 + j];
+//       color[(i * 10 + j) * 3 + 1] = gs[i * 10 + j];    
+//       color[(i * 10 + j) * 3 + 2] = bs[i * 10 + j];
+//     }
+//   }
+
+  vtkSmartPointer<vtkTexture> texture = vtkSmartPointer<vtkTexture>::New();
+  vtkSmartPointer<vtkImageImport> imageImport = vtkSmartPointer<vtkImageImport>::New();
+  QByteArray arry;
+  image.save(arry);
+  imageImport->SetDataSpacing(1, 1, 1);
+  imageImport->SetDataOrigin(0, 0, 0);
+  imageImport->SetWholeExtent(0, image.height() - 1, 0, image.width() - 1, 0, 0);
+  imageImport->SetDataExtentToWholeExtent();
+  imageImport->SetDataScalarTypeToUnsignedChar();
+  imageImport->SetNumberOfScalarComponents(3);
+  imageImport->SetImportVoidPointer(arry.data());
+  imageImport->Update();
+  texture->SetInputConnection(imageImport->GetOutputPort());
+  plane->SetTexture(texture);
   this->update();
 }

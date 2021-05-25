@@ -41,16 +41,7 @@ void WidgetDisplay::paintEvent(QPaintEvent *event) {
   viewPort.setSize(vpSize);
   viewPort.moveCenter(_mousePtr);
   painter.setViewport(viewPort);
-  // QPen pen(Qt::SolidLine);
-  // pen.setWidth(10);
-  // pen.setColor(Qt::green);
-  // painter.setPen(pen);
-  // QRect rect = this->rect();
-  // QSize size = rect.size();
-  // size.scale(rect.size() / 2, Qt::KeepAspectRatio);
-  // rect.setSize(size);
-  // rect.moveCenter(this->rect().center());
-  // //painter.drawRect(rect);
+
   if((_backGround.height() > 0) && (_backGround.width() > 0))
     painter.drawImage(this->rect(), _backGround, _backGround.rect());
   this->update();

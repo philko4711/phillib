@@ -111,21 +111,32 @@ link_directories(/usr/local/lib)
 
 
 set(MOC_PHILLIB_QT 
-                WidgetImage.h
-              )
+  WidgetImage.h
+  )
 
-              set(MOC_TEST_QVTK 
-                TestQvtk.h
-                WidgetNewQvtk.h
-              )
+set(MOC_TEST_QVTK 
+  TestQvtk.h
+  WidgetNewQvtk.h
+)
+
+set(MOC_IMG_MAGIC
+  WidgetNewQvtk.h
+  ImageMagic.h
+  MenuTransform.h
+)
+
+SET(FORMS_IMG_MAGIC menuTransform.ui
+                  )
+qt5_wrap_ui(FORMS_IMG_MAGIC_HEADER ${FORMS_IMG_MAGIC})
 
 
 qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT ${MOC_PHILLIB_QT})
 qt5_wrap_cpp(MOC_GENERATED_TEST_QVTK ${MOC_TEST_QVTK})
+qt5_wrap_cpp(MOC_GENERATED_IMG_MAGIC ${MOC_IMG_MAGIC})
 
 add_executable(test_vtk test_qvtk.cpp TestQvtk.cpp WidgetNewQvtk.cpp ${MOC_GENERATED_TEST_QVTK})# WidgetQvtk.cpp)
 add_executable(test_scroll test_scroll.cpp WidgetDisplay.cpp)
-add_executable(image_magic image_magic.cpp ImageMagic.cpp WidgetNewQvtk.cpp)
+add_executable(image_magic image_magic.cpp ImageMagic.cpp WidgetNewQvtk.cpp MenuTransform.cpp ${MOC_GENERATED_IMG_MAGIC} ${FORMS_IMG_MAGIC_HEADER})
 
 add_library(phillib_qt SHARED WidgetImage.cpp ${MOC_GENERATED_PHILLIB_QT})
 
