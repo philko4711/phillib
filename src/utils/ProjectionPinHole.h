@@ -14,7 +14,7 @@ namespace utils
     ProjectionPinHole(std::vector<float>& projectionData);
     virtual ~ProjectionPinHole(){}
     const Eigen::Vector2i pixel(const Eigen::Vector3f& point);
-    const Eigen::Vector3i point(const Eigen::Vector2i& pixel, const float w);
+    const Eigen::Vector3f point(const Eigen::Vector2i& pixel, const float w);
     private:
       Eigen::Matrix<float, 3, 4> _P;
 };
