@@ -26,10 +26,12 @@ namespace qt
       void transformChanged();
     private:
     void backProject();
+    void forwardProject(pcl::PointCloud<pcl::PointXYZ>& cloud);
       WidgetNewQvtk _viewer;
       QTimer _timer;
       MenuTransform _menuTransform;
       std::unique_ptr<pcl::PointCloud<pcl::PointXYZ> > _pcl;
+      std::unique_ptr<pcl::PointCloud<pcl::PointXYZ> > _pclVar;
       QImage _imageCamera;
 };
 }

@@ -26,7 +26,7 @@ public:
   void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
   void drawPoints(const std::string& pathPly);
   void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const std::string& pathToImage);
-  void updatePlaneImage(vtkSmartPointer<vtkActor>& plane, const QImage& image);
+  void updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& image);
   vtkSmartPointer<vtkActor>& actorPlaneImage(void){return _actorPlaneImage;}
 private:
   vtkSmartPointer<vtkRenderer>          _renderer;

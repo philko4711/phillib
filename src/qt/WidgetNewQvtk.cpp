@@ -150,8 +150,8 @@ void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
   planeSource->SetOrigin(center.x(), center.y(), center.z());
   planeSource->SetPoint1(point0.x(), point0.y(), point0.z());
   planeSource->SetPoint2(point1.x(), point1.y(), point1.z());
-  planeSource->SetXResolution(10);
-  planeSource->SetYResolution(10);
+  planeSource->SetXResolution(959);
+  planeSource->SetYResolution(1280);
   planeSource->Update();
   
   char color[10 * 10 * 3];
@@ -218,7 +218,7 @@ void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
   this->update();
 }
 
-void WidgetNewQvtk::updatePlaneImage(vtkSmartPointer<vtkActor>& plane, const QImage& image)
+void WidgetNewQvtk::updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& image)
 {
 // char color[10 * 10 * 3];
 //   std::vector<int> rs;
@@ -243,15 +243,15 @@ void WidgetNewQvtk::updatePlaneImage(vtkSmartPointer<vtkActor>& plane, const QIm
 
   vtkSmartPointer<vtkTexture> texture = vtkSmartPointer<vtkTexture>::New();
   vtkSmartPointer<vtkImageImport> imageImport = vtkSmartPointer<vtkImageImport>::New();
-  QByteArray arry;
-  image.save(arry);
+  // QByteArray arry;
+  // image.save(arry);
   imageImport->SetDataSpacing(1, 1, 1);
   imageImport->SetDataOrigin(0, 0, 0);
-  imageImport->SetWholeExtent(0, image.height() - 1, 0, image.width() - 1, 0, 0);
+  imageImport->SetWholeExtent(0, (image.width() - 1), 0, (image.height() - 1), 0, 0);
   imageImport->SetDataExtentToWholeExtent();
   imageImport->SetDataScalarTypeToUnsignedChar();
-  imageImport->SetNumberOfScalarComponents(3);
-  imageImport->SetImportVoidPointer(arry.data());
+  imageImport->SetNumberOfScalarComponents(4);
+  imageImport->SetImportVoidPointer(image.bits());
   imageImport->Update();
   texture->SetInputConnection(imageImport->GetOutputPort());
   plane->SetTexture(texture);
