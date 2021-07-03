@@ -3,6 +3,7 @@
 
 #include "datatypes.h"
 #include <QtWidgets/QWidget>
+#include <memory>
 
 namespace phillib
 {
@@ -22,6 +23,7 @@ public:
   void         setRects(const QVector<QRect>& rects) { _rects = rects; }
   void         setRectsFilled(const QVector<QRectFilled>& rectsFilled) { _rectsFilled = rectsFilled; }
   void         setRectsCustom(const QVector<QRectCustom>& rectsCustom) { _rectsCustom = rectsCustom; }
+  void setImageBackground(const QImage& image);
   // void         addRect(const QRect& var) { _rects.push_back(var); }
   // void         addLine(const QLine& var) { _lines.push_back(var); }
   // void addLineRGB(const QLineRGB& var){_linesRGB.push_back(var);}
@@ -40,6 +42,7 @@ private:
   QVector<QLineRGB>    _linesRGB;
   QVector<QPoint>      _points;
   QVector<QPointRGB>   _pointsRGB;
+  std::unique_ptr<QImage> _imageBackGround = nullptr;
 };
 
 } // namespace qt

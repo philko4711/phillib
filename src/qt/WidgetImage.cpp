@@ -13,6 +13,15 @@ WidgetImage::WidgetImage(QWidget* parent)
   this->setMouseTracking(true);
 }
 
+void WidgetImage::setImageBackground(const QImage& image)
+{
+  if(!_imageBackGround)
+  {
+    _imageBackGround = std::unique_ptr<QImage>(new QImage);
+  }
+  *_imageBackGround = image;
+}
+
 void WidgetImage::drawPoints(QPainter& painter)
 {
   painter.save();
@@ -49,6 +58,8 @@ void WidgetImage::drawPointsRGB(QPainter& painter)
 void WidgetImage::paintEvent(QPaintEvent* event)
 {
   QPainter painter(this);
+  if(_imageBackGround)
+    painter.drawImage(this->rect(), *_imageBackGround, _imageBackGround->rect());
   this->drawPoints(painter);
   this->drawPointsRGB(painter);
   this->drawRects(painter);
