@@ -12,7 +12,9 @@ namespace phillib
     virtual ~Mandelbrot(){}
     void drawMandelbrotSet();
     private:
+      void createPalette(const unsigned int iterationsMax);
       phillib::qt::WidgetImage _gui;
+      std::vector<QColor> _palette;
 };
 }
 #endif
