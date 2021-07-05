@@ -18,6 +18,8 @@ namespace qt
     virtual ~MainWindow(){}
     void drawImage(const QImage& image){_guiUi->widget->setImageBackground(image);}
     void wheelEvent(QWheelEvent* event)override;
+    signals:
+      void magnify(const QPoint& deltaCenter, const QPoint& deltaMagnify);
     private:
       std::unique_ptr<Ui::MainWindow> _guiUi;
 };

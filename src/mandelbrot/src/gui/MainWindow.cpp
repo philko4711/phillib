@@ -16,6 +16,9 @@ void MainWindow::wheelEvent(QWheelEvent* event)
 {
   event->accept();
   qDebug() << __PRETTY_FUNCTION__ << " " << event->angleDelta();
+  QPoint centerDelta = this->rect().center() - event->pos();
+  qDebug() << __PRETTY_FUNCTION__ << " " << centerDelta;
+  emit this->magnify(centerDelta, event->angleDelta());
 }
 
 }
