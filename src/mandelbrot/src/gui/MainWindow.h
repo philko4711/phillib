@@ -6,6 +6,7 @@
 #include "ui_main_window.h"
 #include <memory>
 #include <QtGui/QWheelEvent>
+#include <QtCore/QPointF>
 namespace phillib
 {
 namespace qt
@@ -22,6 +23,7 @@ namespace qt
       void magnify(const QPoint& deltaCenter, const QPoint& deltaMagnify);
     private:
       std::unique_ptr<Ui::MainWindow> _guiUi;
+      QPointF _center = QPointF(0.0, 0.0);
 };
 }
 }

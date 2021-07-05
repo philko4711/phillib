@@ -27,7 +27,6 @@ void Mandelbrot::drawMandelbrotSet()
   {
     for(int j = 0; j < sizeDisplay.width(); j++)
     {
-      // std::cout << __PRETTY_FUNCTION__ << " i j " << i << " " << j << std::endl;
       double               real = static_cast<double>(j) * res - 2.0;
       double               im   = static_cast<double>(i) * res - 2.0;
       const utils::Complex c(real, im);
