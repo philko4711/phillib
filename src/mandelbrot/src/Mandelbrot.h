@@ -3,8 +3,11 @@
 
 #include <QtCore/QObject>
 #include <phillib_qt/WidgetImage.h>
+#include "gui/MainWindow.h"
 namespace phillib
 {
+  namespace qt
+  {
   class Mandelbrot : public QObject
   {
     public:
@@ -13,9 +16,10 @@ namespace phillib
     void drawMandelbrotSet();
     private:
       void createPalette(const unsigned int iterationsMax);
-      phillib::qt::WidgetImage _gui;
+      MainWindow _gui;
       std::vector<QColor> _palette;
 };
+}
 }
 #endif
 

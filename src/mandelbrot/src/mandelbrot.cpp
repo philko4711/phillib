@@ -3,7 +3,7 @@
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
-    phillib::Mandelbrot mandelbrot;
+    phillib::qt::Mandelbrot mandelbrot;
     mandelbrot.drawMandelbrotSet();
     return app.exec();
 }

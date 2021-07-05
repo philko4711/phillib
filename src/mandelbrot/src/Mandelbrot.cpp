@@ -6,6 +6,8 @@
 
 namespace phillib
 {
+namespace qt
+{
 Mandelbrot::Mandelbrot()
 {
   _gui.resize(800, 800);
@@ -18,7 +20,7 @@ void Mandelbrot::drawMandelbrotSet()
   QVector<qt::QPointRGB> pxlsMandelbrot;
   std::vector<uint8_t>   rgbBuf(sizeDisplay.width() * sizeDisplay.height() * 3, 255);
   const double           res          = 4.0 / static_cast<double>(sizeDisplay.width());
-  const int              iterationMax = 255 * 3;
+  const int              iterationMax = 510 * 3;
   this->createPalette(iterationMax);
   // unsigned int ctr = 0;
   for(int i = 0; i < sizeDisplay.height(); i++)
@@ -47,10 +49,10 @@ void Mandelbrot::drawMandelbrotSet()
       //   b = 0;
       // }
       const QColor color = _palette[ctr];
-      r = color.red();
-      g = color.green();
-      b = color.blue();
-      //else if(ctr % )
+      r                  = color.red();
+      g                  = color.green();
+      b                  = color.blue();
+      // else if(ctr % )
       // if(ctr == iterationMax -1)
       // {
       //   r = g = b = 0;
@@ -84,13 +86,13 @@ void Mandelbrot::drawMandelbrotSet()
     /* code */
   }
   QImage image(rgbBuf.data(), sizeDisplay.width(), sizeDisplay.height(), QImage::Format_RGB888);
-  _gui.setImageBackground(image);
+  _gui.drawImage(image);
   _gui.update();
 }
 
 void Mandelbrot::createPalette(const unsigned int iterationsMax)
 {
-  //const unsigned int n = static_cast<unsigned int>(std::ceil(static_cast<double>(iterationsMax) / 3.0));
+  // const unsigned int n = static_cast<unsigned int>(std::ceil(static_cast<double>(iterationsMax) / 3.0));
   std::vector<int> r;
   std::vector<int> g;
   std::vector<int> b;
@@ -103,5 +105,5 @@ void Mandelbrot::createPalette(const unsigned int iterationsMax)
   }
   std::cout << __PRETTY_FUNCTION__ << " created random palette with " << _palette.size() << " entries for " << iterationsMax << " iterations" << std::endl;
 }
-
+} // namespace qt
 } // namespace phillib
