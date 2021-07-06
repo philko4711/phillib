@@ -3,6 +3,7 @@
 #include <phillib_utils/Complex.h>
 #include <phillib_utils/random.h>
 #include <vector>
+#include <QtCore/QDebug>
 
 namespace phillib
 {
@@ -12,27 +13,28 @@ Mandelbrot::Mandelbrot()
 {
   _gui.resize(800, 800);
   _gui.show();
+  connect(&_gui, SIGNAL(magnify(const QPoint&, const QPoint&)), this, SLOT(magnify(const QPoint&, const QPoint&)));
+  _res          = 4.0 / static_cast<double>(_gui.rect().width());
+  _center = QPointF(static_cast<double>(_gui.rect().width() / 2) * _res, static_cast<double>(_gui.rect().height() / 2) * _res);
+  _threshIterations = 100;
+  this->createPalette(_threshIterations);
+  _rgbBuf.resize(_gui.rect().width() * _gui.rect().height() * 3, 255);
 }
 
 void Mandelbrot::drawMandelbrotSet()
 {
   QRect                  sizeDisplay = _gui.rect();
-  QVector<qt::QPointRGB> pxlsMandelbrot;
-  std::vector<uint8_t>   rgbBuf(sizeDisplay.width() * sizeDisplay.height() * 3, 255);
-  const double           res          = 4.0 / static_cast<double>(sizeDisplay.width());
-  const int              iterationMax = 510 * 3;
-  this->createPalette(iterationMax);
-  // unsigned int ctr = 0;
+  
   for(int i = 0; i < sizeDisplay.height(); i++)
   {
     for(int j = 0; j < sizeDisplay.width(); j++)
     {
-      double               real = static_cast<double>(j) * res - 2.0;
-      double               im   = static_cast<double>(i) * res - 2.0;
+      double               real = static_cast<double>(j) * _res - _center.x();
+      double               im   = static_cast<double>(i) * _res - _center.y();
       const utils::Complex c(real, im);
       utils::Complex       z_n(0.0, 0.0);
       int                  ctr = 0;
-      for(int k = 0; k < iterationMax; k++, ctr++)
+      for(int k = 0; k < _threshIterations; k++, ctr++)
       {
         z_n = z_n * z_n + c;
         if(z_n.abs() > 2.0)
@@ -41,52 +43,30 @@ void Mandelbrot::drawMandelbrotSet()
       uint8_t r = 0;
       uint8_t g = 0;
       uint8_t b = 0;
-      // if(ctr < 255)
-      // {
-      //   r = ctr;
-      //   g = 0;
-      //   b = 0;
-      // }
       const QColor color = _palette[ctr];
       r                  = color.red();
       g                  = color.green();
       b                  = color.blue();
-      // else if(ctr % )
-      // if(ctr == iterationMax -1)
-      // {
-      //   r = g = b = 0;
-      // }
-      // else
-      // if(ctr < iterationMax)
-      // {
-      //   r = ctr - iterationMax;
-      // }
-      // else if(ctr < iterationMax + 255)
-      // {
-      //   r = 0;
-      //   g = 0;
-      //   b = ctr - iterationMax;
-      // }
-      // else
-      // {
-      //   r = 0;
-      //   g = 0;
-      //   b = 0;
-      //}
+      
       const int idx       = i * sizeDisplay.width() + j;
-      rgbBuf[3 * idx + 0] = r;
-      rgbBuf[3 * idx + 1] = g;
-      rgbBuf[3 * idx + 2] = b;
-      // std::cout << __PRETTY_FUNCTION__ << " i j im re " << i << " " << j << " " << real << " " << im << std::endl;
-      // if(ctr >= 10)
-      //   std::abort();
+      _rgbBuf[3 * idx + 0] = r;
+      _rgbBuf[3 * idx + 1] = g;
+      _rgbBuf[3 * idx + 2] = b; 
     }
-
-    /* code */
   }
-  QImage image(rgbBuf.data(), sizeDisplay.width(), sizeDisplay.height(), QImage::Format_RGB888);
+  QImage image(_rgbBuf.data(), sizeDisplay.width(), sizeDisplay.height(), QImage::Format_RGB888);
   _gui.drawImage(image);
   _gui.update();
+}
+
+void Mandelbrot::magnify(const QPoint& deltaCenter, const QPoint& deltaMagnify)
+{
+  _center = _center - QPointF(static_cast<double>(deltaCenter.x()) * _res, static_cast<double>(deltaCenter.y()) * _res);//QPointF deltaReal = _center
+  if(deltaMagnify.y() > 0)
+  _res /= 2.0;
+  else
+    _res *= 2.0;
+  this->drawMandelbrotSet();
 }
 
 void Mandelbrot::createPalette(const unsigned int iterationsMax)

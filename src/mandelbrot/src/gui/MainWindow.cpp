@@ -15,9 +15,9 @@ MainWindow::MainWindow():_guiUi(std::unique_ptr<Ui::MainWindow>(new Ui::MainWind
 void MainWindow::wheelEvent(QWheelEvent* event)
 {
   event->accept();
-  qDebug() << __PRETTY_FUNCTION__ << " " << event->angleDelta();
-  QPoint centerDelta = this->rect().center() - event->pos();
-  qDebug() << __PRETTY_FUNCTION__ << " " << centerDelta;
+  //qDebug() << __PRETTY_FUNCTION__ << " " << event->angleDelta();
+  QPoint centerDelta = event->pos() - this->rect().center();
+  //qDebug() << __PRETTY_FUNCTION__ << " " << centerDelta;
   emit this->magnify(centerDelta, event->angleDelta());
 }
 

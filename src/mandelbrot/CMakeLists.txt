@@ -24,7 +24,7 @@ add_definitions(${Qt5Widgets_DEFINITIONS})
 
 set(MOC_MANDELBROT
                 src/gui/MainWindow.h
-
+                src/Mandelbrot.h
               )
 set(UI_MANDELBROT src/gui/main_window.ui)
 
