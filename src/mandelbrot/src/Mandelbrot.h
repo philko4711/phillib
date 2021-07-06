@@ -17,6 +17,7 @@ namespace phillib
     void drawMandelbrotSet();
     public slots:
       void magnify(const QPoint& deltaCenter, const QPoint& deltaMagnify);
+      void magnify(const QRect& region);
     private:
       void createPalette(const unsigned int iterationsMax);
       MainWindow _gui;

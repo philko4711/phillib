@@ -14,6 +14,7 @@ Mandelbrot::Mandelbrot()
   _gui.resize(800, 800);
   _gui.show();
   connect(&_gui, SIGNAL(magnify(const QPoint&, const QPoint&)), this, SLOT(magnify(const QPoint&, const QPoint&)));
+  connect(&_gui, SIGNAL(magnify(const QRect&)), this, SLOT(magnify(const QRect&)));
   _res          = 4.0 / static_cast<double>(_gui.rect().width());
   _center = QPointF(static_cast<double>(_gui.rect().width() / 2) * _res, static_cast<double>(_gui.rect().height() / 2) * _res);
   _threshIterations = 100;
@@ -84,5 +85,15 @@ void Mandelbrot::createPalette(const unsigned int iterationsMax)
   }
   std::cout << __PRETTY_FUNCTION__ << " created random palette with " << _palette.size() << " entries for " << iterationsMax << " iterations" << std::endl;
 }
+
+void Mandelbrot::magnify(const QRect& region)
+{
+  qDebug() << __PRETTY_FUNCTION__ << "";
+  QRect regionQuad = region;
+  regionQuad.setWidth(regionQuad.height());
+  QPointF centerNew = static_cast<QPointF>(regionQuad.center()) * _res - _center;
+  qDebug() << __PRETTY_FUNCTION__ << "centernew " << centerNew;
+}
+
 } // namespace qt
 } // namespace phillib

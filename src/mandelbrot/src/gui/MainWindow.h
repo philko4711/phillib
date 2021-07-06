@@ -19,11 +19,16 @@ namespace qt
     virtual ~MainWindow(){}
     void drawImage(const QImage& image){_guiUi->widget->setImageBackground(image);}
     void wheelEvent(QWheelEvent* event)override;
+    void mousePressEvent(QMouseEvent* event)override;
+    void mouseReleaseEvent(QMouseEvent* event)override;
+    void mouseMoveEvent(QMouseEvent* event)override;
     signals:
       void magnify(const QPoint& deltaCenter, const QPoint& deltaMagnify);
+      void magnify(const QRect& region);
     private:
       std::unique_ptr<Ui::MainWindow> _guiUi;
       QPointF _center = QPointF(0.0, 0.0);
+      QRect* _magnifier = nullptr;
 };
 }
 }
