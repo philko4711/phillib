@@ -95,6 +95,7 @@ generate_dynamic_reconfigure_options(
    cfg/ReconfigureFrameChanger.cfg
    cfg/ReconfigureStatTf.cfg
    cfg/ReconfigureCropBoxFilter.cfg
+   cfg/ReconfigureFilterDepth.cfg
  )
 
 ###################################
@@ -143,6 +144,7 @@ add_executable(cloud_transformer_tf src/cloud_transformer_tf.cpp)
 add_executable(static_tf_recon src/static_tf_recon.cpp)
 add_executable(cropbox_filter src/cropbox_filter.cpp)
 add_executable(cloud_saver src/cloud_saver.cpp)
+add_executable(filter_depth src/filter_depth.cpp)
 #add_executable(cloud_topic_frame_adjust src/cloud_topic_frame_adjust.cpp)
 
 ## Rename C++ executable without prefix
@@ -178,6 +180,10 @@ add_executable(cloud_saver src/cloud_saver.cpp)
 
  target_link_libraries(cloud_saver
  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(filter_depth
+${catkin_LIBRARIES}
 )
 
 #target_link_libraries(cloud_topic_frame_adjust
