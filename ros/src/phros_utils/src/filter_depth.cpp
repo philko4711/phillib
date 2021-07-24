@@ -51,6 +51,7 @@ void callBackCloud(const sensor_msgs::PointCloud2& cloud)
     sensor_msgs::convertPointCloudToPointCloud2(cloudOut, cloud2Out);
     cloud2Out.header.stamp = ros::Time::now();
     cloud2Out.header.seq = seq++;
+    cloud2Out.header.frame_id = cloud.header.frame_id;
     _pubCloud.publish(cloud2Out);
   }
 }
