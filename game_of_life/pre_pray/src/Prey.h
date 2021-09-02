@@ -17,6 +17,7 @@ namespace game_of_life
     virtual ~Prey();
     std::shared_ptr<Prey> ptr(){return shared_from_this();}
     virtual uint8_t health(void)const;
+    virtual void iterate();
     private:
       float _health;
 };
