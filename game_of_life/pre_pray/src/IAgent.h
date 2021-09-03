@@ -10,6 +10,11 @@ namespace game_of_life
   class IAgent
   {
     public:
+    enum class Agent
+    {
+      Prey=0,
+      Predator
+    };
     IAgent();
     virtual ~IAgent();
     virtual void iterate()=0;

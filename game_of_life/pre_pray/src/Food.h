@@ -16,6 +16,7 @@ namespace game_of_life
     virtual ~Food();
     std::shared_ptr<Food> ptr(){return shared_from_this();}
     virtual uint8_t health(void)const;
+    void wither();
     private:
       unsigned int _amount;
 };

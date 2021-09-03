@@ -4,7 +4,7 @@ namespace phillib
 {
 namespace game_of_life
 {
-Food::Food()
+Food::Food():_amount(100)
   {
   }
 
