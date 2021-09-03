@@ -4,6 +4,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <phillib_qt/WidgetImage.h>
+#include "IObjectMap.h"
 namespace phillib
 {
 namespace game_of_life
@@ -13,6 +14,7 @@ namespace game_of_life
     public:
     MainWIndow();
     virtual ~MainWIndow();
+    void updateMapObjects(const std::vector<IObj)
     private:
       phillib::qt::WidgetImage _gui;
 };

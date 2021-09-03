@@ -4,6 +4,7 @@
 #include "Food.h"
 #include "IAgent.h"
 #include "Map.h"
+#include "gui/MainWIndow.h"
 #include <QtCore/QObject>
 #include <memory>
 #include <vector>
@@ -24,6 +25,7 @@ private slots:
   Map _map;
   std::vector<std::shared_ptr<IAgent>> _agents;
   std::vector<std::shared_ptr<Food>> _food;
+  MainWIndow _gui;
 };
 } // namespace game_of_life
 } // namespace phillib
