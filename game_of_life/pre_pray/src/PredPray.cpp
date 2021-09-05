@@ -1,5 +1,6 @@
 #include "PredPray.h"
 #include <phillib_utils/random.h>
+#include <QtCore/QDebug>
 
 namespace phillib {
 namespace game_of_life {

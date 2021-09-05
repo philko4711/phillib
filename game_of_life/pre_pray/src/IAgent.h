@@ -15,8 +15,8 @@ namespace game_of_life
       Prey=0,
       Predator
     };
-    IAgent();
-    virtual ~IAgent();
+    IAgent(){}
+    virtual ~IAgent(){}
     virtual void iterate()=0;
 };
 }

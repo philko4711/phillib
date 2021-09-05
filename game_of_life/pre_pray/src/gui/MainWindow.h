@@ -12,9 +12,10 @@ namespace game_of_life
   class MainWIndow : public QMainWindow
   {
     public:
+    
     MainWIndow();
-    virtual ~MainWIndow();
-    void updateMapObjects(const std::vector<IObj)
+    virtual ~MainWIndow(){}
+    void updateMapObjects(const QPoint& pos, const std::vector<IObjectMap>& mapObjects);
     private:
       phillib::qt::WidgetImage _gui;
 };

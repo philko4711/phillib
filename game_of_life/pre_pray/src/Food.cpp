@@ -8,6 +8,9 @@ Food::Food():_amount(100)
   {
   }
 
+void Food::wither()
+{
 
+}
 }
 }

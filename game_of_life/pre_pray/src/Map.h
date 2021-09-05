@@ -15,7 +15,7 @@ namespace game_of_life
   {
     public:
     Map(const unsigned int height, const unsigned int width);
-    virtual ~Map();
+    virtual ~Map(){}
     bool set(const QPoint& idcs, std::shared_ptr<IObjectMap> ptr);
     std::shared_ptr<IObjectMap> get(const QPoint& idcs);
     const QRect& sizeMap(void)const{return _sizeMap;}
