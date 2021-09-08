@@ -15,7 +15,7 @@ namespace game_of_life
     
     MainWIndow();
     virtual ~MainWIndow(){}
-    void updateMapObjects(const QPoint& pos, const std::vector<IObjectMap>& mapObjects);
+    void updateMapObjects(std::vector<std::shared_ptr<IObjectMap> >& mapObjects);
     private:
       phillib::qt::WidgetImage _gui;
 };

@@ -55,6 +55,7 @@ src/PredPray.cpp
 src/Map.cpp
 src/Prey.cpp 
 src/Food.cpp
+src/ObjectMap.cpp
 src/gui/MainWindow.cpp
 #                       src/gui/MainWindow.cpp
 #                       src/gui/WidgetImage.cpp

@@ -4,7 +4,7 @@ namespace phillib
 {
 namespace game_of_life
 {
-Prey::Prey()
+Prey::Prey(const QPoint& pos):ObjectMap(pos)
   {
   }
 

@@ -29,6 +29,7 @@ private slots:
   Map                                   _map;
   std::vector<std::shared_ptr<IAgent> > _agents;
   std::vector<std::shared_ptr<Food> >   _food;
+  std::vector<std::shared_ptr<IObjectMap> > _objectsMap;
   MainWIndow                            _gui;
 };
 } // namespace game_of_life

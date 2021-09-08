@@ -2,6 +2,7 @@
 #define PHILLIB_GAME_OF_LIFE_IOBJECTMAP_H_
 
 #include <cinttypes>
+#include <QtCore/QPoint>
 
 namespace phillib
 {
@@ -25,6 +26,7 @@ enum class Type
    */
   virtual uint8_t health(void)const=0;
   virtual Type type(void)const=0;
+  virtual const QPoint& pos(void)const=0;
 };
 } // namespace game_of_life
 } // namespace phillib

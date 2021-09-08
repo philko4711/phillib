@@ -2,17 +2,17 @@
 #define PHILLIB_GAME_OF_LIFE_FOOD_H_
 
 
-#include "IObjectMap.h"
+#include "ObjectMap.h"
 #include <memory>
 
 namespace phillib
 {
 namespace game_of_life
 {
-  class Food : public IObjectMap, std::enable_shared_from_this<Food>
+  class Food : public ObjectMap, std::enable_shared_from_this<Food>
   {
     public:
-    Food();
+    Food(const QPoint& pos);
     virtual ~Food(){}
     std::shared_ptr<Food> ptr(){return shared_from_this();}
     virtual uint8_t health(void)const{return 100;}

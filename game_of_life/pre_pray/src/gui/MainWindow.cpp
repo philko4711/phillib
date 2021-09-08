@@ -6,22 +6,22 @@ namespace game_of_life
 {
 MainWIndow::MainWIndow() {}
 
-void MainWIndow::updateMapObjects(const QPoint& pos, const std::vector<IObjectMap>& mapObjects)
+void MainWIndow::updateMapObjects(std::vector<std::shared_ptr<IObjectMap> >& mapObjects)
 {
   std::vector<qt::QPointRGB> points;
   for(auto& iter : mapObjects)
   {
     QColor color;
-    if(iter.type() == IObjectMap::Type::FOOD)
+    if(iter->type() == IObjectMap::Type::FOOD)
     {
       color = Qt::green;
     }
-    else if(iter.type() == IObjectMap::Type::PREY)
+    else if(iter->type() == IObjectMap::Type::PREY)
     {
       color = Qt::blue;
     }
-    color.setAlphaF(static_cast<double>(iter.health()) / 100.0);
-    qt::QPointRGB point(pos, color, 10);
+    color.setAlphaF(static_cast<double>(iter->health()) / 100.0);
+    qt::QPointRGB point(iter->pos(), color, 10);
     points.push_back(point);
   }
   _gui.setPointsRGB(QVector<qt::QPointRGB>::fromStdVector(points));

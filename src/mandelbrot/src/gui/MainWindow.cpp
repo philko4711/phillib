@@ -50,6 +50,8 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
   if(_magnifier)
   {
     _magnifier->setBottomRight(event->pos());
+    _magnifier->setWidth(_magnifier->height()); //toDo: for future add correct ratio
+      
     QVector<QRect> rects;
     rects.push_back(*_magnifier);
     _guiUi->widget->setRects(rects);
