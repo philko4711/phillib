@@ -6,6 +6,7 @@
 #include "Map.h"
 #include "gui/MainWindow.h"
 #include <QtCore/QObject>
+#include <QtCore/QTimer>
 #include <memory>
 #include <vector>
 
@@ -30,7 +31,8 @@ private slots:
   std::vector<std::shared_ptr<IAgent> > _agents;
   std::vector<std::shared_ptr<Food> >   _food;
   std::vector<std::shared_ptr<IObjectMap> > _objectsMap;
-  MainWIndow                            _gui;
+  MainWindow                            _gui;
+  QTimer _timerMain;
 };
 } // namespace game_of_life
 } // namespace phillib

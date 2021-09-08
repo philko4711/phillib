@@ -9,15 +9,16 @@ namespace phillib
 {
 namespace game_of_life
 {
-  class MainWIndow : public QMainWindow
+  class MainWindow : public QMainWindow
   {
     public:
     
-    MainWIndow();
-    virtual ~MainWIndow(){}
+    MainWindow();
+    virtual ~MainWindow(){}
     void updateMapObjects(std::vector<std::shared_ptr<IObjectMap> >& mapObjects);
     private:
       phillib::qt::WidgetImage _gui;
+
 };
 }
 }
