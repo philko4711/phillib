@@ -15,10 +15,11 @@ namespace game_of_life
     Food(const QPoint& pos);
     virtual ~Food(){}
     std::shared_ptr<Food> ptr(){return shared_from_this();}
-    virtual uint8_t health(void)const{return 100;}
+    virtual uint8_t health(void)const;//{return 100;}
     virtual Type type(void)const{return IObjectMap::Type::FOOD;}
-    void wither();
+    unsigned int wither();
     private:
+      void spread();
       unsigned int _amount;
 };
 }

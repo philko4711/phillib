@@ -1,6 +1,6 @@
 #include "PredPray.h"
-#include <phillib_utils/random.h>
 #include <QtCore/QDebug>
+#include <phillib_utils/random.h>
 
 #include "ObjectMap.h"
 
@@ -9,14 +9,13 @@ namespace game_of_life {
 PredPray::PredPray() : _map(600, 600) {
   _gui.resize(600, 600);
   _gui.show();
-  for(unsigned int i =0; i < 10; i++)
+  for (unsigned int i = 0; i < 10; i++)
     this->seedFoodRandom();
-  connect(&_timerMain, SIGNAL(timeout()), this, SLOT(loopMain()));  
+  connect(&_timerMain, SIGNAL(timeout()), this, SLOT(loopMain()));
   _timerMain.start(20);
 }
 
-void PredPray::seedFoodRandom() 
-{
+void PredPray::seedFoodRandom() {
   const QRect &sizeMap = _map.sizeMap();
   std::vector<int> valsX;
   phillib::utils::randomInts(1, valsX, sizeMap.topLeft().x(), sizeMap.width());
@@ -30,19 +29,34 @@ void PredPray::seedFoodRandom()
 }
 
 void PredPray::loopMain() {
-  qDebug() << __PRETTY_FUNCTION__ << "entry";
-  std::vector<std::shared_ptr<IObjectMap> > mapObjects;
-  for (auto &iter : _food)
-  {
-    iter->wither();
-    mapObjects.push_back(iter);
+
+  std::vector<std::shared_ptr<IObjectMap>> mapObjects;
+  qDebug() << __PRETTY_FUNCTION__ << "foood size " << _food.size();
+  for (auto iter = _food.begin(); iter < _food.end(); iter++) {
+    unsigned int amount = (*iter)->wither();
+    if (amount <= 1) {
+      qDebug() << __PRETTY_FUNCTION__ << "spread";
+      for (int i = (*iter)->pos().y() - 1; i < (*iter)->pos().y() + 1; i++) {
+        for (int j = (*iter)->pos().x() - 1; j < (*iter)->pos().x() + 1; j++) {
+          qDebug() << __PRETTY_FUNCTION__ << "here";
+
+          if ((i == (*iter)->pos().y()) || j == (*iter)->pos().x() || i < 0 ||
+              j < 0 || i >= _map.sizeMap().y() || j >= _map.sizeMap().x())
+            continue;
+          auto ptr = std::make_shared<Food>(QPoint(j, i));
+          _map.set(QPoint(j, i), ptr);
+          mapObjects.push_back(ptr);
+          _food.push_back(ptr);
+        }
+      }
+      iter = _food.erase(iter);
+    } else
+      mapObjects.push_back(*iter);
   }
-  for (auto &iter : _agents)
-  {
+  for (auto &iter : _agents) {
     iter->iterate();
     mapObjects.push_back(std::dynamic_pointer_cast<IObjectMap>(iter));
   }
-  qDebug() << __PRETTY_FUNCTION__ << " Gui will draw " << mapObjects.size() << " objects";
   _gui.updateMapObjects(mapObjects);
 }
 } // namespace game_of_life
