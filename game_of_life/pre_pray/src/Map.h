@@ -6,6 +6,7 @@
 #include "IObjectMap.h"
 #include <QtCore/QPoint>
 #include <QtCore/QRect>
+#include <QtGui/QImage>
 
 namespace phillib
 {
@@ -20,6 +21,7 @@ namespace game_of_life
     std::shared_ptr<IObjectMap> get(const QPoint& idcs);
     const QRect& sizeMap(void)const{return _sizeMap;}
 //    unsigned int getAllMapObjects(std::vector<std::shared_ptr<IObjectMap> >& objects);
+    std::shared_ptr<QImage> imageMap();
     private:
       QRect _sizeMap;
       std::vector<std::weak_ptr<IObjectMap> > _map;

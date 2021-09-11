@@ -18,13 +18,15 @@ void MainWindow::updateMapObjects(
     } else if (iter->type() == IObjectMap::Type::PREY) {
       color = Qt::blue;
     }
+    // else
+    // qDebug() << __PRETTY_FUNCTION__ << "hu?";
     int health = iter->health();
     color.setAlphaF(static_cast<double>(iter->health()) / 100.0);
     qt::QPointRGB point(iter->pos(), color, 1);
-    // qDebug() << __PRETTY_FUNCTION__ << " point at " << iter->pos() << " with "
-    //          << color;
+    //qDebug() << __PRETTY_FUNCTION__ << " point at " << iter->pos();
     points.push_back(point);
   }
+  //qDebug() << __PRETTY_FUNCTION__ << " draw " << points.size();
   _gui.setPointsRGB(QVector<qt::QPointRGB>::fromStdVector(points));
   _gui.update();
   this->update();

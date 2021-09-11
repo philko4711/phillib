@@ -8,7 +8,7 @@ SET(CMAKE_BUILD_TYPE DEBUG)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} -O0 -Wall -mtune=native") # 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} -O2 -Wall -mtune=native") # 
  
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)

@@ -32,61 +32,71 @@ void PredPray::loopMain() {
 
   std::vector<std::shared_ptr<IObjectMap>> mapObjects;
   std::vector<std::vector<std::shared_ptr<Food>>::iterator> toDelete;
-  qDebug() << __PRETTY_FUNCTION__ << "foood size " << _food.size();
-  for (auto iter = _food.begin(); iter < _food.end(); iter++) {
+  std::vector<QPoint> seed;
+  // qDebug() << __PRETTY_FUNCTION__ << "foood size " << _food.size();
+  auto iter = _food.begin();
+  for (iter = _food.begin(); iter < _food.end(); iter++) {
     unsigned int amount = (*iter)->wither();
     if (amount <= 1) {
-      qDebug() << __PRETTY_FUNCTION__ << "todelete";
-      toDelete.push_back(iter);
-      // auto pos = (*iter)->pos();
-      // for (int i = (*iter)->pos().y() - 1; i < (*iter)->pos().y() + 1; i++) {
-      //   for (int j = (*iter)->pos().x() - 1; j < (*iter)->pos().x() + 1; j++)
-      //   {
-      //     qDebug() << __PRETTY_FUNCTION__ << "here";
-      //     auto mapSize = _map.sizeMap();
-      //     if ( ((i == (*iter)->pos().y()) && j == (*iter)->pos().x()) || i <
-      //     0 ||
-      //         j < 0 || i >= _map.sizeMap().height() || j >=
-      //         _map.sizeMap().width())
-      //       continue;
-      //     auto ptr = std::make_shared<Food>(QPoint(j, i));
-      //     _map.set(QPoint(j, i), ptr);
-      //     mapObjects.push_back(ptr);
-      //     _food.push_back(ptr);
-      //   }
-      // }
-      //_food.erase(iter);
+      // qDebug() << __PRETTY_FUNCTION__ << "todelete";
+      // toDelete.push_back(iter);
+      seed.push_back((*iter)->pos());
+      _food.erase(iter);
+
     } else
       mapObjects.push_back(*iter);
   }
-  if (toDelete.size()) {
-    for (auto &iter : toDelete) {
-      auto pos = (*iter)->pos();
-      qDebug() << __PRETTY_FUNCTION__ << "pos " << pos;
-      for (int i = (*iter)->pos().y() - 1; i <= (*iter)->pos().y() + 1; i++) {
-        for (int j = (*iter)->pos().x() - 1; j <= (*iter)->pos().x() + 1; j++) {
-          auto mapSize = _map.sizeMap();
-          if (((i == (*iter)->pos().y()) && j == (*iter)->pos().x()) || i < 0 ||
-              j < 0 || i >= _map.sizeMap().height() ||
-              j >= _map.sizeMap().width())
-            continue;
-          auto ptr = std::make_shared<Food>(QPoint(j, i));
-          _map.set(QPoint(j, i), ptr);
-          mapObjects.push_back(ptr);
-          _food.push_back(ptr);
-        }
+  // if (toDelete.size()) {
+  //   qDebug() << __PRETTY_FUNCTION__ << toDelete.size() <<" to clear ";
+  //   //for (auto& iter : toDelete)
+  //   for(unsigned int i = 0;  i< toDelete.size(); i++)
+  //   {
+  //     auto iter = toDelete[i];
+  //     //qDebug() << __PRETTY_FUNCTION__ << "spawning & deleteing  for  " << ;
+  //     auto pos = (*iter)->pos();
+  //     qDebug() << __PRETTY_FUNCTION__ << " spawning & deleteing  for pos " <<
+  //     pos; for (int i = pos.y() - 1; i <= pos.y() + 1; i++) {
+  //       for (int j = pos.x() - 1; j <= pos.x() + 1; j++) {
+  //         auto mapSize = _map.sizeMap();
+  //         if (((i == pos.y()) && j == pos.x()) || i < 0 ||
+  //             j < 0 || i >= _map.sizeMap().height() ||
+  //             j >= _map.sizeMap().width())
+  //           continue;
+  //         auto ptr = std::make_shared<Food>(QPoint(j, i));
+  //         _map.set(QPoint(j, i), ptr);
+  //         mapObjects.push_back(ptr);
+  //         _food.push_back(ptr);
+  //       }
 
+  //     }
+  //   //  qDebug() << __PRETTY_FUNCTION__ << " to erase : " << (*iter)->pos();
+  //     _food.erase(toDelete[i]);
+  //   }
+  for (auto &iter : seed) {
+    auto pos = iter;
+    // qDebug() << __PRETTY_FUNCTION__ << " spawning for pos " << pos;
+    for (int i = pos.y() - 1; i <= pos.y() + 1; i++) {
+      for (int j = pos.x() - 1; j <= pos.x() + 1; j++) {
+        auto mapSize = _map.sizeMap();
+        if (((i == pos.y()) && j == pos.x()) || i < 0 || j < 0 ||
+            i >= _map.sizeMap().height() || j >= _map.sizeMap().width())
+          continue;
+        if (_map.get(QPoint(j, i)))
+          continue;
+        auto ptr = std::make_shared<Food>(QPoint(j, i));
+        _map.set(QPoint(j, i), ptr);
+        mapObjects.push_back(ptr);
+        _food.push_back(ptr);
       }
-      qDebug() << __PRETTY_FUNCTION__ << " to erase : " << (*iter)->pos();
-      _food.erase(iter);
     }
-    
   }
   for (auto &iter : _agents) {
     iter->iterate();
     mapObjects.push_back(std::dynamic_pointer_cast<IObjectMap>(iter));
   }
+  // qDebug() << __PRETTY_FUNCTION__ << " update gui iwth " <<
+  // mapObjects.size();
   _gui.updateMapObjects(mapObjects);
-}
+} // namespace game_of_life
 } // namespace game_of_life
 } // namespace phillib
