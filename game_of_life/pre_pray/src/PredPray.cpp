@@ -96,7 +96,9 @@ void PredPray::loopMain() {
   }
   // qDebug() << __PRETTY_FUNCTION__ << " update gui iwth " <<
   // mapObjects.size();
-  _gui.updateMapObjects(mapObjects);
+  //_gui.updateMapObjects(mapObjects);
+  _gui.setImageBackground(_map.imageMap());
+  _gui.update();
 } // namespace game_of_life
 } // namespace game_of_life
 } // namespace phillib
