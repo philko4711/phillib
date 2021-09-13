@@ -1,5 +1,6 @@
 #include "Map.h"
 #include <cmath>
+#include <QtCore/QDebug>
 namespace phillib {
 namespace game_of_life {
 Map::Map(const unsigned int height, const unsigned int width)
@@ -52,6 +53,20 @@ std::shared_ptr<QImage> Map::imageMap() {
       }
     }
     return std::make_shared<QImage>(bufr.data(), _sizeMap.width(), _sizeMap.height(), QImage::Format_RGB888);
+}
+
+unsigned int Map::adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx)
+{
+  qDebug() << __PRETTY_FUNCTION__ << "";
+  for(unsigned int i = idx.y() - 1; i <= idx.y() + 1; i++)
+    for(unsigned int j = idx.x() - 1; j <= idx.x() + 1; j++)
+    {
+      if ((idx.x() > _sizeMap.width()) || (idx.y() > _sizeMap.height()) ||
+      (idx.x() < 0) || (idx.y() < 0))
+         continue; // Todo: Recalculate index 
+         adjacent.push_back(_map[idx.y() * _sizeMap.width() + j]);
+    }
+    return adjacent.size();
 }
 
 } // namespace game_of_life

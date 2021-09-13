@@ -30,13 +30,20 @@ void PredPray::seedFoodRandom() {
 
 void PredPray::loopMain() {
 
+qDebug() << __PRETTY_FUNCTION__ << "";
   std::vector<std::shared_ptr<IObjectMap>> mapObjects;
   std::vector<std::vector<std::shared_ptr<Food>>::iterator> toDelete;
   std::vector<QPoint> seed;
   // qDebug() << __PRETTY_FUNCTION__ << "foood size " << _food.size();
   auto iter = _food.begin();
   for (iter = _food.begin(); iter < _food.end(); iter++) {
-    unsigned int amount = (*iter)->wither();
+    std::vector<std::weak_ptr<IObjectMap> > adj;
+    _map.adjacent(adj, (*iter)->pos());
+     unsigned int ctr= 0;
+    for(auto& oter : adj)
+      if(oter.lock())
+        ctr++;
+    unsigned int amount = (*iter)->wither(ctr);
     if (amount <= 1) {
       // qDebug() << __PRETTY_FUNCTION__ << "todelete";
       // toDelete.push_back(iter);
@@ -46,6 +53,7 @@ void PredPray::loopMain() {
     } else
       mapObjects.push_back(*iter);
   }
+  qDebug() << __PRETTY_FUNCTION__ << " 2";
   // if (toDelete.size()) {
   //   qDebug() << __PRETTY_FUNCTION__ << toDelete.size() <<" to clear ";
   //   //for (auto& iter : toDelete)
@@ -72,6 +80,7 @@ void PredPray::loopMain() {
   //   //  qDebug() << __PRETTY_FUNCTION__ << " to erase : " << (*iter)->pos();
   //     _food.erase(toDelete[i]);
   //   }
+  qDebug() << __PRETTY_FUNCTION__ << "3";
   for (auto &iter : seed) {
     auto pos = iter;
     // qDebug() << __PRETTY_FUNCTION__ << " spawning for pos " << pos;
@@ -90,6 +99,7 @@ void PredPray::loopMain() {
       }
     }
   }
+  qDebug() << __PRETTY_FUNCTION__ << "4";
   for (auto &iter : _agents) {
     iter->iterate();
     mapObjects.push_back(std::dynamic_pointer_cast<IObjectMap>(iter));

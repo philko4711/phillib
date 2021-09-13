@@ -11,9 +11,15 @@ Food::Food(const QPoint& pos):ObjectMap(pos),_amount(10), _amountInitial(10.0f)
     //qDebug() << __PRETTY_FUNCTION__ << "new food " << pos;
   }
 
-unsigned int Food::wither()
+unsigned int Food::wither(const unsigned int nFreeNeighbours)
 {
-  return --_amount;
+  qDebug() << __PRETTY_FUNCTION__ << "";
+   unsigned int subs = 9 - nFreeNeighbours;
+   if(subs > _amount)
+    _amount = 0;
+  else  
+    _amount -= subs;
+  return _amount;
 }
 
 uint8_t Food::health(void)const

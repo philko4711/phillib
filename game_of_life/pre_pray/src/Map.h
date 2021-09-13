@@ -20,6 +20,7 @@ namespace game_of_life
     bool set(const QPoint& idcs, std::shared_ptr<IObjectMap> ptr);
     std::shared_ptr<IObjectMap> get(const QPoint& idcs);
     const QRect& sizeMap(void)const{return _sizeMap;}
+    unsigned int adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx); 
 //    unsigned int getAllMapObjects(std::vector<std::shared_ptr<IObjectMap> >& objects);
     std::shared_ptr<QImage> imageMap();
     private:

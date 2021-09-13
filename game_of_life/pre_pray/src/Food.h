@@ -18,7 +18,7 @@ namespace game_of_life
     std::shared_ptr<Food> ptr(){return shared_from_this();}
     virtual uint8_t health(void)const;//{return 100;}
     virtual Type type(void)const{return IObjectMap::Type::FOOD;}
-    unsigned int wither();
+    unsigned int wither(const unsigned int nFreeNeighbours = 8);
     private:
       void spread();
       unsigned int _amount;
