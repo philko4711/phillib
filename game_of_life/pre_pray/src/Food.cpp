@@ -24,6 +24,7 @@ unsigned int Food::wither(const unsigned int nFreeNeighbours)
 
 uint8_t Food::health(void)const
 {
+  qDebug() << __PRETTY_FUNCTION__ << "";
   float amount = static_cast<float>(_amount); 
   return static_cast<uint8_t>(std::round((amount / _amountInitial) * 100.0f));
   }

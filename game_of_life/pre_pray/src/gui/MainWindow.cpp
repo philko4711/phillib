@@ -10,9 +10,10 @@ MainWindow::MainWindow() : _gui(this) {
 }
 
 void MainWindow::updateMapObjects(
+  
     std::vector<std::shared_ptr<IObjectMap>> &mapObjects) {
   std::vector<qt::QPointRGB> points;
-  
+  std::abort();
   for (auto &iter : mapObjects) {
     //int health = iter->health();
     QColor color;

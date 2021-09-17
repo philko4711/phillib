@@ -6,8 +6,8 @@
 
 namespace phillib {
 namespace game_of_life {
-PredPray::PredPray() : _map(600, 600) {
-  _gui.resize(600, 600);
+PredPray::PredPray() : _map(100, 100) {
+  _gui.resize(100, 100);
   _gui.show();
   for (unsigned int i = 0; i < 10; i++)
     this->seedFoodRandom();
@@ -94,8 +94,8 @@ qDebug() << __PRETTY_FUNCTION__ << "";
           continue;
         auto ptr = std::make_shared<Food>(QPoint(j, i));
         _map.set(QPoint(j, i), ptr);
-        mapObjects.push_back(ptr);
-        _food.push_back(ptr);
+         mapObjects.push_back(ptr);
+         _food.push_back(ptr);
       }
     }
   }
