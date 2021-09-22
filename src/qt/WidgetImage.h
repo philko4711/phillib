@@ -12,6 +12,7 @@ namespace qt
 
 class WidgetImage : public QWidget
 {
+  Q_OBJECT
 public:
   WidgetImage(QWidget* parent = nullptr);
   virtual ~WidgetImage() {}
@@ -29,6 +30,10 @@ public:
   // void addLineRGB(const QLineRGB& var){_linesRGB.push_back(var);}
   // void         addPoint(const QPoint& var) { _points.push_back(var); }
   // void         addPointRGB(const QPointRGB& var) { _pointsRGB.push_back(var); }
+protected:
+  void mousePressEvent(QMouseEvent* event)override;
+ signals:
+   void mousePressed(QPoint& pos);    
 private:
   void                 drawPoints(QPainter& painter);
   void                 drawPointsRGB(QPainter& painter);

@@ -1,6 +1,7 @@
 #include "WidgetImage.h"
 #include <QtCore/QDebug>
 #include <QtGui/QPainter>
+#include <QtGui/QMouseEvent>
 
 namespace phillib
 {
@@ -31,7 +32,7 @@ void WidgetImage::drawPoints(QPainter& painter)
   brush.setColor(Qt::black);
   painter.setPen(pen);
   painter.setBrush(brush);
-  // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _points.size() << " points";
+   qDebug() << __PRETTY_FUNCTION__ << " will draw " << _points.size() << " points";
   for(auto& iter : _points)
     painter.drawEllipse(iter, 5, 5);
   painter.restore();
@@ -48,7 +49,7 @@ void WidgetImage::drawPointsRGB(QPainter& painter)
     brush.setColor(iter.rgb());
     painter.setPen(pen);
     painter.setBrush(brush);
-    // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _points.size() << " points";
+     qDebug() << __PRETTY_FUNCTION__ << " will draw " << _pointsRGB.size() << " rgb points";
 
     painter.drawEllipse(iter.point(), iter.size(), iter.size());
     painter.restore();
@@ -74,7 +75,7 @@ void WidgetImage::drawRects(QPainter& painter)
   pen.setColor(Qt::black);
   pen.setWidth(5);
   painter.setPen(pen);
-  // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rects.size() << " rects";
+   qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rects.size() << " rects";
   for(auto& iter : _rects)
     painter.drawRect(iter);
   painter.restore();
@@ -82,7 +83,7 @@ void WidgetImage::drawRects(QPainter& painter)
 
 void WidgetImage::drawRectsFilled(QPainter& painter)
 {
-  // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsFilled.size() << " rectsfilled ";
+   qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsFilled.size() << " rectsfilled ";
   for(auto& iter : _rectsFilled)
   {
     painter.save();
@@ -111,6 +112,13 @@ void WidgetImage::drawRectsCustom(QPainter& painter)
     painter.drawRect(iter.rect());
     painter.restore();
   }
+}
+
+void WidgetImage::mousePressEvent(QMouseEvent* event)
+{
+  event->accept();
+  auto point = event->pos();
+  emit this->mousePressed(point);
 }
 
 } // namespace qt
