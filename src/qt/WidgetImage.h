@@ -35,9 +35,9 @@ protected:
  signals:
    void mousePressed(QPoint& pos);    
 private:
-  void                 drawPoints(QPainter& painter);
+  void                 drawPoints(QPainter& painter, const int sizePoint = 2);
   void                 drawPointsRGB(QPainter& painter);
-  void                 drawRects(QPainter& painter);
+  void                 drawRects(QPainter& painter, const int sizeLine = 2);
   void                 drawRectsFilled(QPainter& painter);
   void                 drawRectsCustom(QPainter& painter);
   QVector<QRect>       _rects;

@@ -23,7 +23,7 @@ void WidgetImage::setImageBackground(const QImage& image)
   *_imageBackGround = image;
 }
 
-void WidgetImage::drawPoints(QPainter& painter)
+void WidgetImage::drawPoints(QPainter& painter, const int sizePoint)
 {
   painter.save();
   QPen   pen(Qt::SolidLine);
@@ -32,9 +32,9 @@ void WidgetImage::drawPoints(QPainter& painter)
   brush.setColor(Qt::black);
   painter.setPen(pen);
   painter.setBrush(brush);
-   qDebug() << __PRETTY_FUNCTION__ << " will draw " << _points.size() << " points";
+   //qDebug() << __PRETTY_FUNCTION__ << " will draw " << _points.size() << " points";
   for(auto& iter : _points)
-    painter.drawEllipse(iter, 5, 5);
+    painter.drawEllipse(iter, sizePoint, sizePoint);
   painter.restore();
 }
 
@@ -49,7 +49,7 @@ void WidgetImage::drawPointsRGB(QPainter& painter)
     brush.setColor(iter.rgb());
     painter.setPen(pen);
     painter.setBrush(brush);
-     qDebug() << __PRETTY_FUNCTION__ << " will draw " << _pointsRGB.size() << " rgb points";
+    // qDebug() << __PRETTY_FUNCTION__ << " will draw " << _pointsRGB.size() << " rgb points";
 
     painter.drawEllipse(iter.point(), iter.size(), iter.size());
     painter.restore();
@@ -61,21 +61,21 @@ void WidgetImage::paintEvent(QPaintEvent* event)
   QPainter painter(this);
   if(_imageBackGround)
     painter.drawImage(this->rect(), *_imageBackGround, _imageBackGround->rect());
-  this->drawPoints(painter);
-  this->drawPointsRGB(painter);
   this->drawRects(painter);
   this->drawRectsCustom(painter);
   this->drawRectsFilled(painter);
+  this->drawPoints(painter);
+  this->drawPointsRGB(painter);
 }
 
-void WidgetImage::drawRects(QPainter& painter)
+void WidgetImage::drawRects(QPainter& painter, const int sizeLine)
 {
   painter.save();
   QPen pen(Qt::SolidLine);
   pen.setColor(Qt::black);
-  pen.setWidth(5);
+  pen.setWidth(sizeLine);
   painter.setPen(pen);
-   qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rects.size() << " rects";
+ //  qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rects.size() << " rects";
   for(auto& iter : _rects)
     painter.drawRect(iter);
   painter.restore();
@@ -83,13 +83,13 @@ void WidgetImage::drawRects(QPainter& painter)
 
 void WidgetImage::drawRectsFilled(QPainter& painter)
 {
-   qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsFilled.size() << " rectsfilled ";
+ //  qDebug() << __PRETTY_FUNCTION__ << " will draw " << _rectsFilled.size() << " rectsfilled ";
   for(auto& iter : _rectsFilled)
   {
     painter.save();
     QPen pen(Qt::SolidLine);
     pen.setColor(Qt::black);
-    pen.setWidth(5);
+    pen.setWidth(2);
     painter.setPen(pen);
     QBrush brush(iter.patternFilling());
     brush.setColor(iter.rgbFilling());
