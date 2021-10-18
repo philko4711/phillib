@@ -29,79 +29,9 @@ INCLUDE_DIRECTORIES(
 include_directories(${Qt5Widgets_INCLUDES})
 add_definitions(${Qt5Widgets_DEFINITIONS})
 
-#find_package(VTK 9 REQUIRED)
-#set(VTK_LIBRARIES "")
-find_package(VTK COMPONENTS
-    vtkCommonColor
-    vtkCommonCore
-    vtkCommonDataModel
-    vtkFiltersCore
-    vtkFiltersGeometry
-    vtkFiltersModeling
-    vtkFiltersSources
-    vtkFiltersTexture
-    vtkIOGeometry
-    vtkIOImage
-    vtkIOLegacy
-    vtkIOPLY
-    vtkIOParallel
-    vtkIOXML
-    vtkImagingHybrid
-    vtkInteractionStyle
-    vtkRenderingContextOpenGL2
-    vtkRenderingCore
-    vtkRenderingFreeType
-    vtkRenderingGL2PSOpenGL2
-    vtkRenderingOpenGL2
-    OPTIONAL_COMPONENTS
-    vtkTestingRendering
-    QUIET
-    )
+find_package(VTK 9 REQUIRED)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-#find_package(VTK COMPONENTS
-#
-#  CommonColor
-#  CommonCore
-#  IOImage
-#  InteractionImage
-#  InteractionStyle
-#  FiltersSources
-#  InteractionStyle
-#  InteractionWidgets
-#  RenderingContextOpenGL2
-#  RenderingCore
-#  RenderingFreeType
-#  RenderingGL2PSOpenGL2
-#  RenderingOpenGL2
-#  #QUIET
-#)
-
-# find_package(VTK COMPONENTS 
-#   vtkCommonColor
-#   vtkCommonCore
-  
-
-#   vtkRenderingContextOpenGL2
-#   vtkRenderingCore
-#   vtkRenderingFreeType
-#   vtkRenderingGL2PSOpenGL2
-#   vtkRenderingOpenGL2
-#   QUIET
-# )
-
-#find_package(VTK COMPONENTS
-#  vtkCommonCore
-#  vtkFiltersSources
-#  vtkGUISupportQt
-#  vtkIOImage
-#  vtkInteractionImage
-#  vtkFiltersCore
-#  vtkInfovisCore
-#  vtkInteractionStyle
-#  vtkViewsQt
-#)
-#include(${VTK_USE_FILE})
-#include(${VTK_USE_FILE})
 find_package(PCL 1.7 REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
@@ -149,41 +79,9 @@ target_link_libraries(phillib_qt
 
     target_link_libraries(test_vtk
     PUBLIC
-    VTK::ViewsQt
-    VTK::CommonColor
     VTK::CommonCore
-    VTK::IOImage
-    VTK::InteractionImage
-    VTK::InteractionStyle
-    VTK::FiltersSources
-    VTK::InteractionStyle
-    VTK::InteractionWidgets
-    VTK::RenderingContextOpenGL2
-    VTK::RenderingCore
-    VTK::RenderingFreeType
-    VTK::RenderingGL2PSOpenGL2
-    VTK::RenderingOpenGL2
-    VTK::CommonColor
-    VTK::CommonCore
-    VTK::CommonDataModel
-    VTK::FiltersCore
-    VTK::FiltersGeometry
-    VTK::FiltersModeling
-    VTK::FiltersSources
-    VTK::FiltersTexture
-    VTK::IOGeometry
-    VTK::IOImage
-    VTK::IOLegacy
-    VTK::IOPLY
-    VTK::IOParallel
-    VTK::IOXML
-    VTK::ImagingHybrid
-    VTK::InteractionStyle
-    VTK::RenderingContextOpenGL2
-    VTK::RenderingCore
-    VTK::RenderingFreeType
-    VTK::RenderingGL2PSOpenGL2
-    VTK::RenderingOpenGL2
+#VTK::GUISupportQt
+VTK::ViewsQt 
   Qt5::Core
   Qt5::Gui 
   Qt5::Widgets
@@ -204,47 +102,12 @@ target_link_libraries(phillib_qt
   
     )
 
-    vtk_module_autoinit(
-      TARGETS image_magic
-      MODULES ${VTK_LIBRARIES})
-
+  
     target_link_libraries(image_magic
     PUBLIC
-    VTK::ViewsQt
-    VTK::CommonColor
     VTK::CommonCore
-    VTK::IOImage
-    VTK::InteractionImage
-    VTK::InteractionStyle
-    VTK::FiltersSources
-    VTK::InteractionStyle
-    VTK::InteractionWidgets
-    VTK::RenderingContextOpenGL2
-    VTK::RenderingCore
-    VTK::RenderingFreeType
-    VTK::RenderingGL2PSOpenGL2
-    VTK::RenderingOpenGL2
-    VTK::CommonColor
-    VTK::CommonCore
-    VTK::CommonDataModel
-    VTK::FiltersCore
-    VTK::FiltersGeometry
-    VTK::FiltersModeling
-    VTK::FiltersSources
-    VTK::FiltersTexture
-    VTK::IOGeometry
-    VTK::IOImage
-    VTK::IOLegacy
-    VTK::IOPLY
-    VTK::IOParallel
-    VTK::IOXML
-    VTK::ImagingHybrid
-    VTK::InteractionStyle
-    VTK::RenderingContextOpenGL2
-    VTK::RenderingCore
-    VTK::RenderingFreeType
-    VTK::RenderingGL2PSOpenGL2
-    VTK::RenderingOpenGL2
+#VTK::GUISupportQt
+VTK::ViewsQt
   Qt5::Core
   Qt5::Gui 
   Qt5::Widgets
@@ -255,11 +118,7 @@ target_link_libraries(phillib_qt
   tinyxml2
     )
 
-    vtk_module_autoinit(
-      TARGETS test_vtk 
-      MODULES ${VTK_LIBRARIES})
-
-
+    
 
 set(HEADER datatypes.h WidgetImage.h)
                                     
