@@ -28,6 +28,8 @@ public:
   void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const std::string& pathToImage);
   void updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& image);
   vtkSmartPointer<vtkActor>& actorPlaneImage(void){return _actorPlaneImage;}
+  void clearPoints();
+  void clearPlanes();
 private:
   vtkSmartPointer<vtkRenderer>          _renderer;
   vtkSmartPointer<vtkPolyData>          _pointPolyData;
@@ -35,6 +37,7 @@ private:
   vtkSmartPointer<vtkUnsignedCharArray> _pointColors;
   vtkSmartPointer<vtkDoubleArray>       _pointNormals;
   vtkSmartPointer<vtkActor> _actorPlaneImage;
+  vtkSmartPointer<vtkActor> _actorPoints;
 };
 
 #endif

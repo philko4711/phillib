@@ -11,7 +11,7 @@ TestQvtk::TestQvtk()
 {
   _timerMain.start(1000);
   connect(&_timerMain, SIGNAL(timeout()), this, SLOT(callBackTimer()));
-  _viewer->addAxes();
+  //_viewer->addAxes();
   _viewer->show();
 }
 

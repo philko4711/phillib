@@ -40,14 +40,14 @@ WidgetNewQvtk::WidgetNewQvtk(QWidget *parent)
 
   //  pointMapper->SetInputConnection(_pointPolyData->GetProducerPort());
 
-  vtkSmartPointer<vtkActor> pointActor = vtkSmartPointer<vtkActor>::New();
-  pointActor->SetMapper(pointMapper);
-  pointActor->GetProperty()->SetPointSize(10);
-  _renderer->AddActor(pointActor);
+   _actorPoints = vtkSmartPointer<vtkActor>::New();
+  _actorPoints->SetMapper(pointMapper);
+  _actorPoints->GetProperty()->SetPointSize(10);
+  _renderer->AddActor(_actorPoints);
 
   _renderer->SetBackground(0.0, 0.0, 0.0);
   _renderer->GetActiveCamera()->Yaw(180);
-  this->GetRenderWindow()->AddRenderer(_renderer);
+  this->renderWindow()->AddRenderer(_renderer);
 }
 
 void WidgetNewQvtk::addAxes() {
@@ -99,6 +99,7 @@ void WidgetNewQvtk::drawPoints(const pcl::PointCloud<pcl::PointXYZRGB> &cloud) {
   vertexFilter->Update();
   _pointPolyData->ShallowCopy(vertexFilter->GetOutput());
   _points->Modified();
+  _actorPoints->Modified();
   this->update();
 }
 
@@ -256,4 +257,18 @@ void WidgetNewQvtk::updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& i
   texture->SetInputConnection(imageImport->GetOutputPort());
   plane->SetTexture(texture);
   this->update();
+}
+
+void WidgetNewQvtk::clearPoints()
+{
+  _pointPolyData->Reset();
+  _points->Reset();
+  _pointNormals->Reset();
+  _pointNormals->Reset();
+  _actorPoints->Modified();
+}
+
+void WidgetNewQvtk::clearPlanes()
+{
+
 }
