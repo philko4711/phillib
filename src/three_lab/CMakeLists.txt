@@ -12,11 +12,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -std=c++17  -Wall -mtune=native")
  
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5OpenGL REQUIRED)
 
 find_package(PCL 1.8 REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
+
+find_package(VTK 9 REQUIRED)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
  
 include_directories(${Qt5Widgets_INCLUDES})
  
@@ -30,7 +34,7 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/gui
 )
                         
-set(MOCV src/gui/QvtkWidget.h
+set(MOCV #src/gui/QvtkWidget.h
          src/gui/MainWindowLab.h
          src/gui/DialogSlopedCloud.h
          src/gui/DialogRandomPlane.h)
@@ -43,7 +47,7 @@ qt5_wrap_cpp(MOC_GENERATEDV ${MOCV})
 qt5_wrap_ui(UI_GENERATED ${UI})
  
 add_executable(three_lab src/three_lab.cpp
-         src/gui/QvtkWidget.cpp
+         #src/gui/QvtkWidget.cpp
          src/gui/MainWindowLab.cpp
          src/gui/DialogSlopedCloud.cpp
          src/gui/DialogRandomPlane.cpp
@@ -56,9 +60,18 @@ add_executable(three_lab src/three_lab.cpp
                                                   
 target_link_libraries(three_lab
     PUBLIC
-Qt5::Core
-Qt5::Gui 
-Qt5::Widgets
-${PCL_LIBRARIES}
+    phillib_utils
+    VTK::CommonCore
+    VTK::ViewsQt 
+    Qt5::Core
+    Qt5::Gui 
+    Qt5::Widgets
+    Qt5::OpenGL
+    ${PCL_LIBRARIES} 
+    #${OpenCV_LIBRARIES} 
+    
     ${VTK_LIBRARIES}
+    
+    phillib_qt
+    
     )

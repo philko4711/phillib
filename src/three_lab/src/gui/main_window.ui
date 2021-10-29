@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QvtkWidget" name="widget" native="true"/>
+     <widget class="WidgetNewQvtk" name="widget" native="true"/>
     </item>
    </layout>
   </widget>
@@ -85,9 +85,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QvtkWidget</class>
+   <class>WidgetNewQvtk</class>
    <extends>QWidget</extends>
-   <header>QvtkWidget.h</header>
+   <header location="global">phillib_qt/WidgetNewQvtk.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
