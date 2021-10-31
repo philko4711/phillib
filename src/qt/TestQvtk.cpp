@@ -1,6 +1,7 @@
 #include "TestQvtk.h"
 #include <phillib_utils/random.h>
 #include <vtkRenderWindow.h>
+#include <QtCore/QDebug>
 
 namespace phillib
 {
@@ -64,8 +65,49 @@ void TestQvtk::callBackTimer()
 {
   pcl::PointCloud<pcl::PointXYZRGB> cloud;
   this->randomCloud(cloud, 500, Eigen::Vector3f(2.0f, 2.0f, 2.0f), Eigen::Vector3f(-2.0f, -2.0f, -2.0f));
+  std::vector<Line> lines;
+  this->randomLines(lines, 500, Eigen::Vector3f(2.0f, 2.0f, 2.0f), Eigen::Vector3f(-2.0f, -2.0f, -2.0f), 0.05);
+  _viewer->clearLines();
+  for(auto& iter : lines)
+    _viewer->addLine(iter);
   _viewer->drawPoints(cloud);
+  _viewer->drawLines();
   _viewer->renderWindow()->Render();
+}
+
+void TestQvtk::randomLines(std::vector<Line>& lineVec, const unsigned nPoints, const Eigen::Vector3f& threshP, const Eigen::Vector3f& threshN, const float thickNess)
+{
+  std::vector<float> xs;
+  std::vector<float> ys;
+  std::vector<float> zs;
+
+   std::vector<int> rs;
+  std::vector<int> gs;
+  std::vector<int> bs;
+
+  phillib::utils::randomReal(2 * nPoints, xs, threshN.x(), threshP.x());
+  phillib::utils::randomReal(2 * nPoints, ys, threshN.y(), threshP.y());
+  phillib::utils::randomReal(2 * nPoints, zs, threshN.z(), threshP.z());
+
+
+  phillib::utils::randomInts(nPoints, rs, 0, 255);
+  phillib::utils::randomInts(nPoints, gs, 0, 255);
+  phillib::utils::randomInts(nPoints, bs, 0, 255);
+
+
+  for(unsigned int i = 0; i < nPoints; i++)
+  {
+    Eigen::Vector3f start(xs[i], ys[i], zs[i]);
+    Eigen::Vector3f end(xs[nPoints + i], ys[nPoints + i], zs[nPoints + i]);
+    Line line(start, end);
+    line._width = thickNess;
+    line._color = QColor(rs[i], gs[i], bs[i]);
+    std::cout << __PRETTY_FUNCTION__ << " r g b " <<rs[i] << " " << gs[i]<< " " << bs[i] << std::endl;
+   qDebug() << __PRETTY_FUNCTION__ << " color " << line._color;
+    lineVec.push_back(line);
+
+  }
+
 }
 
 } // namespace qt

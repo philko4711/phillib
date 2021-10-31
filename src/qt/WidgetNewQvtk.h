@@ -6,6 +6,7 @@
 #include <vtkAxesActor.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <QtGui/QColor>
 
 
 class vtkRenderer;
@@ -14,6 +15,30 @@ class vtkPoints;
 class vtkUnsignedCharArray;
 class vtkDoubleArray;
 class vtkCellArray;
+
+struct Line
+{
+  Line():
+    _color(Qt::black),
+    _width(1.0)
+  {}
+  Line(const Eigen::Vector3f& start, const Eigen::Vector3f& end):
+    _start(start),
+    _end(end),
+    _color(Qt::black),
+    _width(1.0)
+    {}
+  Line(const pcl::PointXYZ& start, const pcl::PointXYZ& end):
+    _start(Eigen::Vector3f(static_cast<double>(start.x), static_cast<double>(start.y), static_cast<double>(start.z))),
+    _end(Eigen::Vector3f(static_cast<double>(end.x), static_cast<double>(end.y), static_cast<double>(end.z))),
+    _color(Qt::black),
+    _width(1.0)
+    {}
+  Eigen::Vector3f _start;
+  Eigen::Vector3f _end;
+  QColor _color;
+  float _width;
+};
 
 class WidgetNewQvtk : public QVTKOpenGLNativeWidget
 {
@@ -28,6 +53,9 @@ public:
   void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const std::string& pathToImage);
   void updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& image);
   vtkSmartPointer<vtkActor>& actorPlaneImage(void){return _actorPlaneImage;}
+  void drawLines(void);
+  void addLine(const Line& line){_lineVec.push_back(line);}
+  void clearLines(void);
   void clearPoints();
   void clearPlanes();
 private:
@@ -36,8 +64,13 @@ private:
   vtkSmartPointer<vtkPoints>            _points;
   vtkSmartPointer<vtkUnsignedCharArray> _pointColors;
   vtkSmartPointer<vtkDoubleArray>       _pointNormals;
+  vtkSmartPointer<vtkCellArray> _lines;
+  vtkSmartPointer<vtkPoints>    _linepoints;
+  vtkSmartPointer<vtkPolyData>  _linePolyData;
+  std::vector<Line> _lineVec;
   vtkSmartPointer<vtkActor> _actorPlaneImage;
   vtkSmartPointer<vtkActor> _actorPoints;
+  vtkSmartPointer<vtkActor> _actorLines;
 };
 
 #endif
