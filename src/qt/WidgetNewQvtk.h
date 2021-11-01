@@ -15,6 +15,7 @@ class vtkPoints;
 class vtkUnsignedCharArray;
 class vtkDoubleArray;
 class vtkCellArray;
+//class vtkCubeSource;
 
 struct Line
 {
@@ -51,6 +52,9 @@ public:
   void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
   void drawPoints(const std::string& pathPly);
   void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const std::string& pathToImage);
+  void addCube(const Eigen::Vector3f& dim, const Eigen::Vector3f& center);
+  void drawCubes();
+
   void updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& image);
   vtkSmartPointer<vtkActor>& actorPlaneImage(void){return _actorPlaneImage;}
   void drawLines(void);
@@ -58,6 +62,7 @@ public:
   void clearLines(void);
   void clearPoints();
   void clearPlanes();
+  void clearCubes();//{_actorsCubes.clear();}
 private:
   vtkSmartPointer<vtkRenderer>          _renderer;
   vtkSmartPointer<vtkPolyData>          _pointPolyData;
@@ -71,6 +76,7 @@ private:
   vtkSmartPointer<vtkActor> _actorPlaneImage;
   vtkSmartPointer<vtkActor> _actorPoints;
   vtkSmartPointer<vtkActor> _actorLines;
+  std::vector<vtkSmartPointer<vtkActor> > _actorsCubes;
 };
 
 #endif

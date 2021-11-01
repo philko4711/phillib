@@ -3,10 +3,15 @@
 #include <pcl/io/ply_io.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
+#include <vtkCellData.h>
+#include <vtkCubeSource.h>
 #include <vtkDoubleArray.h>
 #include <vtkImageImport.h>
 #include <vtkImageReader2.h>
 #include <vtkImageReader2Factory.h>
+#include <vtkLine.h>
+#include <vtkLineSource.h>
+#include <vtkNamedColors.h>
 #include <vtkPlaneSource.h>
 #include <vtkPointData.h>
 #include <vtkPolyData.h>
@@ -19,9 +24,6 @@
 #include <vtkTransform.h>
 #include <vtkUnsignedCharArray.h>
 #include <vtkVertexGlyphFilter.h>
-#include <vtkLineSource.h>
-#include <vtkLine.h>
-#include <vtkCellData.h>
 
 #include <QtCore/QDebug>
 
@@ -46,7 +48,7 @@ WidgetNewQvtk::WidgetNewQvtk(QWidget *parent)
   pointMapper->SetInputData(_pointPolyData);
 #endif
 
-vtkSmartPointer<vtkPolyDataMapper> lineMapper =
+  vtkSmartPointer<vtkPolyDataMapper> lineMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
 #if VTK_MAJOR_VERSION <= 5
   pointMapper->SetInputConnection(_pointPolyData->GetProducerPort());
@@ -61,7 +63,7 @@ vtkSmartPointer<vtkPolyDataMapper> lineMapper =
   _actorPoints->GetProperty()->SetPointSize(10);
   _renderer->AddActor(_actorPoints);
 
-  _actorLines= vtkSmartPointer<vtkActor>::New();
+  _actorLines = vtkSmartPointer<vtkActor>::New();
   _actorLines->SetMapper(lineMapper);
   _renderer->AddActor(_actorLines);
 
@@ -290,8 +292,7 @@ void WidgetNewQvtk::clearLines() {
   _lineVec.clear();
 }
 
-void WidgetNewQvtk::drawLines(void) 
-{
+void WidgetNewQvtk::drawLines(void) {
   _linepoints->Reset();
   _lines->Reset();
   _linePolyData->Reset();
@@ -302,47 +303,51 @@ void WidgetNewQvtk::drawLines(void)
   unsigned char black[3] = {0, 0, 0};
   unsigned char white[3] = {255, 255, 255};
 
-  //std::cout << __PRETTY_FUNCTION__ << " start iterating " << std::endl;
-  for(std::vector<Line>::iterator iter = _lineVec.begin(); iter != _lineVec.end(); iter++)
-  {
+  // std::cout << __PRETTY_FUNCTION__ << " start iterating " << std::endl;
+  for (std::vector<Line>::iterator iter = _lineVec.begin();
+       iter != _lineVec.end(); iter++) {
     qDebug() << __PRETTY_FUNCTION__ << " color " << iter->_color;
-    unsigned char color[3] = {iter->_color.red(), iter->_color.green(), iter->_color.blue()};
+    unsigned char color[3] = {iter->_color.red(), iter->_color.green(),
+                              iter->_color.blue()};
 
     color[0] = iter->_color.red();
     color[1] = iter->_color.green();
     color[2] = iter->_color.blue();
     double origin[3] = {0.0};
     double p0[3] = {0.0};
-    //std::cout << __PRETTY_FUNCTION__ << " start end " << iter->_start << " " << iter->_end << std::endl;
-    qDebug() << __PRETTY_FUNCTION__ << " color rgb " << color[0] << " " << color[1] << " " << color[2];
-    for(unsigned int i = 0; i < 3; ++i)
-    {
+    // std::cout << __PRETTY_FUNCTION__ << " start end " << iter->_start << " "
+    // << iter->_end << std::endl;
+    qDebug() << __PRETTY_FUNCTION__ << " color rgb " << color[0] << " "
+             << color[1] << " " << color[2];
+    for (unsigned int i = 0; i < 3; ++i) {
       origin[i] = static_cast<double>(iter->_start(i));
       p0[i] = static_cast<double>(iter->_end(i));
-      //  std::cout << __PRETTY_FUNCTION__ << " " << origin[i] << " " << p0[i] << "\n";
+      //  std::cout << __PRETTY_FUNCTION__ << " " << origin[i] << " " << p0[i]
+      //  << "\n";
     }
     _linepoints->InsertNextPoint(origin);
     _linepoints->InsertNextPoint(p0);
     vtkSmartPointer<vtkLine> lineVar = vtkSmartPointer<vtkLine>::New();
 
-    lineVar->GetPointIds()->SetId(0,ctr++);
-    lineVar->GetPointIds()->SetId(1,ctr++);
+    lineVar->GetPointIds()->SetId(0, ctr++);
+    lineVar->GetPointIds()->SetId(1, ctr++);
     _lines->InsertNextCell(lineVar);
     colors->InsertNextTypedTuple(color);
     // vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-    // vtkSmartPointer<vtkPolyDataMapper> lineMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-    //actor->SetMapper(lineMapper);
+    // vtkSmartPointer<vtkPolyDataMapper> lineMapper =
+    // vtkSmartPointer<vtkPolyDataMapper>::New();
+    // actor->SetMapper(lineMapper);
     _actorLines->GetProperty()->SetLineWidth(iter->_width);
-    //lineMapper->SetInputData(_linePolyData);
+    // lineMapper->SetInputData(_linePolyData);
     // lineActors.push_back(actor);
     // lineMappers.push_back(lineMapper);
 
     //_renderer->AddActor(actor);
-
   }
   //  std::cout << __PRETTY_FUNCTION__ << " starting crooooo " << std::endl;
   //
-  //  for(std::vector<Line>::iterator iter = _linesCropBox.begin(); iter != _linesCropBox.end(); iter++)
+  //  for(std::vector<Line>::iterator iter = _linesCropBox.begin(); iter !=
+  //  _linesCropBox.end(); iter++)
   //  {
   //    double origin[3] = {0.0};
   //    double p0[3] = {0.0};
@@ -350,7 +355,8 @@ void WidgetNewQvtk::drawLines(void)
   //    {
   //      origin[i] = static_cast<double>(iter->_start(i));
   //      p0[i] = static_cast<double>(iter->_end(i));
-  //      //  std::cout << __PRETTY_FUNCTION__ << " " << origin[i] << " " << p0[i] << "\n";
+  //      //  std::cout << __PRETTY_FUNCTION__ << " " << origin[i] << " " <<
+  //      p0[i] << "\n";
   //    }
   //    _linepoints->InsertNextPoint(origin);
   //    _linepoints->InsertNextPoint(p0);
@@ -370,4 +376,31 @@ void WidgetNewQvtk::drawLines(void)
   _actorLines->Modified();
 
   this->update();
+}
+
+void WidgetNewQvtk::addCube(const Eigen::Vector3f &dim,
+                            const Eigen::Vector3f &center) {
+  vtkSmartPointer<vtkCubeSource> cube(vtkSmartPointer<vtkCubeSource>::New());
+  vtkNew<vtkNamedColors> colors;
+
+  cube->SetCenter(center.x(), center.y(), center.z());
+  cube->SetXLength(dim.x());
+  cube->SetYLength(dim.y());
+  cube->SetZLength(dim.z());
+  cube->Update();
+  vtkNew<vtkPolyDataMapper> cubeMapper;
+  cubeMapper->SetInputData(cube->GetOutput());
+  vtkNew<vtkActor> cubeActor;
+  cubeActor->SetMapper(cubeMapper);
+  vtkColor3d color();
+  cubeActor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  _renderer->AddActor(cubeActor);
+  _actorsCubes.push_back(cubeActor);
+  // cubeActor->Transform
+}
+
+void WidgetNewQvtk::clearCubes() {
+  for (auto &iter : _actorsCubes)
+    _renderer->RemoveActor(iter);
+  _actorsCubes.clear();
 }
