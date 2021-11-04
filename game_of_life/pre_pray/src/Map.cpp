@@ -8,6 +8,8 @@ Map::Map(const unsigned int height, const unsigned int width)
 
 bool Map::set(const QPoint &idcs, std::shared_ptr<IObjectMap> ptr) {
   qDebug() << __PRETTY_FUNCTION__ << "";
+  const QPoint idcsR(static_cast<int>(std::floor(static_cast<float>(idcs.x()) / _sizeCell)),
+  static_cast<int>(std::floor(static_cast<float>(idcs.y()) / _sizeCell)));
   if ((idcs.x() > _sizeMap.width()) || (idcs.y() > _sizeMap.height()) ||
       (idcs.x() < 0) || (idcs.y() < 0))
     return false; // Todo: Recalculate index
@@ -27,8 +29,8 @@ std::shared_ptr<IObjectMap> Map::get(const QPoint &idcs) {
 
 std::shared_ptr<QImage> Map::imageMap() {
   qDebug() << __PRETTY_FUNCTION__ << "";
-  auto qimage = std::make_shared<QImage>(
-      QSize(_sizeMap.width(), _sizeMap.height()), QImage::Format_RGB888);
+  // auto qimage = std::make_shared<QImage>(
+  //     QSize(_sizeMap.width(), _sizeMap.height()), QImage::Format_RGB888);
   std::vector<uchar> bufr(_sizeMap.width() * _sizeMap.height() * 3, 0);
   for (unsigned int i = 0; i < _sizeMap.height(); i++)
     for (unsigned int j = 0; j < _sizeMap.width(); j++) {

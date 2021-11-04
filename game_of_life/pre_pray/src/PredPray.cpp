@@ -7,12 +7,14 @@
 namespace phillib {
 namespace game_of_life {
 PredPray::PredPray() : _map(100, 100) {
-  _gui.resize(100, 100);
+  _gui.resize(1000, 1000);
   _gui.show();
   for (unsigned int i = 0; i < 10; i++)
     this->seedFoodRandom();
   connect(&_timerMain, SIGNAL(timeout()), this, SLOT(loopMain()));
-  _timerMain.start(20);
+  //_timerMain.start(20);
+  //_gui.updateMapObjects();
+  this->loopMain();
 }
 
 void PredPray::seedFoodRandom() {
@@ -30,18 +32,18 @@ void PredPray::seedFoodRandom() {
 
 void PredPray::loopMain() {
 
-qDebug() << __PRETTY_FUNCTION__ << "";
+  qDebug() << __PRETTY_FUNCTION__ << "";
   std::vector<std::shared_ptr<IObjectMap>> mapObjects;
   std::vector<std::vector<std::shared_ptr<Food>>::iterator> toDelete;
   std::vector<QPoint> seed;
   // qDebug() << __PRETTY_FUNCTION__ << "foood size " << _food.size();
   auto iter = _food.begin();
   for (iter = _food.begin(); iter < _food.end(); iter++) {
-    std::vector<std::weak_ptr<IObjectMap> > adj;
+    std::vector<std::weak_ptr<IObjectMap>> adj;
     _map.adjacent(adj, (*iter)->pos());
-     unsigned int ctr= 0;
-    for(auto& oter : adj)
-      if(oter.lock())
+    unsigned int ctr = 0;
+    for (auto &oter : adj)
+      if (oter.lock())
         ctr++;
     unsigned int amount = (*iter)->wither(ctr);
     if (amount <= 1) {
@@ -94,8 +96,8 @@ qDebug() << __PRETTY_FUNCTION__ << "";
           continue;
         auto ptr = std::make_shared<Food>(QPoint(j, i));
         _map.set(QPoint(j, i), ptr);
-         mapObjects.push_back(ptr);
-         _food.push_back(ptr);
+        mapObjects.push_back(ptr);
+        _food.push_back(ptr);
       }
     }
   }
@@ -106,8 +108,8 @@ qDebug() << __PRETTY_FUNCTION__ << "";
   }
   // qDebug() << __PRETTY_FUNCTION__ << " update gui iwth " <<
   // mapObjects.size();
-  //_gui.updateMapObjects(mapObjects);
-  _gui.setImageBackground(_map.imageMap());
+  _gui.updateMapObjects(mapObjects);
+  //_gui.setImageBackground(_map.imageMap());
   _gui.update();
 } // namespace game_of_life
 } // namespace game_of_life

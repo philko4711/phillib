@@ -28,6 +28,15 @@ INCLUDE_DIRECTORIES(
 #  ${CMAKE_CURRENT_SOURCE_DIR}/src/core
 )
                         
+
+find_package(PCL 1.8 REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
+find_package(VTK 9 REQUIRED)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(MOC_PRED_PREY src/gui/MainWindow.h 
                 src/PredPray.h
 #                src/gui/WidgetImage.h
@@ -83,5 +92,10 @@ target_link_libraries(pred_prey
   phillib_utils
   phillib_qt
   tinyxml2
+  VTK::CommonCore
+  VTK::CommonColor 
+  VTK::ViewsQt 
+  ${PCL_LIBRARIES}
+  ${VTK_LIBRARIES}
 #  ${OpenCV_LIBRARIES}
 )

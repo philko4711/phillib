@@ -26,6 +26,7 @@ namespace game_of_life
     private:
       QRect _sizeMap;
       std::vector<std::weak_ptr<IObjectMap> > _map;
+      const float _sizeCell = 0.10f;
 };
 }
 }
