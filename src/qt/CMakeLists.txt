@@ -42,8 +42,11 @@ link_directories(/usr/local/lib)
 
 set(MOC_PHILLIB_QT 
   WidgetImage.h
-  WidgetNewQvtk.h
+  
   )
+
+  set(MOC_PHILLIB_QT_3D 
+  WidgetNewQvtk.h)
 
 set(MOC_TEST_QVTK 
   TestQvtk.h
@@ -63,6 +66,7 @@ qt5_wrap_ui(FORMS_IMG_MAGIC_HEADER ${FORMS_IMG_MAGIC})
 
 
 qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT ${MOC_PHILLIB_QT})
+qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT_3D ${MOC_PHILLIB_QT_3D})
 qt5_wrap_cpp(MOC_GENERATED_TEST_QVTK ${MOC_TEST_QVTK})
 qt5_wrap_cpp(MOC_GENERATED_IMG_MAGIC ${MOC_IMG_MAGIC})
 
@@ -70,24 +74,38 @@ add_executable(test_vtk test_qvtk.cpp TestQvtk.cpp WidgetNewQvtk.cpp ${MOC_GENER
 add_executable(test_scroll test_scroll.cpp WidgetDisplay.cpp)
 add_executable(image_magic image_magic.cpp ImageMagic.cpp WidgetNewQvtk.cpp MenuTransform.cpp ${MOC_GENERATED_IMG_MAGIC} ${FORMS_IMG_MAGIC_HEADER})
 
-add_library(phillib_qt SHARED WidgetImage.cpp WidgetNewQvtk.cpp ${MOC_GENERATED_PHILLIB_QT})  #
+add_library(phillib_qt SHARED WidgetImage.cpp  ${MOC_GENERATED_PHILLIB_QT}) 
+add_library(phillib_qt_3d SHARED  WidgetNewQvtk.cpp ${MOC_GENERATED_PHILLIB_QT_3D})  #
 
 target_link_libraries(phillib_qt
     PUBLIC
   Qt5::Core
   Qt5::Gui 
   Qt5::Widgets
-  VTK::CommonCore
-  ${VTK_LIBRARIES}
-    VTK::ViewsQt 
   phillib_utils
   tinyxml2
     )
 
+    target_link_libraries(phillib_qt_3d
+    PUBLIC
+    VTK::CommonCore
+    VTK::ViewsQt
+    VTK::CommonColor 
+    Qt5::Core
+    Qt5::Gui 
+    Qt5::Widgets
+    Qt5::OpenGL
+  ${VTK_LIBRARIES}
+  ${PCL_LIBRARIES}
+  phillib_utils
+  #phillib_qt
+  tinyxml2)
+
     target_link_libraries(test_vtk
     PUBLIC
     VTK::CommonCore
-    VTK::ViewsQt 
+    VTK::ViewsQt
+    VTK::CommonColor 
     Qt5::Core
     Qt5::Gui 
     Qt5::Widgets
@@ -115,6 +133,7 @@ target_link_libraries(phillib_qt
     VTK::CommonCore
 #VTK::GUISupportQt
 VTK::ViewsQt
+VTK::CommonColor 
   Qt5::Core
   Qt5::Gui 
   Qt5::Widgets
@@ -130,5 +149,5 @@ VTK::ViewsQt
 set(HEADER datatypes.h WidgetImage.h WidgetNewQvtk.h)
                                     
                           
- install(TARGETS phillib_qt DESTINATION lib)
+ install(TARGETS phillib_qt phillib_qt_3d DESTINATION lib)
 install(FILES ${HEADER} DESTINATION include/phillib_qt)
