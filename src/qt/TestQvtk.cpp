@@ -34,11 +34,21 @@ void TestQvtk::randomCubes(const unsigned int nCubes,
   phillib::utils::randomReal(nCubes, yC, threshCenterN.y(), threshCenterP.y());
   phillib::utils::randomReal(nCubes, zC, threshCenterN.z(), threshCenterP.z());
 
+  std::vector<float> rs;
+  std::vector<float> gs;
+  std::vector<float> bs;
+
+  phillib::utils::randomReal(nCubes, rs, 0.0, 1.0);
+  phillib::utils::randomReal(nCubes, gs, 0.0, 1.0);
+  phillib::utils::randomReal(nCubes, bs, 0.0, 1.0);
+
+
   for(unsigned int i = 0;  i < nCubes; i++)
   {
     Eigen::Vector3f dim(xD[i], yD[i], zD[i]);
     Eigen::Vector3f center(xC[i], yC[i], zC[i]);
-    _viewer->addCube(dim, center);
+    Eigen::Vector3f rgb(rs[i], gs[i], bs[i]);
+    _viewer->addCube(dim, center, rgb);
   }
 }
 
