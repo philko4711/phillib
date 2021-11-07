@@ -52,7 +52,7 @@ public:
   void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
   void drawPoints(const std::string& pathPly);
   void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const std::string& pathToImage);
-  void addCube(const Eigen::Vector3f& dim, const Eigen::Vector3f& center);
+  void addCube(const Eigen::Vector3f& dim, const Eigen::Vector3f& center, const Eigen::Vector3f& rgb);
   void drawCubes();
 
   void updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& image);

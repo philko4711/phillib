@@ -306,7 +306,7 @@ void WidgetNewQvtk::drawLines(void) {
   // std::cout << __PRETTY_FUNCTION__ << " start iterating " << std::endl;
   for (std::vector<Line>::iterator iter = _lineVec.begin();
        iter != _lineVec.end(); iter++) {
-    qDebug() << __PRETTY_FUNCTION__ << " color " << iter->_color;
+    //qDebug() << __PRETTY_FUNCTION__ << " color " << iter->_color;
     unsigned char color[3] = {iter->_color.red(), iter->_color.green(),
                               iter->_color.blue()};
 
@@ -317,8 +317,8 @@ void WidgetNewQvtk::drawLines(void) {
     double p0[3] = {0.0};
     // std::cout << __PRETTY_FUNCTION__ << " start end " << iter->_start << " "
     // << iter->_end << std::endl;
-    qDebug() << __PRETTY_FUNCTION__ << " color rgb " << color[0] << " "
-             << color[1] << " " << color[2];
+    //qDebug() << __PRETTY_FUNCTION__ << " color rgb " << color[0] << " "
+             //<< color[1] << " " << color[2];
     for (unsigned int i = 0; i < 3; ++i) {
       origin[i] = static_cast<double>(iter->_start(i));
       p0[i] = static_cast<double>(iter->_end(i));
@@ -379,7 +379,7 @@ void WidgetNewQvtk::drawLines(void) {
 }
 
 void WidgetNewQvtk::addCube(const Eigen::Vector3f &dim,
-                            const Eigen::Vector3f &center) {
+                            const Eigen::Vector3f &center, const Eigen::Vector3f& rgb) {
   vtkSmartPointer<vtkCubeSource> cube(vtkSmartPointer<vtkCubeSource>::New());
   vtkNew<vtkNamedColors> colors;
 
@@ -393,7 +393,7 @@ void WidgetNewQvtk::addCube(const Eigen::Vector3f &dim,
   vtkNew<vtkActor> cubeActor;
   cubeActor->SetMapper(cubeMapper);
   vtkColor3d color();
-  cubeActor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  cubeActor->GetProperty()->SetColor(rgb.x(), rgb.y(), rgb.z());
   _renderer->AddActor(cubeActor);
   _actorsCubes.push_back(cubeActor);
   // cubeActor->Transform
