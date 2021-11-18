@@ -13,6 +13,7 @@ namespace qt
     public:
     GrView(QGraphicsScene* scene, QWidget* parent = nullptr);
     virtual ~GrView(){}
+    virtual void wheelEvent(QWheelEvent *event)override;//{}
     protected:
       void mousePressEvent(QMouseEvent* event)override;
     private:

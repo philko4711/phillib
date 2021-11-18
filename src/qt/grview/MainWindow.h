@@ -3,7 +3,7 @@
 
 
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QGraphicsView>
+#include "GrView.h"
 #include "GraphScExample.h"
 #include <memory>
 namespace phillib
@@ -12,12 +12,16 @@ namespace qt
 {
   class MainWindow : public QMainWindow
   {
+    Q_OBJECT
     public:
     MainWindow();
     virtual ~MainWindow(){}
+    protected:
+//      virtual void wheelEvent(QWheelEvent *event)override;
     private:
-    std::unique_ptr<QGraphicsView> _view;
-    std::unique_ptr<GraphScExample> _scene;
+      std::unique_ptr<GraphScExample> _scene;
+    std::unique_ptr<GrView> _view;
+  
 };
 }
 }
