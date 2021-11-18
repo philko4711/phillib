@@ -42,7 +42,6 @@ link_directories(/usr/local/lib)
 
 set(MOC_PHILLIB_QT 
   WidgetImage.h
-  
   )
 
   set(MOC_PHILLIB_QT_3D 
@@ -60,6 +59,11 @@ set(MOC_IMG_MAGIC
   MenuTransform.h
 )
 
+set(MOC_GRPH 
+  grview/GraphScExample.h
+  grview/MainWindow.h
+  grview/GrView.h)
+
 SET(FORMS_IMG_MAGIC menuTransform.ui
                   )
 qt5_wrap_ui(FORMS_IMG_MAGIC_HEADER ${FORMS_IMG_MAGIC})
@@ -69,15 +73,26 @@ qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT ${MOC_PHILLIB_QT})
 qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT_3D ${MOC_PHILLIB_QT_3D})
 qt5_wrap_cpp(MOC_GENERATED_TEST_QVTK ${MOC_TEST_QVTK})
 qt5_wrap_cpp(MOC_GENERATED_IMG_MAGIC ${MOC_IMG_MAGIC})
+qt5_wrap_cpp(MOC_GENERATED_GRPH ${MOC_GRPH})
 
 add_executable(test_vtk test_qvtk.cpp TestQvtk.cpp WidgetNewQvtk.cpp ${MOC_GENERATED_TEST_QVTK})# WidgetQvtk.cpp WidgetNewQvtk.cpp)
 add_executable(test_scroll test_scroll.cpp WidgetDisplay.cpp)
 add_executable(image_magic image_magic.cpp ImageMagic.cpp WidgetNewQvtk.cpp MenuTransform.cpp ${MOC_GENERATED_IMG_MAGIC} ${FORMS_IMG_MAGIC_HEADER})
+add_executable(grph grview/graph_sc_example.cpp grview/MainWindow.cpp grview/GraphScExample.cpp grview/GrView.cpp ${MOC_GENERATED_GRPH})
 
 add_library(phillib_qt SHARED WidgetImage.cpp  ${MOC_GENERATED_PHILLIB_QT}) 
 add_library(phillib_qt_3d SHARED  WidgetNewQvtk.cpp ${MOC_GENERATED_PHILLIB_QT_3D})  #
 
 target_link_libraries(phillib_qt
+    PUBLIC
+  Qt5::Core
+  Qt5::Gui 
+  Qt5::Widgets
+  phillib_utils
+  tinyxml2
+    )
+
+    target_link_libraries(grph
     PUBLIC
   Qt5::Core
   Qt5::Gui 
