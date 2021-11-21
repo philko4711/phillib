@@ -16,6 +16,7 @@ namespace qt
     virtual void wheelEvent(QWheelEvent *event)override;//{}
     protected:
       void mousePressEvent(QMouseEvent* event)override;
+      void mouseMoveEvent(QMouseEvent* event)override;
     private:
 };
 }

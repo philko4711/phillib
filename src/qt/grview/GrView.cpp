@@ -5,6 +5,7 @@ namespace phillib {
 namespace qt {
 GrView::GrView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(parent) {
   this->setScene(scene);
+  this->setMouseTracking(true);
 }
 
 void GrView::mousePressEvent(QMouseEvent *event) {
@@ -12,10 +13,30 @@ void GrView::mousePressEvent(QMouseEvent *event) {
   auto scene = this->scene();
   auto point = this->mapToScene(event->pos());
   if ((event->button() == Qt::LeftButton))
+  {
     dynamic_cast<GraphScExample *>(scene)->drawPoint(point);
-  else if((event->button() == Qt::LeftButton))  
+    scene->addEllipse(point.x(), point.y(), 2.0, 2.0, QPen());
+  }
+  else if((event->button() == Qt::MiddleButton))  
     this->centerOn(this->mapToScene(event->pos()));
   this->update();
+}
+
+
+void GrView::mouseMoveEvent(QMouseEvent* event)
+{
+  
+  
+  if((event->button() == Qt::MiddleButton))  
+  {
+    event->accept();
+    qDebug() << __PRETTY_FUNCTION__ << "";
+    this->centerOn(this->mapToScene(event->pos()));
+    this->update();  
+  }
+  else
+    QGraphicsView::mouseMoveEvent(event);  
+  
 }
 
 void GrView::wheelEvent(QWheelEvent *event) {
