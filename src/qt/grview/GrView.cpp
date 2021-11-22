@@ -1,7 +1,7 @@
 #include "GrView.h"
 #include "GraphScExample.h"
 #include <QtCore/QDebug>
-#include <QtWidgets/QGraphicsItem>
+
 #include <phillib_utils/random.h>
 namespace phillib {
 namespace qt {
@@ -16,7 +16,8 @@ void GrView::mousePressEvent(QMouseEvent *event) {
   auto point = this->mapToScene(event->pos());
   if ((event->button() == Qt::LeftButton)) {
     dynamic_cast<GraphScExample *>(scene)->drawPoint(point);
-    scene->addEllipse(point.x(), point.y(), 2.0, 2.0, QPen(QBrush(Qt::green), 50), QBrush(Qt::green, Qt::SolidPattern));
+    //scene->addEllipse(point.x(), point.y(), 2.0, 2.0, QPen(QBrush(Qt::green), 50), QBrush(Qt::green, Qt::SolidPattern));
+    scene->addItem(new ColoredEllipse(point.x(), point.y(), 2.0, 2.0));//, QPen(QBrush(Qt::green), 50), QBrush(Qt::green, Qt::SolidPattern));
   }
   auto items = scene->items();
   if(items.size())
