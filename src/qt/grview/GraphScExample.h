@@ -18,7 +18,7 @@ namespace qt
     void drawPoint(const QPointF &point);
     protected:
       virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-      virtual void drawForeground(QPainter *painter, const QRectF &rect)override;
+      virtual void drawBackground(QPainter *painter, const QRectF &rect)override;
     private:
       std::unique_ptr<QPixmap> _image;
       QGraphicsPixmapItem* _item;

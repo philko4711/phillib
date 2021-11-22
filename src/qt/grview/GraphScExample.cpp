@@ -37,7 +37,7 @@ void GraphScExample::drawPoint(const QPointF &point)
     this->update();
 }  
 
-void GraphScExample::drawForeground(QPainter *painter, const QRectF &rect)
+void GraphScExample::drawBackground(QPainter *painter, const QRectF &rect)
 {
   painter->save();
    painter->setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::RoundCap,Qt::RoundJoin));
