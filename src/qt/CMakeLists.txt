@@ -13,6 +13,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 ${Qt5Widgets_EXECUTABLE_COMPI
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL REQUIRED)
+find_package(Qt5Multimedia REQUIRED)
+find_package(Qt5MultimediaWidgets REQUIRED)
 
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIRS})
@@ -97,6 +99,8 @@ target_link_libraries(phillib_qt
   Qt5::Core
   Qt5::Gui 
   Qt5::Widgets
+  Qt5::Multimedia
+  Qt5::MultimediaWidgets
   phillib_utils
   tinyxml2
     )

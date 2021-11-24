@@ -25,6 +25,7 @@ public:
   void         setRectsFilled(const QVector<QRectFilled>& rectsFilled) { _rectsFilled = rectsFilled; }
   void         setRectsCustom(const QVector<QRectCustom>& rectsCustom) { _rectsCustom = rectsCustom; }
   void setImageBackground(const QImage& image);
+  void reset();
   // void         addRect(const QRect& var) { _rects.push_back(var); }
   // void         addLine(const QLine& var) { _lines.push_back(var); }
   // void addLineRGB(const QLineRGB& var){_linesRGB.push_back(var);}

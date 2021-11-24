@@ -121,6 +121,18 @@ void WidgetImage::mousePressEvent(QMouseEvent* event)
   emit this->mousePressed(point);
 }
 
+void WidgetImage::reset()
+{
+ _rects.clear();
+ _rectsFilled.clear();
+ _rectsCustom.clear();
+ _lines.clear();
+ //_linesRGB.clear();
+ _points.clear();
+ _pointsRGB.clear();
+}
+
+
 } // namespace qt
 
 } // namespace phillib
