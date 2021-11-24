@@ -4,16 +4,17 @@
 
 #include "ObjectMap.h"
 #include <QtCore/QDebug>
+#include <QtWidgets/QGraphicsItem>
 #include <memory>
 
 namespace phillib
 {
 namespace game_of_life
 {
-  class Food : public ObjectMap, std::enable_shared_from_this<Food>
+  class Food : public QGraphicsItem, std::enable_shared_from_this<Food>
   {
     public:
-    Food(const QPoint& pos);
+    Food();
    // virtual ~Food(){qDebug() << __PRETTY_FUNCTION__ << " pos " << pos();}
     std::shared_ptr<Food> ptr(){return shared_from_this();}
     virtual uint8_t health(void)const;//{return 100;}

@@ -3,7 +3,7 @@
 
 
 #include <QtWidgets/QMainWindow>
-#include <phillib_qt/WidgetImage.h>
+//#include <phillib_qt/WidgetImage.h>
 #include "IObjectMap.h"
 namespace phillib
 {
@@ -15,10 +15,10 @@ namespace game_of_life
     
     MainWindow();
     virtual ~MainWindow(){}
-    void updateMapObjects(std::vector<std::shared_ptr<IObjectMap> >& mapObjects);
-    void setImageBackground(std::shared_ptr<QImage> image){_gui.setImageBackground(*image);}
+    // void updateMapObjects(std::vector<std::shared_ptr<IObjectMap> >& mapObjects);
+    // void setImageBackground(std::shared_ptr<QImage> image){_gui.setImageBackground(*image);}
     private:
-      phillib::qt::WidgetImage _gui;
+  //    phillib::qt::WidgetImage _gui;
 
 };
 }

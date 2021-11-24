@@ -6,7 +6,7 @@ namespace phillib
 {
 namespace game_of_life
 {
-Food::Food(const QPoint& pos):ObjectMap(pos),_amount(10), _amountInitial(10.0f) 
+Food::Food()_amount(10), _amountInitial(10.0f) 
   {
     //qDebug() << __PRETTY_FUNCTION__ << "new food " << pos;
   }
