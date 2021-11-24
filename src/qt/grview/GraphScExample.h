@@ -16,6 +16,7 @@ namespace qt
     GraphScExample(QObject* parent = nullptr);
     virtual ~GraphScExample(){}
     void drawPoint(const QPointF &point);
+    void setImage(const QImage& image);//{_qimage = image;}
     protected:
       virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
       virtual void drawBackground(QPainter *painter, const QRectF &rect)override;
@@ -23,6 +24,7 @@ namespace qt
       std::unique_ptr<QPixmap> _image;
       QGraphicsPixmapItem* _item;
       QVector<QPointF> _points;
+      QImage _qimage;
 };
 }
 }

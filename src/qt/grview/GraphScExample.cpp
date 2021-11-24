@@ -48,8 +48,18 @@ void GraphScExample::drawBackground(QPainter *painter, const QRectF &rect)
     painter->drawEllipse(iter, 100, 100);
   }
     painter->restore();
-    
+    if(_qimage.size().width())
+  painter->drawImage(this->sceneRect(), _qimage, _qimage.rect());  
+  else
+  qDebug() << __PRETTY_FUNCTION__ << " no image";
 }
+
+void GraphScExample::setImage(const QImage& image)
+{
+  _qimage = image;
+  this->update();
+  }
+
 
 }
 }

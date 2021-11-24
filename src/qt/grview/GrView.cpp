@@ -1,13 +1,26 @@
 #include "GrView.h"
 #include "GraphScExample.h"
 #include <QtCore/QDebug>
+#include <QtMultimedia/QCameraInfo>
+#include <QtMultimediaWidgets/QCameraViewfinder>
 
 #include <phillib_utils/random.h>
 namespace phillib {
 namespace qt {
-GrView::GrView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(parent) {
+GrView::GrView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(parent) ,_camera("/dev/video0"){
   this->setScene(scene);
   this->setMouseTracking(true);
+   QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
+  for(auto& iter : cameras) {
+      
+      qDebug() << __PRETTY_FUNCTION__ << " " << iter;
+  } 
+  //QCameraViewfinder* view = new QCameraViewfinder;
+  MyVideoSurface* view = new MyVideoSurface;
+  _camera.setViewfinder(view);
+  //view->show();
+  _camera.start();
+  connect(view, SIGNAL(newFrame(QImage)), this, SLOT(newCameraFrame(QImage)));
 }
 
 void GrView::mousePressEvent(QMouseEvent *event) {
@@ -17,14 +30,26 @@ void GrView::mousePressEvent(QMouseEvent *event) {
   if ((event->button() == Qt::LeftButton)) {
     dynamic_cast<GraphScExample *>(scene)->drawPoint(point);
     //scene->addEllipse(point.x(), point.y(), 2.0, 2.0, QPen(QBrush(Qt::green), 50), QBrush(Qt::green, Qt::SolidPattern));
-    scene->addItem(new ColoredEllipse(point.x(), point.y(), 2.0, 2.0));//, QPen(QBrush(Qt::green), 50), QBrush(Qt::green, Qt::SolidPattern));
+    scene->addItem(new ColoredEllipse(point.x(), point.y(), 20.0, 10.0, Qt::green));//, QPen(QBrush(Qt::green), 50), QBrush(Qt::green, Qt::SolidPattern));
   }
   auto items = scene->items();
   if(items.size())
   {
+    qDebug() << __PRETTY_FUNCTION__ << "1";
   std::vector<int> rd;
-  phillib::utils::randomInts(1, rd, 1, items.size() - 1);
-  //items[*rd.begin()]->
+  std::vector<int> r;
+  std::vector<int> g;
+  std::vector<int> b;
+
+
+
+  phillib::utils::randomInts(1, rd, 0, items.size() - 1);
+  phillib::utils::randomInts(1, r, 0, 255);
+  phillib::utils::randomInts(1, g, 0, 255);
+  phillib::utils::randomInts(1, b, 0, 255);
+  qDebug() << __PRETTY_FUNCTION__ << "2 " << *rd.begin();
+
+  dynamic_cast<ColoredEllipse*>(items[*rd.begin()])->setColor(QColor(*r.begin(), *g.begin(), *b.begin()));
   }
   // for(auto& iter : scene->items())
   // {
@@ -62,5 +87,10 @@ void GrView::wheelEvent(QWheelEvent *event) {
   this->scale(delta, delta);
 }
 
+void GrView::newCameraFrame(QImage image)
+{
+  dynamic_cast<GraphScExample *>(this->scene())->setImage(image);
+this->update();
+}
 } // namespace qt
 } // namespace phillib
