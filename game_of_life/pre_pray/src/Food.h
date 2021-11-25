@@ -14,12 +14,15 @@ namespace game_of_life
   class Food : public QGraphicsItem, std::enable_shared_from_this<Food>
   {
     public:
-    Food();
-   // virtual ~Food(){qDebug() << __PRETTY_FUNCTION__ << " pos " << pos();}
+    enum {Type = UserType + 1};
+    Food(const QPointF& pos);
+    virtual ~Food(){qDebug() << __PRETTY_FUNCTION__;}
     std::shared_ptr<Food> ptr(){return shared_from_this();}
     virtual uint8_t health(void)const;//{return 100;}
-    virtual Type type(void)const{return IObjectMap::Type::FOOD;}
+    virtual int type(void)const override{return Type;}
     unsigned int wither(const unsigned int nFreeNeighbours = 8);
+    virtual QRectF boundingRect()const override{return QRectF(0, 0, 10, 10);}
+    virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr)override;
     private:
       void spread();
       unsigned int _amount;

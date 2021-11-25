@@ -6,10 +6,16 @@ namespace phillib
 {
 namespace game_of_life
 {
-MainWindow::MainWindow()
+MainWindow::MainWindow():_gui(new ViewerWorld())
 {
-  
+  this->setCentralWidget(_gui.get());
 }
+
+void MainWindow::addItem(std::shared_ptr<QGraphicsItem>& item)
+{
+  _gui->scene()->addItem(item.get());
+  _gui->scene()->update();
+  }
 //     : _gui(this)
 // {
 //   _gui.resize(this->size());

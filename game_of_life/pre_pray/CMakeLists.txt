@@ -29,16 +29,17 @@ INCLUDE_DIRECTORIES(
 )
                         
 
-find_package(PCL 1.8 REQUIRED)
-include_directories(${PCL_INCLUDE_DIRS})
-link_directories(${PCL_LIBRARY_DIRS})
-add_definitions(${PCL_DEFINITIONS})
+#find_package(PCL 1.8 REQUIRED)
+#include_directories(${PCL_INCLUDE_DIRS})
+#link_directories(${PCL_LIBRARY_DIRS})
+#add_definitions(${PCL_DEFINITIONS})
 
-find_package(VTK 9 REQUIRED)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+#find_package(VTK 9 REQUIRED)
+#set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(MOC_PRED_PREY src/gui/MainWindow.h 
                 src/PredPray.h
+                src/gui/ViewerWorld.h
 #                src/gui/WidgetImage.h
 #              src/core/QtExpl.h
 #              src/gui/IWidgetMap.h
@@ -61,11 +62,12 @@ link_directories(/usr/local/lib)
 add_executable(pred_prey 
 src/main.cpp
 src/PredPray.cpp
-src/Map.cpp
+#src/Map.cpp
 src/Prey.cpp 
 src/Food.cpp
 src/ObjectMap.cpp
 src/gui/MainWindow.cpp
+src/gui/ViewerWorld.cpp
 #                       src/gui/MainWindow.cpp
 #                       src/gui/WidgetImage.cpp
 #                       src/gui/WidgetMapSizeRegion.cpp
@@ -92,10 +94,10 @@ target_link_libraries(pred_prey
   phillib_utils
   phillib_qt
   tinyxml2
-  VTK::CommonCore
-  VTK::CommonColor 
-  VTK::ViewsQt 
-  ${PCL_LIBRARIES}
-  ${VTK_LIBRARIES}
+#  VTK::CommonCore
+#  VTK::CommonColor 
+#  VTK::ViewsQt 
+#  ${PCL_LIBRARIES}
+#  ${VTK_LIBRARIES}
 #  ${OpenCV_LIBRARIES}
 )

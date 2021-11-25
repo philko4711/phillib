@@ -14,12 +14,12 @@ namespace game_of_life
   {
     Q_OBJECT
     public:
-    ViewerWorld(QGraphicsScene* scene, QWidget* parent = nullptr);
-    virtual ~ViewerWorld(){}
+    ViewerWorld(QWidget* parent = nullptr);
+    virtual ~ViewerWorld(){delete this->scene();}
     protected:
-      virtual void wheelEvent(QWheelEvent *event)override;//{}
-      virtual void mousePressEvent(QMouseEvent* event)override;
-      virtual void mouseMoveEvent(QMouseEvent* event)override;
+      // virtual void wheelEvent(QWheelEvent *event)override;//{}
+      // virtual void mousePressEvent(QMouseEvent* event)override;
+      // virtual void mouseMoveEvent(QMouseEvent* event)override;
     private:
 };
 }
