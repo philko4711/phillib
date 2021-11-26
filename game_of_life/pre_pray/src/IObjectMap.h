@@ -18,15 +18,10 @@ enum class Type
 };
   IObjectMap(){}
   virtual ~IObjectMap(){}
-  //virtual void iterate()=0;
-  /**
-   * @brief Abstract method. Mapobjects return their health in percentage. [0, 100]
-   * 
-   * @return * uint8_t Health
-   */
-  virtual uint8_t health(void)const=0;
-  virtual Type type(void)const=0;
-  virtual const QPoint& pos(void)const=0;
+  virtual Type typeObjectMap(void)const=0;
+  virtual const QPoint& idx(void)const=0;
+  virtual void setIdx(const QPoint& idx)=0;
+  
 };
 } // namespace game_of_life
 } // namespace phillib

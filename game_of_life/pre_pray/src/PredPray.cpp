@@ -1,26 +1,33 @@
 #include "PredPray.h"
 #include <QtCore/QDebug>
 #include <phillib_utils/random.h>
-
-#include "ObjectMap.h"
+#include "IObjectMap.h"
+#include "Food.h"
 
 namespace phillib
 {
 namespace game_of_life
 {
-PredPray::PredPray()
-{ //_map(100, 100)
-
+PredPray::PredPray():_map(100, 100)
+{ 
   _gui.resize(1000, 1000);
   _gui.show();
   for(unsigned int i = 0; i < 10; i++)
     this->seedFoodRandom();
     _timerMain.start(100);
   connect(&_timerMain, SIGNAL(timeout()), this, SLOT(loopMain()));
-  std::shared_ptr<QGraphicsItem> food(new Food(QPointF(100, 100)));
-  _gui.addItem(food);
+  auto food = std::shared_ptr<IObjectMap>( new Food);
+  if(_map.set(QPointF(100, 100), food))
+  {
+    auto ptr = std::dynamic_pointer_cast<QGraphicsItem>(food);
+     _gui.addItem(ptr);
+      _food.push_back(food);
+  }
+  else
+    qDebug() << __PRETTY_FUNCTION__ << "putting food failed";
+ 
   _gui.update();
-  _food.push_back(food);
+ 
   //_timerMain.start(20);
   //_gui.updateMapObjects();
   this->loopMain();

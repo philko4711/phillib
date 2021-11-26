@@ -27,13 +27,13 @@ public:
 private slots:
   void                                  loopMain(); // TODO: thread
   private:
-  // Map                                   _map;
+   Map                                   _map;
   // std::vector<std::shared_ptr<IAgent> > _agents;
   // std::vector<std::shared_ptr<Food> >   _food;
   // std::vector<std::shared_ptr<IObjectMap> > _objectsMap;
   MainWindow                            _gui;
   QTimer _timerMain;
-  std::vector<std::shared_ptr<QGraphicsItem> > _food;
+  std::vector<std::shared_ptr<IObjectMap> > _food;
 };
 } // namespace game_of_life
 } // namespace phillib

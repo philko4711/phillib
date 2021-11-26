@@ -17,12 +17,12 @@ namespace game_of_life
     public:
     Map(const unsigned int height, const unsigned int width);
     virtual ~Map(){}
-    bool set(const QPoint& idcs, std::shared_ptr<IObjectMap> ptr);
+    bool set(const QPointF& crds, std::shared_ptr<IObjectMap> ptr);
     std::shared_ptr<IObjectMap> get(const QPoint& idcs);
     const QRect& sizeMap(void)const{return _sizeMap;}
-    unsigned int adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx); 
+    //unsigned int adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx); 
 //    unsigned int getAllMapObjects(std::vector<std::shared_ptr<IObjectMap> >& objects);
-    std::shared_ptr<QImage> imageMap();
+    //std::shared_ptr<QImage> imageMap();
     private:
       QRect _sizeMap;
       std::vector<std::weak_ptr<IObjectMap> > _map;

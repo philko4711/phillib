@@ -7,10 +7,10 @@ namespace phillib
 {
 namespace game_of_life
 {
-Food::Food(const QPointF& pos):_amount(10), _amountInitial(10.0f) 
+Food::Food():_amount(10), _amountInitial(10.0f)  //const QPointF& pos
   {
     //QGraphicsItem::set
-    this->setPos(pos.x(), pos.y());
+    //this->setPos(pos.x(), pos.y());
   }
 
 unsigned int Food::wither(const unsigned int nFreeNeighbours)
@@ -47,6 +47,12 @@ painter->setPen(pen);
 painter->setBrush(brush);
 painter->drawRect(this->boundingRect());
   painter->restore();
+}
+
+void Food::setIdx(const QPoint& idx)
+{
+_cellIdx = idx;
+this->setPos(idx + QPointF(5.0, 5.0));   //toDo: the map cell resolution must be used
 }
 
 }

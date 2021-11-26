@@ -62,7 +62,7 @@ link_directories(/usr/local/lib)
 add_executable(pred_prey 
 src/main.cpp
 src/PredPray.cpp
-#src/Map.cpp
+src/Map.cpp
 src/Prey.cpp 
 src/Food.cpp
 src/ObjectMap.cpp
