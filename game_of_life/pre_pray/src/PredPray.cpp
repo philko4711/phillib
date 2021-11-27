@@ -14,19 +14,19 @@ PredPray::PredPray():_map(100, 100)
   _gui.show();
   for(unsigned int i = 0; i < 10; i++)
     this->seedFoodRandom();
-    _timerMain.start(100);
+    _timerMain.start(1000);
   connect(&_timerMain, SIGNAL(timeout()), this, SLOT(loopMain()));
-  auto food = std::shared_ptr<IObjectMap>( new Food);
-  if(_map.set(QPointF(100, 100), food))
-  {
-    auto ptr = std::dynamic_pointer_cast<QGraphicsItem>(food);
-     _gui.addItem(ptr);
-      _food.push_back(food);
-  }
-  else
-    qDebug() << __PRETTY_FUNCTION__ << "putting food failed";
+  // auto food = std::shared_ptr<IObjectMap>( new Food);
+  // if(_map.set(QPointF(100, 100), food))
+  // {
+  //   auto ptr = food->item();
+  //    _gui.addItem(ptr);
+  //     _food.push_back(food);
+  // }
+  // else
+  //   qDebug() << __PRETTY_FUNCTION__ << "putting food failed";
  
-  _gui.update();
+  // _gui.update();
  
   //_timerMain.start(20);
   //_gui.updateMapObjects();
@@ -35,15 +35,19 @@ PredPray::PredPray():_map(100, 100)
 
 void PredPray::seedFoodRandom()
 {
-  // const QRect &sizeMap = _map.sizeMap();
-  // std::vector<int> valsX;
-  // phillib::utils::randomInts(1, valsX, sizeMap.topLeft().x(), sizeMap.width());
-  // std::vector<int> valsY;
-  // phillib::utils::randomInts(1, valsY, sizeMap.topLeft().y(), sizeMap.height());
-  // const QPoint pos(*valsX.begin(), *valsY.begin());
-  // auto ptr = std::make_shared<Food>(pos);
-  // _map.set(pos, ptr);
-  // _food.push_back(ptr);
+   const QRect &sizeMap = _map.sizeMap();
+   std::vector<float> valsX;
+   phillib::utils::randomReal(1, valsX, 0.0f, static_cast<float>(sizeMap.width()));
+   std::vector<float> valsY;
+   phillib::utils::randomReal(1, valsY, 0.0f, static_cast<float>(sizeMap.height()));
+   const QPointF pos(*valsX.begin(), *valsY.begin());
+   auto food = std::shared_ptr<IObjectMap>(new Food);
+   if(_map.set(pos, food))
+   {
+    auto ptr = food->item();
+     _gui.addItem(ptr);
+      _food.push_back(food);
+   }
   // qDebug() << __PRETTY_FUNCTION__ << " creating food at " << pos;
 }
 

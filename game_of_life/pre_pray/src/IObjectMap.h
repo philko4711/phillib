@@ -3,6 +3,8 @@
 
 #include <cinttypes>
 #include <QtCore/QPoint>
+#include <QtWidgets/QGraphicsItem>
+#include <memory>
 
 namespace phillib
 {
@@ -21,7 +23,7 @@ enum class Type
   virtual Type typeObjectMap(void)const=0;
   virtual const QPoint& idx(void)const=0;
   virtual void setIdx(const QPoint& idx)=0;
-  
+  virtual std::shared_ptr<QGraphicsItem> item(void)=0;
 };
 } // namespace game_of_life
 } // namespace phillib

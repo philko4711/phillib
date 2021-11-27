@@ -18,6 +18,7 @@ namespace game_of_life
     Map(const unsigned int height, const unsigned int width);
     virtual ~Map(){}
     bool set(const QPointF& crds, std::shared_ptr<IObjectMap> ptr);
+    bool set(const QPoint& idcs, std::shared_ptr<IObjectMap> ptr);
     std::shared_ptr<IObjectMap> get(const QPoint& idcs);
     const QRect& sizeMap(void)const{return _sizeMap;}
     //unsigned int adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx); 
@@ -26,7 +27,7 @@ namespace game_of_life
     private:
       QRect _sizeMap;
       std::vector<std::weak_ptr<IObjectMap> > _map;
-      const float _sizeCell = 0.10f;
+      const float _sizeCell = 10.0f;
 };
 }
 }

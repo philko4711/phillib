@@ -13,10 +13,29 @@ Map::Map(const unsigned int height, const unsigned int width)
 
 bool Map::set(const QPointF& crds, std::shared_ptr<IObjectMap> ptr)
 {
-  qDebug() << __PRETTY_FUNCTION__ << "";
+  qDebug() << __PRETTY_FUNCTION__ << " in " << crds;
   const QPoint idcs(static_cast<int>(std::floor(static_cast<float>(crds.x()) / _sizeCell)),
                      static_cast<int>(std::floor(static_cast<float>(crds.y()) / _sizeCell)));
+                     qDebug() << __PRETTY_FUNCTION__ << " idcs " << idcs;
   if((idcs.x() > _sizeMap.width()) || (idcs.y() > _sizeMap.height()) || (idcs.x() < 0) || (idcs.y() < 0))
+  {
+    return false; // Todo: Recalculate index
+  }
+    
+  const unsigned int idx = idcs.y() * _sizeMap.width() + idcs.x();
+  if(_map[idx].lock())
+  {
+    qDebug() << __PRETTY_FUNCTION__ << " idx " << idcs << " occppied";
+    return false;
+  }
+  _map[idx]              = ptr;
+  ptr->setIdx(idcs);
+  return true;
+}
+
+bool Map::set(const QPoint& idcs, std::shared_ptr<IObjectMap> ptr)
+{
+if((idcs.x() > _sizeMap.width()) || (idcs.y() > _sizeMap.height()) || (idcs.x() < 0) || (idcs.y() < 0))
     return false; // Todo: Recalculate index
   const unsigned int idx = idcs.y() * _sizeMap.width() + idcs.x();
   _map[idx]              = ptr;
