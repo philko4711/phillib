@@ -17,7 +17,7 @@ PredPray::PredPray()
   map.initialize(QSize(100,100));
   for(unsigned int i = 0; i < 10; i++)
     this->seedFoodRandom();
-    _timerMain.start(1000);
+    _timerMain.start(100);
   connect(&_timerMain, SIGNAL(timeout()), this, SLOT(loopMain()));
   // auto food = std::shared_ptr<IObjectMap>( new Food);
   // if(_map.set(QPointF(100, 100), food))
@@ -57,7 +57,7 @@ void PredPray::seedFoodRandom()
 void PredPray::loopMain()
 {
 
-  // qDebug() << __PRETTY_FUNCTION__ << "";
+//   qDebug() << __PRETTY_FUNCTION__ << "";
   // std::vector<std::shared_ptr<IObjectMap>> mapObjects;
   // std::vector<std::vector<std::shared_ptr<Food>>::iterator> toDelete;
   // std::vector<QPoint> seed;
@@ -70,9 +70,13 @@ void PredPray::loopMain()
      const unsigned int amount = food->wither();
      if (amount <= 1)
      {
+       //qDebug() << __PRETTY_FUNCTION__ << "begin erase";
        auto food = std::dynamic_pointer_cast<Food>(*iter);
+       //qDebug() << __PRETTY_FUNCTION__ << "1";
        food->spread(newFood);
+       //qDebug() << __PRETTY_FUNCTION__ << "2";
       _food.erase(iter);
+      //qDebug() << __PRETTY_FUNCTION__ << "end erase";
      }
    }
    for(auto& iter : newFood)
@@ -153,6 +157,7 @@ void PredPray::loopMain()
   // _gui.updateMapObjects(mapObjects);
   //_gui.setImageBackground(_map.imageMap());
   _gui.update();
+  //qDebug() << __PRETTY_FUNCTION__ << "exit";
 } // namespace game_of_life
 } // namespace game_of_life
 } // namespace phillib

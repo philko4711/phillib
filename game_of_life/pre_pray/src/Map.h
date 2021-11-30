@@ -19,11 +19,11 @@ class Map
 public:
   static Map& instance(void);
   void initialize(const QSize& size);
-  virtual ~Map() {qDebug() << __PRETTY_FUNCTION__ << "";}
+  virtual ~Map() {}//qDebug() << __PRETTY_FUNCTION__ << "";}
   bool                        set(const QPointF& crds, std::shared_ptr<IObjectMap> ptr);
   bool                        set(const QPoint& idcs, std::shared_ptr<IObjectMap> ptr);
   std::shared_ptr<IObjectMap> get(const QPoint& idcs);
-  const QRect&                sizeMap(void) const { return _sizeMap; }
+  const QRect&                nCells(void) const { return _sizeMap; }
   const QRectF sizeMap(void);
   unsigned int adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx);
   const std::weak_ptr<IObjectMap>& idx(QPoint& idx)const{return _map[idx.y() * _sizeMap.width() + idx.x()];}
@@ -34,7 +34,7 @@ public:
   QPointF toWorld(const QPoint& idcs){return static_cast<QPointF>(idcs) * _sizeCell;}
   const bool initialized(void)const{return _map.size();}
 private:
-  Map(){qDebug() << __PRETTY_FUNCTION__ << "";}
+  Map(){} //qDebug() << __PRETTY_FUNCTION__ << "";
  static  std::unique_ptr<Map> _instance;
   QRect                                   _sizeMap;
   std::vector<std::weak_ptr<IObjectMap> > _map;

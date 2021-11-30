@@ -17,24 +17,25 @@ Map& Map::instance(void)
 
 void Map::initialize(const QSize& size)
 {
-  qDebug() << __PRETTY_FUNCTION__ << "";
-   qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();
+  // qDebug() << __PRETTY_FUNCTION__ << "";
+  //  qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();
        _map.resize(size.height() * size.width());
-    qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();    
+    //qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();    
      _sizeMap = QRect(QPoint(0, 0), size);
 }
 
 bool Map::set(const QPointF& crds, std::shared_ptr<IObjectMap> ptr)
 {
-  qDebug() << __PRETTY_FUNCTION__ << " in " << crds;
+ // qDebug() << __PRETTY_FUNCTION__ << " in " << crds;
   if(!this->initialized())
   {
-    qDebug() << __PRETTY_FUNCTION__ << " naaa";
-    qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();
+    // qDebug() << __PRETTY_FUNCTION__ << " naaa";
+    // qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();
+    return false;
   }
   const QPoint idcs(static_cast<int>(std::floor(static_cast<float>(crds.x()) / _sizeCell)),
                      static_cast<int>(std::floor(static_cast<float>(crds.y()) / _sizeCell)));
-                     qDebug() << __PRETTY_FUNCTION__ << " idcs " << idcs;
+  //                   qDebug() << __PRETTY_FUNCTION__ << " idcs " << idcs;
   if((idcs.x() > _sizeMap.width()) || (idcs.y() > _sizeMap.height()) || (idcs.x() < 0) || (idcs.y() < 0))
   {
     return false; // Todo: Recalculate index
@@ -43,7 +44,7 @@ bool Map::set(const QPointF& crds, std::shared_ptr<IObjectMap> ptr)
   const unsigned int idx = idcs.y() * _sizeMap.width() + idcs.x();
   if(_map[idx].lock())
   {
-    qDebug() << __PRETTY_FUNCTION__ << " idx " << idcs << " occppied";
+    //qDebug() << __PRETTY_FUNCTION__ << " idx " << idcs << " occppied";
     return false;
   }
   _map[idx]              = ptr;
@@ -63,7 +64,7 @@ if((idcs.x() > _sizeMap.width()) || (idcs.y() > _sizeMap.height()) || (idcs.x() 
 
 std::shared_ptr<IObjectMap> Map::get(const QPoint& idcs)
 {
-  qDebug() << __PRETTY_FUNCTION__ << "";
+ // qDebug() << __PRETTY_FUNCTION__ << "";
   if((idcs.x() > _sizeMap.width()) || (idcs.y() > _sizeMap.height()) || (idcs.x() < 0) || (idcs.y() < 0))
     return nullptr; // Todo: Recalculate index
   const unsigned int idx = idcs.y() * _sizeMap.width() + idcs.x();

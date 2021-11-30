@@ -62,6 +62,7 @@ _graphic->setPos(world);
 
 unsigned int                             Food::spread(std::vector<std::shared_ptr<Food> >& newFood)
  {
+   //qDebug() << __PRETTY_FUNCTION__ << "entra";
    std::vector<std::weak_ptr<IObjectMap> > adj;
   //  auto N = Map::instance().adjacent(adj, _cellIdx);
   //  if(!N)
@@ -69,9 +70,10 @@ unsigned int                             Food::spread(std::vector<std::shared_pt
    for(int i = _cellIdx.y() - 1; i <= _cellIdx.y() + 1; i++)
     for(int j = _cellIdx.x() - 1; j <= _cellIdx.x() + 1; j++)
     {
-      if((i < 0) || (j < 0) || (i > Map::instance().sizeMap().height()) || (j > Map::instance().sizeMap().width()))
+      if((i < 0) || (j < 0) || (i >= Map::instance().nCells().height()) || (j >= Map::instance().nCells().width()))
         continue; //TODO: check index and connect map borders
        QPoint idx(i, j); 
+       //qDebug() << __PRETTY_FUNCTION__ << "idx " << idx;
        if(!Map::instance().idx(idx).lock())
        {
          auto ptr = std::make_shared<Food>();
@@ -79,7 +81,8 @@ unsigned int                             Food::spread(std::vector<std::shared_pt
           Map::instance().set(idx, ptr);
        }
     }
-     
+     //qDebug() << __PRETTY_FUNCTION__ << "exit";
+     return newFood.size();
  }  
 
 }
