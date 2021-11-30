@@ -5,15 +5,33 @@ namespace phillib
 {
 namespace game_of_life
 {
-Map::Map(const unsigned int height, const unsigned int width)
-    : _map(height * width)
-    , _sizeMap(QPoint(0, 0), QSize(height, width))
+
+std::unique_ptr<Map> Map::_instance(nullptr);
+
+Map& Map::instance(void)
 {
+  if(!_instance)
+    _instance = std::unique_ptr<Map>(new Map);
+  return *_instance.get();
+}
+
+void Map::initialize(const QSize& size)
+{
+  qDebug() << __PRETTY_FUNCTION__ << "";
+   qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();
+       _map.resize(size.height() * size.width());
+    qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();    
+     _sizeMap = QRect(QPoint(0, 0), size);
 }
 
 bool Map::set(const QPointF& crds, std::shared_ptr<IObjectMap> ptr)
 {
   qDebug() << __PRETTY_FUNCTION__ << " in " << crds;
+  if(!this->initialized())
+  {
+    qDebug() << __PRETTY_FUNCTION__ << " naaa";
+    qDebug() << __PRETTY_FUNCTION__ << " map size " << _map.size();
+  }
   const QPoint idcs(static_cast<int>(std::floor(static_cast<float>(crds.x()) / _sizeCell)),
                      static_cast<int>(std::floor(static_cast<float>(crds.y()) / _sizeCell)));
                      qDebug() << __PRETTY_FUNCTION__ << " idcs " << idcs;
@@ -50,6 +68,13 @@ std::shared_ptr<IObjectMap> Map::get(const QPoint& idcs)
     return nullptr; // Todo: Recalculate index
   const unsigned int idx = idcs.y() * _sizeMap.width() + idcs.x();
   return _map[idx].lock();
+}
+
+const QRectF Map::sizeMap(void)
+{
+  float width = static_cast<float>(_sizeMap.width()) * _sizeCell;
+  float height = static_cast<float>(_sizeMap.height()) * _sizeCell;
+  return QRectF(0.0, 0.0, width, height);
 }
 
 // std::shared_ptr<QImage> Map::imageMap() {
@@ -89,19 +114,19 @@ std::shared_ptr<IObjectMap> Map::get(const QPoint& idcs)
 //     return std::make_shared<QImage>(bufr.data(), _sizeMap.width(), _sizeMap.height(), QImage::Format_RGB888);
 // }
 
-// unsigned int Map::adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx)
-// {
-//   qDebug() << __PRETTY_FUNCTION__ << "";
-//   for(unsigned int i = idx.y() - 1; i <= idx.y() + 1; i++)
-//     for(unsigned int j = idx.x() - 1; j <= idx.x() + 1; j++)
-//     {
-//       if ((idx.x() > _sizeMap.width()) || (idx.y() > _sizeMap.height()) ||
-//       (idx.x() < 0) || (idx.y() < 0))
-//          continue; // Todo: Recalculate index
-//          adjacent.push_back(_map[idx.y() * _sizeMap.width() + j]);
-//     }
-//     return adjacent.size();
-// }
+unsigned int Map::adjacent(std::vector<std::weak_ptr<IObjectMap> >& adjacent, const QPoint& idx)
+{
+  qDebug() << __PRETTY_FUNCTION__ << "";
+  for(unsigned int i = idx.y() - 1; i <= idx.y() + 1; i++)
+    for(unsigned int j = idx.x() - 1; j <= idx.x() + 1; j++)
+    {
+      if ((idx.x() > _sizeMap.width()) || (idx.y() > _sizeMap.height()) ||
+      (idx.x() < 0) || (idx.y() < 0))
+         continue; // Todo: Recalculate index
+         adjacent.push_back(_map[idx.y() * _sizeMap.width() + j]);
+    }
+    return adjacent.size();
+}
 
 } // namespace game_of_life
 } // namespace phillib

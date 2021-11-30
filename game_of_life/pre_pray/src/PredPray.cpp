@@ -3,15 +3,18 @@
 #include <phillib_utils/random.h>
 #include "IObjectMap.h"
 #include "Food.h"
+#include "Map.h"
 
 namespace phillib
 {
 namespace game_of_life
 {
-PredPray::PredPray():_map(100, 100)
+PredPray::PredPray()
 { 
   _gui.resize(1000, 1000);
   _gui.show();
+  Map& map = Map::instance();//.initialize(100, 100);;
+  map.initialize(QSize(100,100));
   for(unsigned int i = 0; i < 10; i++)
     this->seedFoodRandom();
     _timerMain.start(1000);
@@ -35,14 +38,14 @@ PredPray::PredPray():_map(100, 100)
 
 void PredPray::seedFoodRandom()
 {
-   const QRect &sizeMap = _map.sizeMap();
+   const QRectF &sizeMap = Map::instance().sizeMap();
    std::vector<float> valsX;
    phillib::utils::randomReal(1, valsX, 0.0f, static_cast<float>(sizeMap.width()));
    std::vector<float> valsY;
    phillib::utils::randomReal(1, valsY, 0.0f, static_cast<float>(sizeMap.height()));
    const QPointF pos(*valsX.begin(), *valsY.begin());
    auto food = std::shared_ptr<IObjectMap>(new Food);
-   if(_map.set(pos, food))
+   if(Map::instance().set(pos, food))
    {
     auto ptr = food->item();
      _gui.addItem(ptr);
@@ -60,12 +63,23 @@ void PredPray::loopMain()
   // std::vector<QPoint> seed;
   // // qDebug() << __PRETTY_FUNCTION__ << "foood size " << _food.size();
   // auto iter = _food.begin();
+  std::vector<std::shared_ptr<Food> > newFood;
    for (auto iter = _food.begin(); iter < _food.end(); iter++) 
    {
      auto food = std::dynamic_pointer_cast<Food>(*iter);
      const unsigned int amount = food->wither();
      if (amount <= 1)
+     {
+       auto food = std::dynamic_pointer_cast<Food>(*iter);
+       food->spread(newFood);
       _food.erase(iter);
+     }
+   }
+   for(auto& iter : newFood)
+   {
+    auto ptr = iter->item();
+     _gui.addItem(ptr);
+      _food.push_back(iter);
    }
   //   std::vector<std::weak_ptr<IObjectMap>> adj;
   //   _map.adjacent(adj, (*iter)->pos());

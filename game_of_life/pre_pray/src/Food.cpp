@@ -1,4 +1,5 @@
 #include "Food.h"
+#include "Map.h"
 #include <cmath>
 #include <QtCore/QDebug>
 #include <QtGui/QPainter>
@@ -55,8 +56,31 @@ uint8_t Food::health(void)const
 void Food::setIdx(const QPoint& idx)
 {
 _cellIdx = idx;
-_graphic->setPos(idx * 10);// + QPointF(5.0, 5.0));   //toDo: the map cell resolution must be used
+auto world = Map::instance().toWorld(idx);
+_graphic->setPos(world);
 }
+
+unsigned int                             Food::spread(std::vector<std::shared_ptr<Food> >& newFood)
+ {
+   std::vector<std::weak_ptr<IObjectMap> > adj;
+  //  auto N = Map::instance().adjacent(adj, _cellIdx);
+  //  if(!N)
+  //   return;
+   for(int i = _cellIdx.y() - 1; i <= _cellIdx.y() + 1; i++)
+    for(int j = _cellIdx.x() - 1; j <= _cellIdx.x() + 1; j++)
+    {
+      if((i < 0) || (j < 0) || (i > Map::instance().sizeMap().height()) || (j > Map::instance().sizeMap().width()))
+        continue; //TODO: check index and connect map borders
+       QPoint idx(i, j); 
+       if(!Map::instance().idx(idx).lock())
+       {
+         auto ptr = std::make_shared<Food>();
+          newFood.push_back(ptr);
+          Map::instance().set(idx, ptr);
+       }
+    }
+     
+ }  
 
 }
 }

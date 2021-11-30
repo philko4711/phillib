@@ -60,9 +60,9 @@ public:
   virtual const QPoint&          idx(void) const override { return _cellIdx; }
   virtual void                   setIdx(const QPoint& idx) override; //{_cellIdx = idx;}
   std::shared_ptr<QGraphicsItem> item(void) { return _graphic; }
-
+  unsigned int                             spread(std::vector<std::shared_ptr<Food> >& newFood);
 private:
-  void                             spread();
+  
   unsigned int                     _amount;
   const float                      _amountInitial;
   QPoint                           _cellIdx;

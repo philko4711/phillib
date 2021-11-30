@@ -10,10 +10,11 @@ namespace game_of_life
   class IAgent
   {
     public:
-    enum class Agent
+    enum class TypeAgent
     {
       Prey=0,
-      Predator
+      Predator,
+      Food       //TODO: maybe add subclasses for passive and active agents or find a better definition for food and seed
     };
     IAgent(){}
     virtual ~IAgent(){}
