@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="Rr_wheel">
+        <static>false</static>
+    <link name="wheel_body">
+    <gravity>1</gravity>
+    <inertial>
+        <mass>200.0</mass>
+        <inertia> <!-- inertias are tricky to compute -->
+          <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
+          <ixx>0.2789</ixx>       
+          <ixy>0.0</ixy>        
+          <ixz>0.0</ixz>
+          <iyx>0.0</iyx>        
+          <iyy>0.2789</iyy>     
+          <iyz>0.0</iyz> 
+          <izx>0.0</izx>
+          <izy>0.0</izy>       
+          <izz>0.08</izz>       
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://rr_wheel/meshes/rr_wheel.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://rr_wheel/meshes/rr_wheel.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
