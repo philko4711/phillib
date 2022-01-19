@@ -33,39 +33,51 @@
     </link>
     <include>
       <uri>model://rr_wheel</uri>
-      <pose>2.5 -0.65 -0.8 0 0 -1.57</pose>
+      <pose>1 -0.72 -0.8 0 0 -1.57</pose>
       <name>front_right_wheel</name>
     </include>
     <joint name = 'body_wh_fr_r' type = 'revolute'>
       <parent>body</parent>
       <child>front_right_wheel::wheel_body</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+      </axis>
       </joint>
       <include>
       <uri>model://rr_wheel</uri>
-      <pose>2.5 0.65 -0.8 0 0 1.57</pose>
+      <pose>1 0.72 -0.8 0 0 1.57</pose>
       <name>front_left_wheel</name>
     </include>
     <joint name = 'body_wh_fr_l' type = 'revolute'>
       <parent>body</parent>
       <child>front_left_wheel::wheel_body</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+      </axis>
       </joint>
       <include>
       <uri>model://rr_wheel</uri>
-      <pose>-2.5 -0.65 -0.8 0 0 -1.57</pose>
+      <pose>-1 -0.72 -0.8 0 0 -1.57</pose>
       <name>rear_right_wheel</name>
     </include>
     <joint name = 'body_wh_re_r' type = 'revolute'>
       <parent>body</parent>
       <child>rear_right_wheel::wheel_body</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+      </axis>
       </joint>
       <include>
       <uri>model://rr_wheel</uri>
-      <pose>-2.5 0.65 -0.8 0 0 1.57</pose>
+      <pose>-1 0.72 -0.8 0 0 1.57</pose>
       <name>rear_left_wheel</name>
     </include>
     <joint name = 'body_wh_re_l' type = 'revolute'>
       <parent>body</parent>
       <child>rear_left_wheel::wheel_body</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+      </axis>
       </joint>
     <include>
     <uri>model://t334</uri>
