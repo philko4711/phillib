@@ -24,6 +24,7 @@
 #include <vtkTransform.h>
 #include <vtkUnsignedCharArray.h>
 #include <vtkVertexGlyphFilter.h>
+#include <vtkSphereSource.h>
 
 #include <QtCore/QDebug>
 
@@ -235,6 +236,29 @@ void WidgetNewQvtk::addPlane(const Eigen::Vector3f &point0,
   this->update();
 }
 
+void WidgetNewQvtk::addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const QColor& color)
+{
+vtkNew<vtkPlaneSource> planeSource;
+  planeSource->SetOrigin(center.x(), center.y(), center.z());
+  planeSource->SetPoint1(point0.x(), point0.y(), point0.z());
+  planeSource->SetPoint2(point1.x(), point1.y(), point1.z());
+  planeSource->Update();
+
+  vtkPolyData *plane = planeSource->GetOutput();
+  vtkNew<vtkPolyDataMapper> mapper;
+  mapper->SetInputData(plane);
+  mapper->SetScalarModeToUsePointFieldData();
+  // mapper->SetInputConnection(texturePlane->GetOutputPort());
+  vtkNew<vtkActor> actor;
+  actor->SetMapper(mapper);
+  // actor->SetTexture(atext);
+  
+  // actor->GetProperty()->SetColor();
+  _renderer->AddActor(actor);
+  this->update();
+
+}
+
 void WidgetNewQvtk::updatePlaneImage(vtkSmartPointer<vtkActor> &plane,
                                      QImage &image) {
   // char color[10 * 10 * 3];
@@ -403,4 +427,26 @@ void WidgetNewQvtk::clearCubes() {
   for (auto &iter : _actorsCubes)
     _renderer->RemoveActor(iter);
   _actorsCubes.clear();
+}
+
+void WidgetNewQvtk::addSphere(const Eigen::Vector3f& center, const float radius, const QColor& rgb)
+{
+  vtkNew<vtkNamedColors> colors;
+
+  // Create a sphere
+  vtkNew<vtkSphereSource> sphereSource;
+  sphereSource->SetCenter(center.x(), center.y(), center.z());
+  sphereSource->SetRadius(radius);
+  // Make the surface smooth.
+  sphereSource->SetPhiResolution(100);
+  sphereSource->SetThetaResolution(100);
+
+  vtkNew<vtkPolyDataMapper> mapper;
+  mapper->SetInputConnection(sphereSource->GetOutputPort());
+
+  vtkNew<vtkActor> actor;
+  actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(rgb.redF(), rgb.greenF(), rgb.blueF());
+  _renderer->AddActor(actor);
+  this->update();
 }

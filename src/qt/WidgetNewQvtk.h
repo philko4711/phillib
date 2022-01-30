@@ -23,11 +23,11 @@ struct Line
     _color(Qt::black),
     _width(1.0)
   {}
-  Line(const Eigen::Vector3f& start, const Eigen::Vector3f& end):
+  Line(const Eigen::Vector3f& start, const Eigen::Vector3f& end, const QColor& color = Qt::black, const float width = 1.0):
     _start(start),
     _end(end),
-    _color(Qt::black),
-    _width(1.0)
+    _color(color),
+    _width(width)
     {}
   Line(const pcl::PointXYZ& start, const pcl::PointXYZ& end):
     _start(Eigen::Vector3f(static_cast<double>(start.x), static_cast<double>(start.y), static_cast<double>(start.z))),
@@ -52,8 +52,10 @@ public:
   void drawPoints(const pcl::PointCloud<pcl::PointXYZRGB>& cloud);
   void drawPoints(const std::string& pathPly);
   void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const std::string& pathToImage);
+  void addPlane(const Eigen::Vector3f& point0, const Eigen::Vector3f& point1, const Eigen::Vector3f& center, const QColor& color);
   void addCube(const Eigen::Vector3f& dim, const Eigen::Vector3f& center, const Eigen::Vector3f& rgb);
   void drawCubes();
+  void addSphere(const Eigen::Vector3f& center, const float radius, const QColor& rgb);
 
   void updatePlaneImage(vtkSmartPointer<vtkActor>& plane, QImage& image);
   vtkSmartPointer<vtkActor>& actorPlaneImage(void){return _actorPlaneImage;}
