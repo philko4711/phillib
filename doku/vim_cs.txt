@@ -1,0 +1,3 @@
+set number %show linenumbers
+v start marking with curser, hy copies, hp pastes
+u = undo
