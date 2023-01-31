@@ -12,6 +12,7 @@ namespace treelib
     public:
     RegionQ(const unsigned int lengthEdge);
     virtual ~RegionQ(){}
+    
     private:
     const unsigned int _lengthEdge;
 };
