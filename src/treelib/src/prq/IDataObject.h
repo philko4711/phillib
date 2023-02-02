@@ -4,6 +4,8 @@
 #include <memory>
 #include "RegionQ.h"
 
+class Index;
+
 namespace phillib
 {
 namespace treelib
@@ -13,8 +15,9 @@ namespace treelib
     public:
     IDataObject(){}
     virtual ~IDataObject(){}
-    virtual std::shared_ptr<IDataObject>&  addData(const std::shared_ptr<IDataObject>& data) = 0;
-    virtual in(const RegionQ& region){}
+    //virtual std::shared_ptr<IDataObject>&  addData(const std::shared_ptr<IDataObject>& data) = 0;
+    virtual bool in(const RegionQ& region)const=0;
+    virtual const Index index(void)const=0;
 };
 }
 }

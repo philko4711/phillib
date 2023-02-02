@@ -18,6 +18,7 @@ namespace treelib
     const bool empty(void)const;
     private:
       std::shared_ptr<ITreeObject> _tree;
+      const float _res;
 };
 }
 }

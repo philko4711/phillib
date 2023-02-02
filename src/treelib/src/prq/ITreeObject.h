@@ -6,6 +6,7 @@
 class IDataObject;
 class ITreeObject;
 
+class Index;
 namespace phillib
 {
 namespace treelib
@@ -22,6 +23,7 @@ namespace treelib
     virtual ~ITreeObject(){}
     virtual const Type type() = 0;
     virtual std::shared_ptr<ITreeObject> addData(std::shared_ptr<IDataObject>& data) = 0;
+    virtual bool inside(const Index& index)const = 0;
 };
 }
 }

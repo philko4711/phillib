@@ -4,10 +4,7 @@ namespace phillib
 {
 namespace treelib
 {
-Index::Index()
-  {
-  }
-
-
+Index::Index(const unsigned int u, const unsigned int v):_u(u), _v(v){}
+  
 }
 }
