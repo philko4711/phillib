@@ -12,6 +12,7 @@ namespace treelib
     public:
     Index(const unsigned int u, const unsigned int v);
     virtual ~Index();
+    const Index operator+(const Index& var)const{return Index(_u + var._u, _v + var._v);}
     private:
       const unsigned int _u;
       const unsigned int _v;

@@ -10,10 +10,11 @@ namespace treelib
   class TreeObjectBase : public ITreeObject
   {
     public:
-    TreeObjectBase(const RegionQ& region);
-    virtual ~TreeObjectBase();
+    TreeObjectBase(const std::shared_ptr<RegionQ>& region);
+    virtual ~TreeObjectBase(){}
+    virtual const std::shared_ptr<RegionQ>& region()const{return _region;}
     private:
-     RegionQ _region;
+     const std::shared_ptr<RegionQ> _region = nullptr;
 };
 }
 }

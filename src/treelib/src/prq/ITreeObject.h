@@ -7,6 +7,7 @@ class IDataObject;
 class ITreeObject;
 
 class Index;
+class RegionQ;
 namespace phillib
 {
 namespace treelib
@@ -24,6 +25,7 @@ namespace treelib
     virtual const Type type() = 0;
     virtual std::shared_ptr<ITreeObject> addData(std::shared_ptr<IDataObject>& data) = 0;
     virtual bool inside(const Index& index)const = 0;
+    virtual const std::shared_ptr<RegionQ>& region()const = 0;
 };
 }
 }

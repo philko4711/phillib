@@ -9,7 +9,7 @@ namespace phillib
 {
 namespace treelib
 {
-  class Node : public TreeObjectBase, , public std::enable_shared_from_this<Node>
+  class Node : public TreeObjectBase, public std::enable_shared_from_this<Node>
   {
     public:
     enum class Succ
@@ -19,12 +19,12 @@ namespace treelib
       BL,
       BR
     };
-    Node(const RegionQ& region);
+    Node(const std::shared_ptr<RegionQ>& region);
     virtual ~Node(){}
     virtual const Type type()override{return ITreeObject::Type::NODE;}
     virtual std::shared_ptr<ITreeObject> addData(std::shared_ptr<IDataObject>& data)override;
     private:
-      std::shared_ptr<ITreeObject> successors[4] = {nullptr};
+      std::shared_ptr<ITreeObject> _successors[4] = {nullptr};
 };
 }
 }
