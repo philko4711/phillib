@@ -5,17 +5,18 @@
 #include "TreeObjectBase.h"
 #include <memory>
 
-class RegionQ;
-class IDataObject;
+
 
 namespace phillib
 {
 namespace treelib
 {
+  class RegionQ;
+class IDataObject;
   class Leaf : public TreeObjectBase, public std::enable_shared_from_this<Leaf>
   {
     public:
-    Leaf(const RegionQ& region);
+    Leaf(const std::shared_ptr<RegionQ>& region);
     virtual ~Leaf(){}
     virtual const Type type()override{return ITreeObject::Type::LEAF;}
     const bool empty(void)const{return _data == nullptr;}

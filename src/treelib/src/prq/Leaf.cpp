@@ -5,7 +5,7 @@ namespace phillib
 {
 namespace treelib
 {
-Leaf::Leaf(const RegionQ& region):TreeObjectBase(region)
+Leaf::Leaf(const std::shared_ptr<RegionQ>& region):TreeObjectBase(region)
   {
   }
 

@@ -10,16 +10,11 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} -O2 -Wall  -mtune=native")
 
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Multimedia REQUIRED)
-find_package(Qt5MultimediaWidgets REQUIRED)
-
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIRS})
  
-#find_package(PCL  REQUIRED)
-#include_directories(${PCL_INCLUDE_DIRS})
+
+
 
 
 INCLUDE_DIRECTORIES(
@@ -27,48 +22,19 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-include_directories(${Qt5Widgets_INCLUDES})
-add_definitions(${Qt5Widgets_DEFINITIONS})
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
-#link_directories(/usr/local/lib)
-
-
-#set(MOC_PHILLIB_QT 
-#  WidgetImage.h
-#  )
-#
-#  set(MOC_PHILLIB_QT_3D 
-#  WidgetNewQvtk.h)
-#
-#set(MOC_TEST_QVTK 
-#  TestQvtk.h
-#  WidgetNewQvtk.h
-#  WidgetNewQvtk.h
-#)
-#
-#set(MOC_IMG_MAGIC
-#  WidgetNewQvtk.h
-#  ImageMagic.hl
-#
-#set(MOC_GRPH 
-#  grview/GraphScExample.h
-#  grview/MainWindow.h
-#  grview/GrView.h)
-#
-#SET(FORMS_IMG_MAGIC menuTransform.ui
-#                  )
-#qt5_wrap_ui(FORMS_IMG_MAGIC_HEADER ${FORMS_IMG_MAGIC})
-#
-#
-#qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT ${MOC_PHILLIB_QT})
-#qt5_wrap_cpp(MOC_GENERATED_PHILLIB_QT_3D ${MOC_PHILLIB_QT_3D})
-#qt5_wrap_cpp(MOC_GENERATED_TEST_QVTK ${MOC_TEST_QVTK})
-#qt5_wrap_cpp(MOC_GENERATED_IMG_MAGIC ${MOC_IMG_MAGIC})
-#qt5_wrap_cpp(MOC_GENERATED_GRPH ${MOC_GRPH})
-#
-#add_executable(test_vtk test_qvtk.cpp TestQvtk.cpp WidgetNewQvtk.cpp ${MOC_GENERATED_TEST_QVTK})# WidgetQvtk.cpp WidgetNewQvtk.cpp)
+add_executable(test_tree_prq 
+  src/prq/test_tree_prq.cpp 
+  src/prq/DataObjectBase.cpp 
+  src/prq/DataObjectPoint.cpp 
+  src/prq/Index.cpp 
+  src/prq/Leaf.cpp 
+  src/prq/Node.cpp 
+  src/prq/Point.cpp 
+  src/prq/RegionQ.cpp 
+  src/prq/TreeObjectBase.cpp 
+  src/prq/TreePrq.cpp 
+)
 #add_executable(test_scroll test_scroll.cpp WidgetDisplay.cpp)
 #add_executable(image_magic image_magic.cpp ImageMagic.cpp WidgetNewQvtk.cpp MenuTransform.cpp ${MOC_GENERATED_IMG_MAGIC} ${FORMS_IMG_MAGIC_HEADER})
 #add_executable(grph grview/graph_sc_example.cpp grview/MainWindow.cpp grview/GraphScExample.cpp grview/GrView.cpp ${MOC_GENERATED_GRPH})

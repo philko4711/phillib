@@ -9,6 +9,7 @@ namespace phillib
 {
 namespace treelib
 {
+  class ITreeObject;
   class TreePrq
   {
     public:

@@ -3,15 +3,15 @@
 
 #include <memory>
 
-class IDataObject;
-class ITreeObject;
-
-class Index;
-class RegionQ;
 namespace phillib
 {
 namespace treelib
 {
+
+  class Index;
+class RegionQ;
+class IDataObject;
+class ITreeObject;
   class ITreeObject
   {
     public:

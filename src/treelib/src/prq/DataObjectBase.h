@@ -14,7 +14,7 @@ namespace treelib
   {
     public:
     DataObjectBase(const Index& index);
-    virtual ~DataObjectBase();
+    virtual ~DataObjectBase(){}
     virtual bool inside(const Index& index)const;
     protected:
       Index _index;

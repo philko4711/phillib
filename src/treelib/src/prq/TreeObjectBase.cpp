@@ -7,7 +7,10 @@ namespace treelib
 TreeObjectBase::TreeObjectBase(const std::shared_ptr<RegionQ>& region):_region(region)
   {
   }
-
+// const std::shared_ptr<RegionQ>& TreeObjectBase::region()const
+// {
+  
+// }
 
 }
 }
