@@ -17,6 +17,7 @@ namespace treelib
     virtual ~TreePrq(){}
     void push(std::vector<std::shared_ptr<IDataObject> >& dataNew);
     const bool empty(void)const;
+    void print();
     private:
       std::shared_ptr<ITreeObject> _tree;
       const float _res;

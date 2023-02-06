@@ -26,6 +26,7 @@ class ITreeObject;
     virtual std::shared_ptr<ITreeObject> addData(std::shared_ptr<IDataObject>& data) = 0;
     virtual bool inside(const Index& index)const = 0;
     virtual const std::shared_ptr<RegionQ>& region()const = 0;
+    virtual void print()=0;
 };
 }
 }

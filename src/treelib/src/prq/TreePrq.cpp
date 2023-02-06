@@ -27,5 +27,10 @@ const bool TreePrq::empty(void)const
   return std::dynamic_pointer_cast<Leaf>(_tree)->empty();  
 }
 
+void TreePrq::print()
+{
+
+}
+
 }
 }

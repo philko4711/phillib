@@ -23,6 +23,7 @@ namespace treelib
     virtual ~Node(){}
     virtual const Type type()override{return ITreeObject::Type::NODE;}
     virtual std::shared_ptr<ITreeObject> addData(std::shared_ptr<IDataObject>& data)override;
+    virtual void print()override;
     private:
       std::shared_ptr<ITreeObject> _successors[4] = {nullptr};
 };

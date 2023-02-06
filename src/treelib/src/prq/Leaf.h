@@ -21,6 +21,7 @@ class IDataObject;
     virtual const Type type()override{return ITreeObject::Type::LEAF;}
     const bool empty(void)const{return _data == nullptr;}
     virtual std::shared_ptr<ITreeObject> addData(std::shared_ptr<IDataObject>& data)override;
+    virtual void print()override;
     private:
       std::shared_ptr<IDataObject> _data = nullptr;
 };

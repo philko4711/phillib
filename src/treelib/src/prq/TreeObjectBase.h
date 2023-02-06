@@ -8,6 +8,7 @@ namespace phillib
 {
 namespace treelib
 {
+  class Index;
   
   class TreeObjectBase : public ITreeObject
   {
@@ -15,9 +16,10 @@ namespace treelib
     TreeObjectBase(const std::shared_ptr<RegionQ>& region);
     virtual ~TreeObjectBase(){}
     virtual const std::shared_ptr<RegionQ>& region()const override{return _region;}
-    virtual bool inside(const Index& index)const{return true;}   //toDo: dummy implementation
+    virtual bool inside(const Index& index)const;
     private:
      const std::shared_ptr<RegionQ> _region = nullptr;
+     const std::shared_ptr<Index> _index = nullptr;
 };
 }
 }
