@@ -18,6 +18,7 @@ namespace treelib
     //virtual std::shared_ptr<IDataObject>&  addData(const std::shared_ptr<IDataObject>& data) = 0;
     //virtual bool in(const RegionQ& region)const=0;
     virtual const Index index(void)const=0;
+    virtual bool operator==(const IDataObject& var)const = 0;
 };
 }
 }

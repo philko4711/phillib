@@ -22,6 +22,7 @@ class IDataObject;
     const bool empty(void)const{return _data == nullptr;}
     virtual std::shared_ptr<ITreeObject> addData(std::shared_ptr<IDataObject>& data)override;
     virtual void print()override;
+    const std::shared_ptr<IDataObject> data()const{return _data;}
     private:
       std::shared_ptr<IDataObject> _data = nullptr;
 };

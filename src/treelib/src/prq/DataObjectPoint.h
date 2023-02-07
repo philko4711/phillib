@@ -19,6 +19,7 @@ namespace treelib
     DataObjectPoint(const Point& point);
     virtual ~DataObjectPoint(){}
     virtual const Index index(void)const{return Index(static_cast<unsigned int>(std::floor(_point.x() / _resolution)), static_cast<unsigned int>(std::floor(_point.y() / _resolution)));}    
+    virtual bool operator==(const IDataObject& var)const override{return this->index() == var.index();}
     private:
       Point _point;
       const float _resolution = 0.10f;   //toDo: later, this parameter will be set in the main tree class

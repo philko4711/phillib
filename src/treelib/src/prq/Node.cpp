@@ -25,6 +25,7 @@ Node::Node(const std::shared_ptr<RegionQ>& region):TreeObjectBase(region)
 
 std::shared_ptr<ITreeObject> Node::addData(std::shared_ptr<IDataObject>& data)
 {
+  std::cout << __PRETTY_FUNCTION__ << " adding data with index " << data->index().u() << " " << data->index().v() << std::endl;
   const Index& idx = data->index();
   for(unsigned int i = static_cast<unsigned int>(Node::Succ::TL); i <= static_cast<unsigned int>(Node::Succ::BR); i++)
     if(_successors[i]->inside(idx))

@@ -10,6 +10,11 @@ DataObjectPoint::DataObjectPoint(const Point& point):DataObjectBase(this->index(
     
   }
 
+// bool DataObjectPoint::operator==(const IDataObject& var)const
+// {
+//   ;
+// }
+
 // const Index DataObjectPoint::index(void)const
 // {
 //   const unsigned int u = ;

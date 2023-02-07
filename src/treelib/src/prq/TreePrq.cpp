@@ -29,7 +29,7 @@ const bool TreePrq::empty(void)const
 
 void TreePrq::print()
 {
-
+  _tree->print();
 }
 
 }
