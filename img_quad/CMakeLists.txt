@@ -38,8 +38,8 @@ INCLUDE_DIRECTORIES(
 #find_package(VTK 9 REQUIRED)
 #set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-#set(IMG_QUAD src/gui/MainWindow.h 
-#                src/PredPray.h
+set(MOC_IMG_QUAD src/gui/MainWindow.h 
+                src/gui/SceneImgQuad.h
 #                src/gui/ViewerWorld.h
 #                src/gui/WidgetImage.h
 #              src/core/QtExpl.h
@@ -48,22 +48,23 @@ INCLUDE_DIRECTORIES(
 #              src/gui/WidgetMapChangedRegions.h
 #              src/gui/WidgetConfig.h
 #              src/gui/WidgetSegment.h
-#              )
+              )
 
-#set(UI_QT_EXPL src/gui/main_window.ui
+set(UI_IMG_QUAD src/gui/main.ui
 #               src/gui/config.ui
-#               src/gui/segment.ui)
+#               src/gui/segment.ui
+)
 
-#qt5_wrap_cpp(MOC_GENERATED_IMG_QUAD ${MOC_IMG_QUAD})
+qt5_wrap_cpp(MOC_GENERATED_IMG_QUAD ${MOC_IMG_QUAD})
 
-#qt5_wrap_ui(UI_GENERATED_QTREE ${UI_QT_EXPL})
+qt5_wrap_ui(UI_GENERATED_IMG_QUAD ${UI_IMG_QUAD})
  
 link_directories(/usr/local/lib)
 
 add_executable(img_quad
 src/img_quad.cpp
-#src/PredPray.cpp
-#src/Map.cpp
+src/gui/MainWindow.cpp
+src/gui/SceneImgQuad.cpp
 #src/Prey.cpp 
 #src/Food.cpp
 #src/ObjectMap.cpp
@@ -77,8 +78,8 @@ src/img_quad.cpp
 #                       src/utils/utils.cpp
 #                       src/gui/WidgetConfig.cpp
 #                       src/gui/WidgetSegment.cpp
-#                       ${MOC_GENERATED_PRED_PREY}
-#                       ${UI_GENERATED_QTREE}
+                       ${MOC_GENERATED_IMG_QUAD}
+                       ${UI_GENERATED_IMG_QUAD}
 )
     
 #add_executable(load_expl src/load_expl.cpp src/core/DataObjectQPoint.cpp)
