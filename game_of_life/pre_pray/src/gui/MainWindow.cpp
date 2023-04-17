@@ -1,20 +1,21 @@
 #include "MainWindow.h"
 #include <QtCore/QDebug>
 #include <cmath>
-#include <phillib_qt/datatypes.h>
+//#include <phillib_qt/datatypes.h>
 namespace phillib
 {
 namespace game_of_life
 {
-MainWindow::MainWindow():_gui(new ViewerWorld())
+MainWindow::MainWindow():_guiUi(new Ui::MainWindowPredPray())
 {
-  this->setCentralWidget(_gui.get());
+  _guiUi->setupUi(this);
+  //this->setCentralWidget(_gui.get());
 }
 
 void MainWindow::addItem(std::shared_ptr<QGraphicsItem>& item)
 {
-  _gui->scene()->addItem(item.get());
-  _gui->scene()->update();
+  _guiUi->viewMain->scene()->addItem(item.get());
+  _guiUi->viewMain->update();
   }
 //     : _gui(this)
 // {

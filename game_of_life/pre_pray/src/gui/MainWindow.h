@@ -3,6 +3,7 @@
 
 #include "IObjectMap.h"
 #include "ViewerWorld.h"
+#include "ui_main_window.h"
 #include <QtWidgets/QMainWindow>
 #include <memory>
 namespace phillib
@@ -18,7 +19,8 @@ public:
   // void updateMapObjects(std::vector<std::shared_ptr<IObjectMap> >& mapObjects);
   // void setImageBackground(std::shared_ptr<QImage> image){_gui.setImageBackground(*image);}
 private:
-  std::unique_ptr<ViewerWorld> _gui;
+  //std::unique_ptr<MainWindowPredPray> _gui;
+  std::unique_ptr<Ui::MainWindowPredPray> _guiUi;
 };
 } // namespace game_of_life
 } // namespace phillib

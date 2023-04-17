@@ -21,7 +21,7 @@ public:
   virtual ~PredPray() {}
   //void spawn(const IAgent::Agent& type, const QPoint& pos);
   void seedFoodRandom();
-
+  bool setFoodPos(const QPointF& pos);
 
 private slots:
   void                                  loopMain(); // TODO: thread

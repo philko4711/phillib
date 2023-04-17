@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 ${Qt5Widgets_EXECUTABLE_COMPI
  
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-find_package(OpenCV REQUIRED)
+#find_package(OpenCV REQUIRED)
  
 include_directories(${Qt5Widgets_INCLUDES})
 #include_directories( ${OpenCV_INCLUDE_DIRS} )
@@ -25,18 +25,8 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${CMAKE_CURRENT_SOURCE_DIR}/src/gui
-#  ${CMAKE_CURRENT_SOURCE_DIR}/src/core
 )
-                        
-
-#find_package(PCL 1.8 REQUIRED)
-#include_directories(${PCL_INCLUDE_DIRS})
-#link_directories(${PCL_LIBRARY_DIRS})
-#add_definitions(${PCL_DEFINITIONS})
-
-#find_package(VTK 9 REQUIRED)
-#set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
+                      
 set(MOC_PRED_PREY src/gui/MainWindow.h 
                 src/PredPray.h
                 src/gui/ViewerWorld.h
@@ -49,13 +39,9 @@ set(MOC_PRED_PREY src/gui/MainWindow.h
 #              src/gui/WidgetSegment.h
               )
 
-#set(UI_QT_EXPL src/gui/main_window.ui
-#               src/gui/config.ui
-#               src/gui/segment.ui)
-
 qt5_wrap_cpp(MOC_GENERATED_PRED_PREY ${MOC_PRED_PREY})
 
-#qt5_wrap_ui(UI_GENERATED_QTREE ${UI_QT_EXPL})
+qt5_wrap_ui(UI_GENERATED_PRED_PREY src/gui/main_window.ui)
  
 link_directories(/usr/local/lib)
 
@@ -77,6 +63,7 @@ src/gui/ViewerWorld.cpp
 #                       src/gui/WidgetConfig.cpp
 #                       src/gui/WidgetSegment.cpp
                        ${MOC_GENERATED_PRED_PREY}
+                       ${UI_GENERATED_PRED_PREY}
 #                       ${UI_GENERATED_QTREE}
 )
     
@@ -90,9 +77,9 @@ target_link_libraries(pred_prey
   Qt5::Core
   Qt5::Gui 
   Qt5::Widgets
-  pr_tree
+  #pr_tree
   phillib_utils
-  phillib_qt
+  #phillib_qt
   tinyxml2
 #  VTK::CommonCore
 #  VTK::CommonColor 

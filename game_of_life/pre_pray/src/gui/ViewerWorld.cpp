@@ -7,7 +7,7 @@ namespace game_of_life
 ViewerWorld::ViewerWorld(QWidget* parent)
     : QGraphicsView(parent)
 {
-  this->setScene(new QGraphicsScene(0, 0, 600, 600));
+  this->setScene(new QGraphicsScene(0, 0, 1000, 1000, this)); //todo: this magic number is mapsize * objectsize !!
   this->setStyleSheet("background-color:black");
 }
 
