@@ -1,3 +1,5 @@
 set number %show linenumbers
 v start marking with curser, hy copies, hp pastes
 u = undo
+ctrl+v start block ->  cursor down for highlighting, shift+i for insert -> esc for taking over
+""                           ""                      x for deleting

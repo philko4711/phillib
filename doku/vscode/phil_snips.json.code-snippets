@@ -29,6 +29,13 @@
 		],
 		"description": "qt console out"
 	  },
+	  "prf console out": {
+		"prefix": "dbgprf",
+		"body": [
+		  "printf(\"%s: $1\\n\", __PRETTY_FUNCTION__);"
+		],
+		"description": "printf console out"
+	  },
 	  "main ros": {
 		"prefix": "main_ros",
 		"body": [
