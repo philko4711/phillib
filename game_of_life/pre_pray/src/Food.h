@@ -49,7 +49,7 @@ class Food : public IObjectMap, std::enable_shared_from_this<Food>
 {
 public:
   // enum {Type = UserType + 1};
-  Food(); // const QPointF& pos
+  Food(const QPointF& pos);
   virtual ~Food() {}// qDebug() << __PRETTY_FUNCTION__; }
   std::shared_ptr<Food> ptr() { return shared_from_this(); }
   virtual uint8_t       health(void) const; //{return 100;}
