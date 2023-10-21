@@ -25,7 +25,7 @@ namespace phillib
       this->setFoodPos(QPointF(sizeMap.width()- 1.0, sizeMap.height()- 1.0));
       // for (unsigned int i = 0; i < 10; i++)
       //   this->seedFoodRandom();
-      _timerMain.start(1000);
+      _timerMain.start(100);
       connect(&_timerMain, SIGNAL(timeout()), this, SLOT(loopMain()));
       // auto food = std::shared_ptr<IObjectMap>( new Food);
       // if(_map.set(QPointF(100, 100), food))
@@ -52,7 +52,7 @@ namespace phillib
       std::vector<float> valsY;
       phillib::utils::randomReal(1, valsY, 0.0f, static_cast<float>(sizeMap.height()));
       const QPointF pos(*valsX.begin(), *valsY.begin());
-      auto food = std::shared_ptr<IObjectMap>(new Food);
+      auto food = std::shared_ptr<IObjectMap>(new Food(pos));
 
       if (Map::instance().set(pos, food))
       {
@@ -66,7 +66,7 @@ namespace phillib
     bool PredPray::setFoodPos(const QPointF &pos)
     {
       qDebug() << __PRETTY_FUNCTION__ << " trying to add food at " << pos;
-      auto food = std::shared_ptr<IObjectMap>(new Food);
+      auto food = std::shared_ptr<IObjectMap>(new Food(pos));
 
       if (!Map::instance().set(pos, food))
         return false;

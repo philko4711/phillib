@@ -27,9 +27,9 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/gui
 )
                       
-set(MOC_PRED_PREY src/gui/MainWindow.h 
-                src/PredPray.h
-                src/gui/ViewerWorld.h
+#set(MOC_PRED_PREY src/gui/MainWindow.h 
+#                src/PredPray.h
+#                src/gui/ViewerWorld.h
 #                src/gui/WidgetImage.h
 #              src/core/QtExpl.h
 #              src/gui/IWidgetMap.h
@@ -39,21 +39,21 @@ set(MOC_PRED_PREY src/gui/MainWindow.h
 #              src/gui/WidgetSegment.h
               )
 
-qt5_wrap_cpp(MOC_GENERATED_PRED_PREY ${MOC_PRED_PREY})
+#qt5_wrap_cpp(MOC_GENERATED_PRED_PREY ${MOC_PRED_PREY})
 
-qt5_wrap_ui(UI_GENERATED_PRED_PREY src/gui/main_window.ui)
+#qt5_wrap_ui(UI_GENERATED_PRED_PREY src/gui/main_window.ui)
  
-link_directories(/usr/local/lib)
+#link_directories(/usr/local/lib)
 
-add_executable(pred_prey 
-src/main.cpp
-src/PredPray.cpp
-src/Map.cpp
-src/Prey.cpp 
-src/Food.cpp
-src/ObjectMap.cpp
-src/gui/MainWindow.cpp
-src/gui/ViewerWorld.cpp
+#add_executable(pred_prey 
+#src/main.cpp
+#src/PredPray.cpp
+#src/Map.cpp
+#src/Prey.cpp 
+#src/Food.cpp
+#src/ObjectMap.cpp
+#src/gui/MainWindow.cpp
+#src/gui/ViewerWorld.cpp
 #                       src/gui/MainWindow.cpp
 #                       src/gui/WidgetImage.cpp
 #                       src/gui/WidgetMapSizeRegion.cpp
@@ -62,8 +62,8 @@ src/gui/ViewerWorld.cpp
 #                       src/utils/utils.cpp
 #                       src/gui/WidgetConfig.cpp
 #                       src/gui/WidgetSegment.cpp
-                       ${MOC_GENERATED_PRED_PREY}
-                       ${UI_GENERATED_PRED_PREY}
+#                       ${MOC_GENERATED_PRED_PREY}
+#                       ${UI_GENERATED_PRED_PREY}
 #                       ${UI_GENERATED_QTREE}
 )
     
@@ -72,15 +72,15 @@ src/gui/ViewerWorld.cpp
 #add_executable(fw_bw_cp src/fw_bw_cp.cpp src/core/DataObjectQPoint.cpp src/utils/utils.cpp)
 
 
-target_link_libraries(pred_prey
-    PUBLIC
-  Qt5::Core
-  Qt5::Gui 
-  Qt5::Widgets
-  #pr_tree
-  phillib_utils
-  #phillib_qt
-  tinyxml2
+#target_link_libraries(pred_prey
+#    PUBLIC
+#  Qt5::Core
+#  Qt5::Gui 
+#  Qt5::Widgets
+#  #pr_tree
+#  phillib_utils
+#  #phillib_qt
+#  tinyxml2
 #  VTK::CommonCore
 #  VTK::CommonColor 
 #  VTK::ViewsQt 

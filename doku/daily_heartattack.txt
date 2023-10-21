@@ -1,0 +1,1 @@
+auto _json = cJSON_CreateObject();   //TODO: copy error, create a new variale which shadows a member so the member stays 0x0 

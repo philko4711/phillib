@@ -8,9 +8,17 @@ namespace phillib
 {
 namespace game_of_life
 {
-Food::Food():_amount(10), _amountInitial(10.0f), _graphic(new GraphicItemFood)  //const QPointF& pos
+Food::Food(const QPointF& pos):_amount(10), _amountInitial(10.0f), _graphic(new QGraphicsEllipseItem)  
   {
-    _graphic->setColor(Qt::green);
+    QBrush brush(Qt::SolidPattern);
+    QPen pen(Qt::SolidLine);
+    pen.setWidth(1);
+    pen.setColor(Qt::green);
+    pen.setColor(Qt::green);
+    _graphic->setBrush(Qt::green);
+    _graphic->setPen(pen);
+    _graphic->setRect(QRectF(0.0, 0.0, 10.0, 10.0));
+    _graphic->setPos(pos);
     //QGraphicsItem::set
     //this->setPos(pos.x(), pos.y());
   }
@@ -25,7 +33,14 @@ unsigned int Food::wither(const unsigned int nFreeNeighbours)
   QColor color(Qt::green);
   float amount = static_cast<float>(_amount); 
   color.setAlphaF(amount / _amountInitial);  
-  _graphic->setColor(color);
+  QBrush brush(Qt::SolidPattern);
+    QPen pen(Qt::SolidLine);
+    pen.setWidth(1);
+    pen.setColor(color);
+    pen.setColor(color);
+    _graphic->setBrush(color);
+    _graphic->setPen(pen);
+  //_graphic->setColor(color);
   return _amount;
 }
 
@@ -76,9 +91,10 @@ unsigned int                             Food::spread(std::vector<std::shared_pt
        //qDebug() << __PRETTY_FUNCTION__ << "idx " << idx;
        if(!Map::instance().idx(idx).lock())
        {
-         auto ptr = std::make_shared<Food>();
+         auto ptr = std::make_shared<Food>(QPointF(idx));
+         if(Map::instance().set(idx, ptr))
           newFood.push_back(ptr);
-          Map::instance().set(idx, ptr);
+          
        }
     }
      //qDebug() << __PRETTY_FUNCTION__ << "exit";
