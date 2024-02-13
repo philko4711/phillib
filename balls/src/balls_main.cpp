@@ -8,5 +8,6 @@ int main(int argc, char** argv)
     QApplication app(argc, argv);
     phillib::BallsMainWindow gui(800, 600);
     gui.show();
+    gui.addBall();
     return app.exec();
 }

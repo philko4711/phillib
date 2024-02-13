@@ -2,12 +2,13 @@
 #define PHILLIB_BALLSMAINWINDOW_H_
 
 #include <QtWidgets/QMainWindow>
-
+#include "ui_main_window_balls.h"
+#include <memory>
 namespace phillib
 {
   class BallsMainWindow : public QMainWindow
   {
-    //Q_OBJECT
+    Q_OBJECT
     public:
     BallsMainWindow();
     BallsMainWindow(const int w, const int h);
@@ -15,6 +16,8 @@ namespace phillib
     void addBall();
     private:
     void init();
+    std::unique_ptr<Ui::MainWindow> _guiUi;
+
 };
 }
 #endif

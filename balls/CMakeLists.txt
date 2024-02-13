@@ -22,10 +22,10 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
-  #${CMAKE_CURRENT_SOURCE_DIR}/src/gui
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/gui
 )
                       
-#set(MOC_PRED_PREY src/gui/MainWindow.h 
+set(MOC_BALLS src/gui/BallsMainWindow.h 
 #                src/PredPray.h
 #                src/gui/ViewerWorld.h
 #                src/gui/WidgetImage.h
@@ -35,11 +35,11 @@ INCLUDE_DIRECTORIES(
 #              src/gui/WidgetMapChangedRegions.h
 #                            src/gui/WidgetConfig.h
 #              src/gui/WidgetSegment.h
-#              )
+              )
 
-#qt5_wrap_cpp(MOC_GENERATED_PRED_PREY ${MOC_PRED_PREY})
+qt5_wrap_cpp(MOC_GENERATED_BALLS ${MOC_BALLS})
 #
-#qt5_wrap_ui(UI_GENERATED_PRED_PREY src/gui/main_window.ui)
+qt5_wrap_ui(UI_GENERATED_BALLS src/gui/main_window_balls.ui)
  
 link_directories(/usr/local/lib)
 
@@ -67,6 +67,8 @@ link_directories(/usr/local/lib)
     
 add_executable(balls src/balls_main.cpp
                      src/gui/BallsMainWindow.cpp
+                     ${MOC_GENERATED_BALLS}
+                     ${UI_GENERATED_BALLS}
 )
 
 #add_executable(fw_bw_cp src/fw_bw_cp.cpp src/core/DataObjectQPoint.cpp src/utils/utils.cpp)
@@ -78,9 +80,9 @@ target_link_libraries(balls
   Qt5::Gui 
   Qt5::Widgets
 #  #pr_tree
-#  phillib_utils
+   phillib_utils
 #  #phillib_qt
-#  tinyxml2
+  tinyxml2
 #  VTK::CommonCore
 #  VTK::CommonColor 
 #  VTK::ViewsQt 
