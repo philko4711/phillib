@@ -33,7 +33,7 @@ namespace phillib
     std::vector<float> rdsY;
     const QRectF &rect = _guiUi->graphicsView->scene()->sceneRect();
     utils::randomReal(1, rdsY, rect.bottomLeft().ry(), rect.topRight().ry());
-    utils::randomReal(1, rdsX, rect.bottomLeft().rx(), rect.topRight().ry());
+    utils::randomReal(1, rdsX, rect.bottomLeft().rx(), rect.topRight().rx());
 
     //std::shared_ptr<QGraphicsEllipseItem> item = std::make_shared<QGraphicsEllipseItem>();
     static std::shared_ptr<QGraphicsEllipseItem> item = std::shared_ptr<QGraphicsEllipseItem>(new QGraphicsEllipseItem);
@@ -47,11 +47,24 @@ namespace phillib
     item->setBrush(brush);
     item->setPen(pen);
     //item->setVisible(true);
-    item->setPos(rect.center());
+    item->setPos(*rdsX.begin(), *rdsY.begin());
     //item->setPos(QPointF(0.0f, 0.0f));
     qDebug() << __PRETTY_FUNCTION__ << "Adding object with rect " << item->rect() << " and pos " << item->pos();
     _guiUi->graphicsView->scene()->addItem(item.get()); 
     _guiUi->graphicsView->update();
+  }
+
+  void BallsMainWindow::addBallItem(QGraphicsEllipseItem& item)
+  {
+    item.setRect(0.0f, 0.0f, 50.0f, 50.0f);
+    QBrush brush(Qt::SolidPattern);
+    QPen pen(Qt::SolidLine);
+    pen.setWidth(1);
+    pen.setColor(Qt::green);
+    brush.setColor(Qt::green);
+    item.setBrush(brush);
+    item.setPen(pen);
+    _guiUi->graphicsView->scene()->addItem(&item); 
   }
 
 }

@@ -14,6 +14,8 @@ namespace phillib
     BallsMainWindow(const int w, const int h);
     virtual ~BallsMainWindow(){}
     void addBall();
+    void addBallItem(QGraphicsEllipseItem& item);
+    const QRectF sceneRect(void)const{return _guiUi->graphicsView->sceneRect();}
     private:
     void init();
     std::unique_ptr<Ui::MainWindow> _guiUi;

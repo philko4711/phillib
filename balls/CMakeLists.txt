@@ -26,7 +26,7 @@ INCLUDE_DIRECTORIES(
 )
                       
 set(MOC_BALLS src/gui/BallsMainWindow.h 
-#                src/PredPray.h
+                src/BallsMain.h
 #                src/gui/ViewerWorld.h
 #                src/gui/WidgetImage.h
 #              src/core/QtExpl.h
@@ -67,6 +67,8 @@ link_directories(/usr/local/lib)
     
 add_executable(balls src/balls_main.cpp
                      src/gui/BallsMainWindow.cpp
+                     src/BallsMain.cpp
+                     src/Ball.cpp
                      ${MOC_GENERATED_BALLS}
                      ${UI_GENERATED_BALLS}
 )
