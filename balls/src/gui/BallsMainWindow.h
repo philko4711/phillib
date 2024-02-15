@@ -6,6 +6,16 @@
 #include <memory>
 namespace phillib
 {
+  class CollidingItems
+  {
+    public:
+      CollidingItems(QGraphicsItem* item0, QGraphicsItem* item1):_item0(item0), _item1(item1){}
+      virtual ~CollidingItems(){}
+    private:
+      QGraphicsItem* _item0;
+      QGraphicsItem* _item1;
+  };
+
   class BallsMainWindow : public QMainWindow
   {
     Q_OBJECT
@@ -16,6 +26,7 @@ namespace phillib
     void addBall();
     void addBallItem(QGraphicsEllipseItem& item);
     const QRectF sceneRect(void)const{return _guiUi->graphicsView->sceneRect();}
+    std::vector<CollidingItems> collidingItems(void)const;
     private:
     void init();
     std::unique_ptr<Ui::MainWindow> _guiUi;

@@ -67,4 +67,23 @@ namespace phillib
     _guiUi->graphicsView->scene()->addItem(&item); 
   }
 
+  std::vector<CollidingItems> BallsMainWindow::collidingItems(void)const
+  {
+    auto items = _guiUi->graphicsView->scene()->items();
+    std::vector<CollidingItems> collisions;
+    for(auto& iter0 : items)
+    {
+      for(auto& iter1 : items)
+      {
+        if(iter0 == iter1)
+          continue;
+        if(iter0->collidesWithItem(iter1))
+        {
+          collisions.push_back(CollidingItems(iter0, iter1));
+        }  
+      }
+    }
+    return collisions;
+  }
+
 }

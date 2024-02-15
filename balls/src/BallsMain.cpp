@@ -41,8 +41,10 @@ void BallsMain::iterate()
       iter->setV(v);
     }
   }
+  auto collisions = _gui.collidingItems();
+  if(collisions.size())
+    qDebug() << __PRETTY_FUNCTION__ << " Items collide";
   _gui.update();
-
 }
 
 void BallsMain::addBall()
