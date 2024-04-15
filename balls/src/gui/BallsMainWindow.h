@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_main_window_balls.h"
+#include "Ball.h"
 #include <memory>
 namespace phillib
 {
@@ -11,6 +12,8 @@ namespace phillib
     public:
       CollidingItems(QGraphicsItem* item0, QGraphicsItem* item1):_item0(item0), _item1(item1){}
       virtual ~CollidingItems(){}
+      QGraphicsItem* item0(){return _item0;}
+      QGraphicsItem* item1(){return _item1;}
     private:
       QGraphicsItem* _item0;
       QGraphicsItem* _item1;
@@ -23,10 +26,10 @@ namespace phillib
     BallsMainWindow();
     BallsMainWindow(const int w, const int h);
     virtual ~BallsMainWindow(){}
-    void addBall();
-    void addBallItem(QGraphicsEllipseItem& item);
+    void addBallItem(Ball& item);
     const QRectF sceneRect(void)const{return _guiUi->graphicsView->sceneRect();}
     std::vector<CollidingItems> collidingItems(void)const;
+    void removeItem(QGraphicsItem* item);
     private:
     void init();
     std::unique_ptr<Ui::MainWindow> _guiUi;
