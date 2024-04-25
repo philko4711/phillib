@@ -7,20 +7,17 @@
 
 namespace phillib
 {
-  Ball::Ball(const QPointF &pos, const QPointF &v, const float m) : _v(v), _m(m)
+  Ball::Ball(const QPointF &pos, const QPointF &v, const float m, const float radius, const QColor& color) : _v(v), _m(m)
   {
-    qDebug() << __PRETTY_FUNCTION__ << "entry";
-
-    // this->setVisible(true);
     this->setPos(pos);
     this->setFlag(ItemIsMovable);
-    this->setRect(0.0f, 0.0f, 25.0f, 25.0f);   //TODO: make adjustable
+    this->setRect(0.0f, 0.0f, radius, radius); 
     QBrush brush(Qt::SolidPattern);
     QPen pen(Qt::SolidLine);
   
      pen.setWidth(1);
-     pen.setColor(Qt::green);
-     brush.setColor(Qt::green);
+     pen.setColor(color);
+     brush.setColor(color);
      this->setBrush(brush);
      this->setPen(pen);
 

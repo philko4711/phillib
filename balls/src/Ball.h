@@ -8,7 +8,7 @@ namespace phillib
   class Ball : public QGraphicsEllipseItem
   {
   public:
-    Ball(const QPointF &pos, const QPointF &v, const float m = 1.0f);
+    Ball(const QPointF &pos, const QPointF &v, const float m = 1.0f, const float radius = 5.0f, const QColor& = Qt::white);
     virtual ~Ball() {}
     void iterate();
     const QPointF &v(void) const { return _v; }

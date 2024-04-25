@@ -80,9 +80,9 @@ namespace phillib
     this->addBall(pos, v);
   }
 
-  void BallsMain::addBall(const QPointF &pos, const QPointF &v, const float m)
+  void BallsMain::addBall(const QPointF &pos, const QPointF &v, const float m, const float radius, const QColor& color)
   {
-    auto ptr = std::make_shared<Ball>(pos, v, m);
+    auto ptr = std::make_shared<Ball>(pos, v, m, radius, color);
     _gui.addBallItem(*ptr.get());
     _balls.push_back(ptr);
     _gui.update();

@@ -24,7 +24,7 @@ namespace phillib
     QRectF rectF(this->rect());
     qDebug() << __PRETTY_FUNCTION__ << " Adding scene with rect " << rectF;
     _guiUi->graphicsView->setScene(new QGraphicsScene(rectF));
-    this->setStyleSheet("background-color:black;");
+    //this->setStyleSheet("background-color:black;");
   }
 
   // void BallsMainWindow::addBall()
