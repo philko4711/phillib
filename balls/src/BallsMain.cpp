@@ -53,15 +53,18 @@ namespace phillib
     if (collisions.size())
     {
       std::vector<QGraphicsItem*> toDelete;
+     // unsigned int ctr = 0;
       for(auto& iter : collisions)
       {
+      //  qDebug() << __PRETTY_FUNCTION__ << " collision nbr " << ctr++;
         dynamic_cast<Ball*>(iter.item0())->collide(*dynamic_cast<Ball*>(iter.item1()));
       //  dynamic_cast<Ball*>(iter.item0())->setDelete();
       //  dynamic_cast<Ball*>(iter.item1())->setDelete();
       }
-      
+    //abort();  
     }
     _gui.update();
+    
   }
 
   void BallsMain::addBall()

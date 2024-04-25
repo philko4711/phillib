@@ -14,6 +14,14 @@ namespace phillib
       virtual ~CollidingItems(){}
       QGraphicsItem* item0(){return _item0;}
       QGraphicsItem* item1(){return _item1;}
+      bool operator==(const CollidingItems& var)
+      {
+        if((var._item0 == _item0)&&(var._item1 == _item1))
+            return true;
+        else if((var._item1 == _item0)&&(var._item0 == _item1))
+            return true;
+        return false;    
+      }
     private:
       QGraphicsItem* _item0;
       QGraphicsItem* _item1;

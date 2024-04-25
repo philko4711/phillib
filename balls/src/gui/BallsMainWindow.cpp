@@ -79,7 +79,16 @@ namespace phillib
           continue;
         if (iter0->collidesWithItem(iter1))
         {
-          collisions.push_back(CollidingItems(iter0, iter1));
+          CollidingItems var(iter0, iter1);
+          bool found = false;
+          for(auto& iter3 : collisions)
+            if(iter3 == var)
+            {
+              found = true;
+              break;
+            }
+          if(!found)  
+          collisions.push_back(var);
         }
       }
     }

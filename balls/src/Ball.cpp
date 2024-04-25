@@ -14,7 +14,7 @@ namespace phillib
     // this->setVisible(true);
     this->setPos(pos);
     this->setFlag(ItemIsMovable);
-    this->setRect(0.0f, 0.0f, 5.0f, 5.0f);   //TODO: make adjustable
+    this->setRect(0.0f, 0.0f, 25.0f, 25.0f);   //TODO: make adjustable
     QBrush brush(Qt::SolidPattern);
     QPen pen(Qt::SolidLine);
   
@@ -52,12 +52,20 @@ namespace phillib
     this->setV(v_s0);
     const QPointF v_s1(u2x, u2y);
     ball.setV(v_s1);
-    qDebug() << __PRETTY_FUNCTION__ << "vnew: " << v_s0 << " " << v_s1;
-    for(unsigned int i = 0; i < 5; i++)
-    {
-      ball.iterate();
-      this->iterate();
-    }
+    //qDebug() << __PRETTY_FUNCTION__ << "vnew: " << v_s0 << " " << v_s1;
+    // while(1)
+    // {
+    //   QRectF rectThis = this->boundingRect();
+    //   QRectF rectBall = ball.boundingRect();
+    //   rectThis.moveCenter(this->pos());
+    //   rectBall.moveCenter(ball.pos());
+    //   if(!rectThis.intersects(rectBall))  
+    //     break;
+
+
+    //   ball.iterate();
+    //   this->iterate();
+    // }
   }
 
   // QRectF Ball::boundingRect() const
