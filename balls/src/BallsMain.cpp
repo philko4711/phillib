@@ -7,6 +7,9 @@ namespace phillib
   {
     _timerMain.start(10);
     connect(&_timerMain, SIGNAL(timeout()), this, SLOT(iterate()));
+    connect(&_gui, SIGNAL(pause(bool)), this, SLOT(pause(bool)));
+    connect(&_gui, SIGNAL(slow(bool)), this, SLOT(slow(bool)));
+    connect(&_gui, SIGNAL(iterate(bool)), this, SLOT(iterate(bool)));
     _gui.show();
      for(auto i = 0; i < nBalls; i++)
        this->addBall();
