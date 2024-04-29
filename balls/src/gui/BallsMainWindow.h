@@ -31,16 +31,27 @@ namespace phillib
   {
     Q_OBJECT
     public:
-    BallsMainWindow();
-    BallsMainWindow(const int w, const int h);
-    virtual ~BallsMainWindow(){}
-    void addBallItem(Ball& item);
-    const QRectF sceneRect(void)const{return _guiUi->graphicsView->sceneRect();}
-    std::vector<CollidingItems> collidingItems(void)const;
-    void removeItem(QGraphicsItem* item);
+      BallsMainWindow();
+      BallsMainWindow(const int w, const int h);
+      virtual ~BallsMainWindow(){}
+      void addBallItem(Ball& item);
+      const QRectF sceneRect(void)const{return _guiUi->graphicsView->sceneRect();}
+      std::vector<CollidingItems> collidingItems(void)const;
+      void removeItem(QGraphicsItem* item);
+    signals:
+      void pause(const bool state);
+      void slow(const bool state);
+      void iterate(const bool direction);
+    public slots:
+      void buttonPauseChanged(const bool state);
+      void buttonSlowChanged(const bool state);
+      void buttonIterateForwardClicked();
+      void buttonIterateBackwardClicked();    
     private:
-    void init();
-    std::unique_ptr<Ui::MainWindow> _guiUi;
+      void init();
+      void resetCheckedButtonSlow();
+      void resetCheckedButtonPause();
+      std::unique_ptr<Ui::MainWindow> _guiUi;
 
 };
 }

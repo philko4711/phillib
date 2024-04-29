@@ -22,48 +22,16 @@ namespace phillib
     _guiUi = std::make_unique<Ui::MainWindow>();
     _guiUi->setupUi(this);
     QRectF rectF(this->rect());
-    qDebug() << __PRETTY_FUNCTION__ << " Adding scene with rect " << rectF;
+    //qDebug() << __PRETTY_FUNCTION__ << " Adding scene with rect " << rectF;
     _guiUi->graphicsView->setScene(new QGraphicsScene(rectF));
-    //this->setStyleSheet("background-color:black;");
+    connect(_guiUi->pushButtonPause, SIGNAL(toggled(bool)), this, SLOT(buttonPauseChanged(const bool)));
+    connect(_guiUi->pushButtonSlow, SIGNAL(toggled(bool)), this, SLOT(buttonSlowChanged(const bool)));
+    connect(_guiUi->pushButtonIterateForward, SIGNAL(clicked(bool)), this, SLOT(buttonIterateForwardClicked()));
+    connect(_guiUi->pushButtonIterateBackward, SIGNAL(clicked(bool)), this, SLOT(buttonIterateBackwardClicked()));
   }
-
-  // void BallsMainWindow::addBall()
-  // {
-  //   std::vector<float> rdsX;
-  //   std::vector<float> rdsY;
-  //   const QRectF &rect = _guiUi->graphicsView->scene()->sceneRect();
-  //   utils::randomReal(1, rdsY, rect.bottomLeft().ry(), rect.topRight().ry());
-  //   utils::randomReal(1, rdsX, rect.bottomLeft().rx(), rect.topRight().rx());
-
-  //   //std::shared_ptr<QGraphicsEllipseItem> item = std::make_shared<QGraphicsEllipseItem>();
-  //   static std::shared_ptr<QGraphicsEllipseItem> item = std::shared_ptr<QGraphicsEllipseItem>(new QGraphicsEllipseItem);
-
-  //   item->setRect(0.0f, 0.0f, 50.0f, 50.0f);
-  //   QBrush brush(Qt::SolidPattern);
-  //   QPen pen(Qt::SolidLine);
-  //   pen.setWidth(1);
-  //   pen.setColor(Qt::green);
-  //   brush.setColor(Qt::green);
-  //   item->setBrush(brush);
-  //   item->setPen(pen);
-  //   //item->setVisible(true);
-  //   item->setPos(*rdsX.begin(), *rdsY.begin());
-  //   //item->setPos(QPointF(0.0f, 0.0f));
-  //   qDebug() << __PRETTY_FUNCTION__ << "Adding object with rect " << item->rect() << " and pos " << item->pos();
-  //   _guiUi->graphicsView->scene()->addItem(item.get());
-  //   _guiUi->graphicsView->update();
-  // }
 
   void BallsMainWindow::addBallItem(Ball &item)
   {
-    // item.setRect(0.0f, 0.0f, 5.0f, 5.0f);
-    // QBrush brush(Qt::SolidPattern);
-    // QPen pen(Qt::SolidLine);
-    // pen.setWidth(1);
-    // pen.setColor(Qt::green);
-    // brush.setColor(Qt::green);
-    // item.setBrush(brush);
-    // item.setPen(pen);
     _guiUi->graphicsView->scene()->addItem(&item);
   }
 
@@ -98,5 +66,45 @@ namespace phillib
   void BallsMainWindow::removeItem(QGraphicsItem *item)
   {
     _guiUi->graphicsView->scene()->removeItem(item);
+  }
+
+  void BallsMainWindow::buttonPauseChanged(const bool state)
+  {
+    if(state == true)
+      this->resetCheckedButtonSlow();
+    emit this->pause(state);    
+  }
+
+  void BallsMainWindow::buttonSlowChanged(const bool state)
+  {
+    if(state == true)
+      this->resetCheckedButtonPause();
+    emit this->slow(state);    
+  }
+
+  void BallsMainWindow::buttonIterateForwardClicked()
+  {
+    this->resetCheckedButtonPause();
+    this->resetCheckedButtonSlow();
+    emit this->iterate(true);
+  }
+
+  void BallsMainWindow::buttonIterateBackwardClicked()
+  {
+    this->resetCheckedButtonPause();
+    this->resetCheckedButtonSlow();
+    emit this->iterate(false);
+  }
+
+  void BallsMainWindow::resetCheckedButtonSlow()
+  {
+    if(_guiUi->pushButtonSlow->isChecked())
+        _guiUi->pushButtonSlow->setChecked(false);        
+  }
+
+  void BallsMainWindow::resetCheckedButtonPause()
+  {
+    if(_guiUi->pushButtonPause->isChecked())
+        _guiUi->pushButtonPause->setChecked(false);
   }
 }
