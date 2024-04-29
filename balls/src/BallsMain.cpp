@@ -10,10 +10,9 @@ namespace phillib
     _gui.show();
      for(auto i = 0; i < nBalls; i++)
        this->addBall();
-    qDebug() << __PRETTY_FUNCTION__ << "Exit";  
   }
 
-  void BallsMain::iterate()
+  void BallsMain::iterate(const bool forward)
   {
     const QRectF sceneRect = _gui.sceneRect();
 
@@ -23,7 +22,7 @@ namespace phillib
       {
         this->removeBall(iter);
       }
-      (*iter)->iterate();
+      (*iter)->iterate(forward);
       if (!sceneRect.contains((*iter)->pos()))
       {
 
@@ -94,4 +93,26 @@ namespace phillib
     _balls.erase(ball);      
   }
 
+  void BallsMain::pause(const bool state)
+  {
+    if(state == true)
+      _timerMain.stop();
+    else
+      _timerMain.start(10);
+    
+  }
+
+  void BallsMain::slow(const bool state)
+  {
+    if(state == true)
+    {
+      _timerMain.stop();
+      _timerMain.start(250);
+    }
+    else
+    {
+      _timerMain.stop();
+      _timerMain.start(10);
+    }
+  }
 }

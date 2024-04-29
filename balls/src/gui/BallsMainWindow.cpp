@@ -84,15 +84,17 @@ namespace phillib
 
   void BallsMainWindow::buttonIterateForwardClicked()
   {
-    this->resetCheckedButtonPause();
+    _guiUi->pushButtonPause->setChecked(true);
     this->resetCheckedButtonSlow();
+    emit this->pause(true);
     emit this->iterate(true);
   }
 
   void BallsMainWindow::buttonIterateBackwardClicked()
   {
-    this->resetCheckedButtonPause();
+    _guiUi->pushButtonPause->setChecked(true);
     this->resetCheckedButtonSlow();
+    emit this->pause(true);
     emit this->iterate(false);
   }
 

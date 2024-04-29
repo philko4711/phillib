@@ -10,7 +10,7 @@ namespace phillib
   public:
     Ball(const QPointF &pos, const QPointF &v, const float m = 1.0f, const float radius = 5.0f, const QColor& = Qt::white);
     virtual ~Ball() {}
-    void iterate();
+    void iterate(const bool forward = true);
     const QPointF &v(void) const { return _v; }
     void setV(const QPointF &v) { _v = v; }
     void collide(Ball& ball);

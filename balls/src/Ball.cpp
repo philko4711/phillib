@@ -22,10 +22,13 @@ namespace phillib
      this->setPen(pen);
   }
 
-  void Ball::iterate()
+  void Ball::iterate(const bool forward)
   {
     QPointF pos = this->pos();
-    pos += _v;
+    if(forward)
+      pos += _v;
+    else
+      pos -= _v;  
     this->setPos(pos);
   }
 

@@ -21,7 +21,9 @@ namespace phillib
     void addBall(const QPointF& pos, const QPointF& v, const float m = 1.0f, const float radius = 5.0f, const QColor& = Qt::white);
     void removeBall(std::vector<std::shared_ptr<Ball> >::iterator ball);
     public slots:
-      void iterate();
+      void iterate(const bool forward = true);
+      void pause(const bool state);
+      void slow(const bool state);
     private:  
       BallsMainWindow _gui;
       std::vector<std::shared_ptr<Ball> > _balls;
