@@ -2,6 +2,7 @@
 #define PHILLIB_BALL_H_
 
 #include <QtWidgets/QGraphicsEllipseItem>
+#include <deque>
 
 namespace phillib
 {
@@ -26,9 +27,12 @@ namespace phillib
     // virtual QRectF boundingRect() const override;
 
   private:
+    bool storePosLast(const QPointF& pos);
     QPointF _v;
     bool _flagDelete = false;
     qreal _m = 1.0f;
+    std::deque<QPointF> _posLast;
+    std::deque<QPointF>::iterator _posCurrent = _posLast.begin();
   };
 }
 #endif

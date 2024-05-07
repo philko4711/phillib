@@ -24,16 +24,38 @@ namespace phillib
 
   void Ball::iterate(const bool forward)
   {
+    qDebug() << __PRETTY_FUNCTION__ << "";
     QPointF pos = this->pos();
     if(forward)
-      pos += _v;
+    {
+      qDebug() << __PRETTY_FUNCTION__ << " huhu1";
+      if(_posCurrent  == _posLast.begin())
+      {
+        qDebug() << __PRETTY_FUNCTION__ << " huhu";
+        pos += _v;
+        this->storePosLast(pos);
+      }
+      else
+      {
+        qDebug() << __PRETTY_FUNCTION__ << "huhu11";
+        _posCurrent++;
+        pos = *_posCurrent;
+      }
+    }
     else
-      pos -= _v;  
+    {
+      if(_posCurrent - 1 != _posLast.end())
+        _posCurrent--;
+      pos = *_posCurrent;
+    }
+    qDebug() << __PRETTY_FUNCTION__ << " huhu3";
     this->setPos(pos);
+    
   }
 
   void Ball::collide(Ball& ball)
   {
+    qDebug() << __PRETTY_FUNCTION__ << "";
     const float phi = std::atan2(ball.pos().y() - this->pos().y() , ball.pos().x() - this->pos().x());
     //qDebug() << __PRETTY_FUNCTION__ << " phi " << phi;
     const QPointF v1 = this->v();
@@ -52,4 +74,21 @@ namespace phillib
     ball.setV(v_s1);
     
   }
+
+  bool Ball::storePosLast(const QPointF& pos)
+  {
+    qDebug() << __PRETTY_FUNCTION__ << "";
+    static const int sizeMax = 10;
+    _posLast.push_front(pos);
+    _posCurrent = _posLast.begin();
+    if(_posLast.size() > sizeMax)
+    {
+      qDebug() << __PRETTY_FUNCTION__ << " huhu";
+      _posLast.pop_back();
+      return true;
+    }
+    return false;
+  }
 }
+
+
