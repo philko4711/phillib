@@ -18,34 +18,48 @@
 	"console out": {
 		"prefix": "dbgcout",
 		"body": [
-		  "std::cout << __PRETTY_FUNCTION__ << \"$0\" << std::endl;"
+			"std::cout << __PRETTY_FUNCTION__ << \"$0(line $TM_LINE_NUMBER, $TM_FILENAME)\" << std::endl;"
 		],
 		"description": "console out"
-	  },
-	  "qt console out": {
+	},
+	"qt console out": {
 		"prefix": "dbgqdb",
 		"body": [
-		  "qDebug() << __PRETTY_FUNCTION__ << \"$0\";"
+			"qDebug() << __PRETTY_FUNCTION__ << \"$0(line $TM_LINE_NUMBER, $TM_FILENAME)\";"
 		],
 		"description": "qt console out"
-	  },
-	  "prf console out": {
+	},
+	"prf console out": {
 		"prefix": "dbgprf",
 		"body": [
-		  "printf(\"%s: $1\\n\", __PRETTY_FUNCTION__);"
+			"printf(\"%s: $1(line $TM_LINE_NUMBER, $TM_FILENAME)\\n\", __PRETTY_FUNCTION__);"
 		],
 		"description": "printf console out"
-	  },
-	  "main ros": {
+	},
+	"main ros": {
 		"prefix": "main_ros",
 		"body": [
-		  "#include <ros/ros.h>",
-		  "int main(int argc, char** argv)",
-		  "{",
-		  "  ros::init(argc, argv, \"$0\")",
-		  "return 0;",
-		  "}"
+			"#include <ros/ros.h>",
+			"int main(int argc, char** argv)",
+			"{",
+			"  ros::init(argc, argv, \"$0\")",
+			"return 0;",
+			"}"
 		],
-		"description": "main method ros"  
+		"description": "main method ros"
+	},
+	"bash_hdr": {
+		"prefix": "bash_hdr",
+		"body": [
+			"#!/bin/bash"
+		],
+		"description": "shebang"
+	},
+	"string": {
+		"prefix": "stdstr",
+		"body": [
+			"std::string(\"$0\")"
+		],
+		"description": "std::string"
 	}
 }
