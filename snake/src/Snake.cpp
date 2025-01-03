@@ -34,16 +34,16 @@ namespace phillib
     switch(dir)
     {
       case MoveEn::RIGHT:
-        _content.add(ContentSnake(tip.col() + 1, tip.row()));
+        _content.add(ContentSnake(bot.col() + 1, bot.row()));
         break;
       case MoveEn::LEFT:
-        _content.add(ContentSnake(tip.col() - 1, tip.row()));
+        _content.add(ContentSnake(bot.col() - 1, bot.row()));
         break;
       case MoveEn::TOP:
-        _content.add(ContentSnake(tip.col(), tip.row()  - 1));
+        _content.add(ContentSnake(bot.col(), bot.row()  - 1));
         break;
       case MoveEn::DOWN:
-        _content.add(ContentSnake(tip.col(), tip.row()  + 1));
+        _content.add(ContentSnake(bot.col(), bot.row()  + 1));
         break;      
       default:
         qDebug() << __PRETTY_FUNCTION__ << "unknkown movement should not happen (line 28, Snake.cpp)";  
@@ -71,5 +71,7 @@ namespace phillib
     default:
       break;   //all other keys are ignored  
     }
+    // this->move(_dir);
+    // _gui.updateDisplay(_content);
   }
 }
