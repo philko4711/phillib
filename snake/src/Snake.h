@@ -25,6 +25,7 @@ namespace phillib
       virtual ~Snake(){}
       bool move(const MoveEn& dir);
       void eat(const unsigned int col, const unsigned int row);
+      const bool collision(ContentSnake& posNew)const;
      private slots:
         void callBackTimerMain();
         void key(int key);

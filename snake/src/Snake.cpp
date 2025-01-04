@@ -1,5 +1,6 @@
 #include "Snake.h"
 #include <QtCore/QDebug>
+#include <iostream>
 
 namespace phillib
 {
@@ -31,24 +32,55 @@ namespace phillib
     //_gui.rmPixel(bot.col(), bot.row());
     qDebug() << __PRETTY_FUNCTION__ << "Tip (c/r) " << tip.col() << "/" << tip.row();
     qDebug() << __PRETTY_FUNCTION__ << "Bot (c/r) " << bot.col() << "/" << bot.row();
+    // unsigned int botLastCol = bot.col();
+    // unsigned int botLastRow = bot.row();
+    unsigned int botNewCol = 0;
+    unsigned int botNewRow= 0;
     switch(dir)
     {
       case MoveEn::RIGHT:
-        _content.add(ContentSnake(bot.col() + 1, bot.row()));
+        if(bot.col() + 1 > 15)
+          botNewCol = 0;
+        else
+          botNewCol = bot.col() + 1;  
+        //_content.add(ContentSnake(bot.col() + 1, bot.row()));
+        botNewRow = bot.row();
         break;
       case MoveEn::LEFT:
-        _content.add(ContentSnake(bot.col() - 1, bot.row()));
+        if(bot.col() - 1 == 0)
+          botNewCol = 15;
+        else
+          botNewCol = bot.col() - 1;
+        botNewRow = bot.row();  
+        //_content.add(ContentSnake(bot.col() - 1, bot.row()));
         break;
       case MoveEn::TOP:
-        _content.add(ContentSnake(bot.col(), bot.row()  - 1));
+        if(bot.row() - 1 == 0)
+          botNewRow = 15;
+        else
+          botNewRow = bot.row() - 1;
+        botNewCol = bot.col();  
+        //_content.add(ContentSnake(bot.col(), bot.row()  - 1));
         break;
       case MoveEn::DOWN:
-        _content.add(ContentSnake(bot.col(), bot.row()  + 1));
+        if(bot.row() + 1 > 15)
+          botNewRow = 0;
+        else
+          botNewRow = bot.row() + 1;
+        //_content.add(ContentSnake(bot.col(), bot.row()  + 1));
+        botNewCol = bot.col();  
         break;      
       default:
         qDebug() << __PRETTY_FUNCTION__ << "unknkown movement should not happen (line 28, Snake.cpp)";  
         break;
     }
+    ContentSnake posNew(botNewCol, botNewRow);
+    if(this->collision(posNew))
+    {
+      std::cout << __PRETTY_FUNCTION__ << "too bad " << std::endl;
+      std::abort();
+    }
+    _content.add(posNew);
     return true;
   }
 
@@ -73,5 +105,15 @@ namespace phillib
     }
     // this->move(_dir);
     // _gui.updateDisplay(_content);
+  }
+
+  const bool Snake::collision(ContentSnake& posNew)const
+  {
+    for(unsigned int i = 0; i < _content.size(); i++)
+    {
+      if(posNew == _content[i])
+        return true;
+    }
+    return false;
   }
 }
