@@ -19,6 +19,8 @@ public:
   virtual ~Fifo() {}
   const unsigned int add(const T& val);
   const unsigned int size(void) const { return _buffer.size(); }
+  const unsigned int sizeMax(void) const { return _size;}
+  void setSize(const unsigned int sizeNew){_size = sizeNew;}
   const T& operator[](const unsigned int i)const{return _buffer[i];}
 private:
   unsigned int  _size;
