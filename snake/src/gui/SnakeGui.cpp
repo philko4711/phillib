@@ -66,7 +66,7 @@ bool SnakeGui::pixel(const unsigned int col, const unsigned int row)
   return false;
 }
 
-void SnakeGui::updateDisplay(const utils::Fifo<ContentSnake>& content)
+void SnakeGui::updateDisplay(const utils::Fifo<ContentSnake>& content, const ContentSnake& food)
 {
   this->rmAllPixels();
   for(unsigned int i = 0; i < content.size(); i++)
@@ -74,12 +74,13 @@ void SnakeGui::updateDisplay(const utils::Fifo<ContentSnake>& content)
     //if(!this->pixel(content[i].col(), content[i].row()))
       this->addPixel(content[i].col(), content[i].row());
   }
+  this->addPixel(food.col(), food.row());
   this->update();
 }
 
 void SnakeGui::keyPressEvent(QKeyEvent* event)
 {
-  qDebug() << __PRETTY_FUNCTION__ << "(line 81, SnakeGui.cpp)";
+  //qDebug() << __PRETTY_FUNCTION__ << "(line 81, SnakeGui.cpp)";
   auto key = event->key();
   switch(key)
   {

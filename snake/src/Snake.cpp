@@ -1,6 +1,7 @@
 #include "Snake.h"
 #include <QtCore/QDebug>
 #include <iostream>
+#include <random>
 
 namespace phillib
 {
@@ -12,26 +13,27 @@ namespace phillib
     _timerMain.start(100);
     _content.add(ContentSnake(3, 3));
     _content.add(ContentSnake(4, 3));
-    _content.add(ContentSnake(5, 3));    
+    _content.add(ContentSnake(5, 3)); 
+    this->createFood();   
   }
 
   void Snake::callBackTimerMain()
   {
-    qDebug() << __PRETTY_FUNCTION__ << "(line 13, Snake.cpp)";
+    //qDebug() << __PRETTY_FUNCTION__ << "(line 13, Snake.cpp)";
     this->move(_dir);
-    _gui.updateDisplay(_content);
+    _gui.updateDisplay(_content, _food);
   }
 
   bool Snake::move(const MoveEn& dir)
   {
     const ContentSnake tip = _content[0];
     const ContentSnake bot = _content[_content.size() - 1];
-    for(unsigned int i = 0; i < _content.size(); i++)
-       qDebug() << __PRETTY_FUNCTION__ << "El " << i << " (c/r) " << _content[i].col() << "/" << _content[i].row();   
+    // for(unsigned int i = 0; i < _content.size(); i++)
+    //    qDebug() << __PRETTY_FUNCTION__ << "El " << i << " (c/r) " << _content[i].col() << "/" << _content[i].row();   
     //abort();
     //_gui.rmPixel(bot.col(), bot.row());
-    qDebug() << __PRETTY_FUNCTION__ << "Tip (c/r) " << tip.col() << "/" << tip.row();
-    qDebug() << __PRETTY_FUNCTION__ << "Bot (c/r) " << bot.col() << "/" << bot.row();
+    // qDebug() << __PRETTY_FUNCTION__ << "Tip (c/r) " << tip.col() << "/" << tip.row();
+    // qDebug() << __PRETTY_FUNCTION__ << "Bot (c/r) " << bot.col() << "/" << bot.row();
     // unsigned int botLastCol = bot.col();
     // unsigned int botLastRow = bot.row();
     unsigned int botNewCol = 0;
@@ -80,6 +82,11 @@ namespace phillib
       std::cout << __PRETTY_FUNCTION__ << "too bad " << std::endl;
       std::abort();
     }
+    else if(posNew == _food)
+    {
+      std::cout << __PRETTY_FUNCTION__ << "eat bitch! " << std::endl;
+      this->eat();
+    }
     _content.add(posNew);
     return true;
   }
@@ -115,5 +122,33 @@ namespace phillib
         return true;
     }
     return false;
+  }
+
+  void Snake::createFood()
+  {
+    static std::random_device dev;
+    static std::mt19937 rng(dev());
+    static std::uniform_int_distribution<std::mt19937::result_type> dist(0,15); 
+    while(1)
+    {
+      ContentSnake food(static_cast<unsigned int>(dist(rng)), static_cast<unsigned int>(dist(rng)));
+      if(!this->collision(food))
+      {
+        _food = food;
+        return;
+      }
+    }
+  }
+
+  void Snake::eat()
+  {
+    // unsigned int sizeOld = _content.size();
+    // std::cout << __PRETTY_FUNCTION__ << "sizeOld" << sizeOld <<std::endl;
+    // sizeOld++;
+    // std::cout << __PRETTY_FUNCTION__ << "size new " << sizeOld << std::endl;
+    _content.setSize(_content.sizeMax() + 1); 
+    _content.add(_food);
+    this->createFood();
+    std::cout << __PRETTY_FUNCTION__ << "snake size " << _content.size() << std::endl;
   }
 }

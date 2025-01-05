@@ -16,7 +16,7 @@ namespace phillib
     public:
       SnakeGui();
       virtual ~SnakeGui(){}
-      void updateDisplay(const utils::Fifo<ContentSnake>& content);
+      void updateDisplay(const utils::Fifo<ContentSnake>& content, const ContentSnake& food);
       bool rmPixel(const unsigned int col, const unsigned int row);
       void rmAllPixels();
     signals:
