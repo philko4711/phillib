@@ -24,8 +24,9 @@ namespace phillib
       Snake();
       virtual ~Snake(){}
       bool move(const MoveEn& dir);
-      void eat(const unsigned int col, const unsigned int row);
+      void eat();
       const bool collision(ContentSnake& posNew)const;
+      void createFood();
      private slots:
         void callBackTimerMain();
         void key(int key);
@@ -34,6 +35,7 @@ namespace phillib
       SnakeGui _gui;
       QTimer _timerMain;
       MoveEn _dir = MoveEn::RIGHT;
+      ContentSnake _food;
 };
 }
 #endif
