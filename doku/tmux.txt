@@ -1,0 +1,2 @@
+ctrl + b % = split terminal horizontal
+ctrl + b o next pane
