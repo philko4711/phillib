@@ -32,6 +32,7 @@ void handle_OnConnect();
 String SendHTML();
 void handle_NotFound();
 void handleColor();
+void handleBreathe();
 
 void changeLed();
 void stillAlive();
@@ -63,6 +64,7 @@ void setup()
   server.on("/", handle_OnConnect);
   server.onNotFound(handle_NotFound);
   server.on("/color", handleColor);
+  server.on("/breathe", handleBreathe);
   server.begin();
   
   Serial.println("HTTP server started");
@@ -114,7 +116,13 @@ String SendHTML()
   ptr += "<form action=\"/color\" accept-charset=\"utf-8\">";
   ptr +="<label for=\"favcolor\">Select your favorite color:</label>";
   ptr +="<input type=\"color\" id=\"favcolor\" name=\"favcolor\" value=\"#ff0000\">";
-  ptr +="<input type=\"submit\" value = \"setColor\"/>";
+  ptr +="<input type=\"submit\" value = \" ok \"/>";
+  ptr +="</form>";
+
+  ptr += "<form action=\"/breathe\" accept-charset=\"utf-8\">";
+  ptr += "<label for=\"breathe\">Breathe Effect </label>";
+  ptr += "<input type=\"checkbox\" id=\"breathe\" name=\"breathe\" value=\"true\">";
+  ptr +="<input type=\"submit\" value = \" on/off \"/>";
   ptr +="</form>";
   
   ptr +="</body>\n";
@@ -125,6 +133,8 @@ String SendHTML()
 
 void changeLed()
 {
+  if(effect == NULL)
+    return;
   effect->process(strip);
   // static bool dir = false;
   // static unsigned long last = millis();
@@ -177,4 +187,29 @@ void handleColor()
 void stillAlive()
 {
   Serial.println(__PRETTY_FUNCTION__);
+}
+
+void handleBreathe()
+{
+  Serial.println(__PRETTY_FUNCTION__);
+  const String valBreathe = server.arg("breathe");
+  Serial.println(valBreathe);
+  if(valBreathe == "true")
+  {
+    if(effect == NULL)
+      effect = std::make_shared<phillib::arduino::EffectBreathe>();
+  }
+  else
+  {
+    if(effect != NULL)
+    {
+      effect.reset();
+      effect = nullptr;
+      brightness = 255;
+      strip.setBrightness(255);
+      strip.show();
+    }
+  }
+    
+  server.send(200, "text/html", SendHTML()); 
 }
