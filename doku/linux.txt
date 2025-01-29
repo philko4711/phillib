@@ -1,0 +1,3 @@
+place in ~/.local/share/applications  #desktop file
+
+
