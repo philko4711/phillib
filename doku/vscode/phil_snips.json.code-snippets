@@ -61,5 +61,27 @@
 			"std::string(\"$0\")"
 		],
 		"description": "std::string"
+	},
+	"todo": {
+		"prefix": "todo",
+		"body": [
+			"//TODO:[PK]$0"
+		],
+		"description": "A named todo comment"
+	},
+	"excpt": {
+		"prefix": "excpt",
+		"body": [
+			"throw std::invalid_argument(std::string(__PRETTY_FUNCTION__) + std::string(\"  $0\"));"
+		],
+		"description": "std exception"
+	},
+	"prtyfu": {
+		"prefix": "prtyfu",
+		"body": ["__PRETTY_FUNCTION__"],
+		"description": "pretty function"
 	}
+
+
+	
 }
