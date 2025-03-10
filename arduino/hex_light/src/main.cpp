@@ -6,11 +6,13 @@
 #include <memory>
 #include "effects/IEffect.h"
 #include "effects/EffectBreathe.h"
+#include "effects/EffectWanderingPxl.h"
+#include "effects/EffectExpand.h"
 
 
 // put function declarations here:
 #define LED_PIN  5
-#define LED_COUNT 18
+#define LED_COUNT 54 //18  
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 const char* ssid = "SNASA";  // Enter SSID here
@@ -41,8 +43,9 @@ void setup()
 {
   strip.begin();
   strip.setBrightness(brightness);
-  for(uint16_t i = 0; i < LED_COUNT; i++)
-    strip.setPixelColor(i, 255, 255, 255);
+  strip.setPixelColor(0, 0, 0 ,0);
+  for(uint16_t i = 1; i < LED_COUNT; i++)
+    strip.setPixelColor(i, 255, 0, 0);
   strip.show(); 
   Serial.begin(9600);
   delay(100);
@@ -68,14 +71,15 @@ void setup()
   server.begin();
   
   Serial.println("HTTP server started");
-  for(uint16_t i = 0; i < LED_COUNT; i++)
-    strip.setPixelColor(i, 255, 255, 255);
+  strip.setPixelColor(0, 0, 0, 0);
+  for(uint16_t i = 1; i < LED_COUNT; i++)
+    strip.setPixelColor(i, 0, 0, 0);
   
   strip.show();
   ticker.attach(0.005f, changeLed);    //todo: change the name of the callback method
-  watchDog.attach(5.0f, stillAlive);
+//  watchDog.attach(5.0f, stillAlive);
 
-  effect = std::make_shared<phillib::arduino::EffectBreathe>();
+  effect = std::make_shared<phillib::arduino::EffectExpand>();
 }
 
 void loop() 

@@ -6,7 +6,7 @@ namespace phillib
 {
 namespace arduino
 {
-EffectBreathe::EffectBreathe(const unsigned long timeOutChange):_timeOutChange(timeOutChange)
+EffectBreathe::EffectBreathe(const unsigned long timeOutChange):EffectBase(timeOutChange)
   {
   }
 
