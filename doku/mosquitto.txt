@@ -1,1 +1,3 @@
 mosquitto_sub -v -h 192.168.80.75 -t gateway_internal/# -F "%I %t: %x\n"
+mosquitto_pub -h 192.168.65.75 -m "ok" -t "gateway_inter│gateway_internal/0/DB302.DBB113/Status ok
+nal/0/STATE"
