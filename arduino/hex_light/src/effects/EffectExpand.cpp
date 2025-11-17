@@ -1,6 +1,6 @@
 #include "EffectExpand.h"
 #include "LedStrip.h"
-#include <Adafruit_NeoPixel.h>
+#include <FastLED.h>
 #include <cmath>
 
 
@@ -10,14 +10,15 @@ namespace arduino
 {
 EffectExpand::EffectExpand(const unsigned long timeOutChange):EffectBase(timeOutChange)
   {
+    Serial.println(__PRETTY_FUNCTION__);
     //_frontierOuter = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
     //_frontierInner = {12, 13, 14, 15, 16, 17};
     _dir = true;
-    _frontierOuter = LedStrip::halo();//{0,  1,  2,  3, 23, 24, 25, 47, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 27, 28, 29, 18,  19, 20, 21, 5, 6, 7, 8, 9, 10, 11};
-    _frontierInner = LedStrip::inner();//{4, 12, 13, 14, 15, 16, 17, 22, 26, 30, 31, 32, 33, 34, 35, 46, 49, 50, 51, 52 ,53, 54};
+    _frontierOuter = LedStrip::haloDebug();//{0,  1,  2,  3, 23, 24, 25, 47, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 27, 28, 29, 18,  19, 20, 21, 5, 6, 7, 8, 9, 10, 11};
+    _frontierInner = LedStrip::innerDebug();//{4, 12, 13, 14, 15, 16, 17, 22, 26, 30, 31, 32, 33, 34, 35, 46, 49, 50, 51, 52 ,53, 54};
   }
 
-  void EffectExpand::process(Adafruit_NeoPixel& strip)
+  void EffectExpand::process(CRGB* strip)
   {
     if(millis() - _last < _timeOutChange)
       return;
@@ -90,14 +91,15 @@ EffectExpand::EffectExpand(const unsigned long timeOutChange):EffectBase(timeOut
     // Serial.println(_brightness);
     // Serial.println(_brightnessInner);
     // Serial.println(_brightnessOuter);
+    //fl::u8 zer = 0;
   
     for(auto& iter : _frontierInner)
-      strip.setPixelColor(iter, _brightnessInner, 0, 0);
+      strip[iter].setRGB(_brightnessInner, 0, 0);//  setRGB(_brightnessInner, 0, 0);// = CRGB(_brightnessInner, zer, zer);//   .setPixelColor(iter, _brightnessInner, 0, 0);
   
     for(auto& iter : _frontierOuter)
-        strip.setPixelColor(iter, _brightnessOuter, 0, 0);
+        strip[iter].setRGB(_brightnessOuter, 0, 0);
         
-  strip.show();
+  FastLED.show();
   _last = millis();
   }  
 

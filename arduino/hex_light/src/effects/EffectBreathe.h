@@ -15,7 +15,9 @@ namespace arduino
     public:
       EffectBreathe(const unsigned long timeOutChange = 10);
       virtual ~EffectBreathe(){}
-      virtual void process(Adafruit_NeoPixel& strip)override;
+      virtual void process(CRGB* strip)override;
+      virtual TypeEffect type(void)const override{return TypeEffect::BREATHE;}
+      virtual String typeString(void)const override{return String("breathe");}
     private:
       
       // unsigned long _last = millis();

@@ -3,6 +3,7 @@
 
 
 #include "EffectBase.h"
+#include <FastLED.h>
 
 namespace phillib
 {
@@ -20,13 +21,15 @@ namespace arduino
       };
       EffectExpand(const unsigned long timeOutChange = 10);
       virtual ~EffectExpand(){}
-      virtual void process(Adafruit_NeoPixel& strip)override;
+      virtual void process(CRGB* strip)override;
+      virtual TypeEffect type(void)const override{return TypeEffect::EXPAND;}
+      virtual String typeString(void)const override{return String("expand");}
     private:
       void switchState();
       std::vector<uint8_t> _frontierOuter;
       std::vector<uint8_t> _frontierInner;
-      uint8_t _brightnessOuter = 0;
-      uint8_t _brightnessInner = 0;
+      fl::u8 _brightnessOuter = 0;
+      fl::u8 _brightnessInner = 0;
       States _current = States::INNER_RISING;
 };
 }

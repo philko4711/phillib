@@ -1,6 +1,6 @@
 #include "EffectBreathe.h"
 
-#include <Adafruit_NeoPixel.h>
+#include <FastLED.h>
 
 namespace phillib
 {
@@ -8,9 +8,10 @@ namespace arduino
 {
 EffectBreathe::EffectBreathe(const unsigned long timeOutChange):EffectBase(timeOutChange)
   {
+    Serial.println(__PRETTY_FUNCTION__);
   }
 
-void EffectBreathe::process(Adafruit_NeoPixel& strip)
+void EffectBreathe::process(CRGB* strip)
 {
   if(millis() - _last >= _timeOutChange)
   {
@@ -26,8 +27,8 @@ void EffectBreathe::process(Adafruit_NeoPixel& strip)
         _dir = true;
     }
   }
-  strip.setBrightness(_brightness);
-  strip.show();
+  FastLED.setBrightness(_brightness);
+  FastLED.show();
 }
 
 }
