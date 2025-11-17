@@ -8,7 +8,7 @@
 #include "effects/EffectBreathe.h"
 #include "effects/EffectWanderingPxl.h"
 #include "effects/EffectExpand.h"
-#include "effects/EffectSunWheel.h"
+//#include "effects/EffectSunWheel.h"
 #include "effects/EffectPacifica.h"
 
 
@@ -16,7 +16,7 @@ FASTLED_USING_NAMESPACE
 
 // put function declarations here:
 #define LED_PIN  5
-#define LED_COUNT 18  
+#define LED_COUNT 54  
 #define MAX_POWER_MILLIAMPS 2500
 #define LED_TYPE            WS2812B
 #define COLOR_ORDER         GRB

@@ -21,6 +21,10 @@ IEffect::TypeEffect EffectBase::stringToTypeEffect(const String& effect)
     {
           return IEffect::TypeEffect::EXPAND;
     }
+    else if(effect == "pacifica")
+    {
+          return IEffect::TypeEffect::PACIFICA;
+    }
     else
         return IEffect::TypeEffect::ERROR;
 }
