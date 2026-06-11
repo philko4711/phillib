@@ -14,7 +14,9 @@ namespace arduino
     public:
       EffectWanderingPxl(const unsigned long timeOutChange = 10);
       virtual ~EffectWanderingPxl(){}
-      virtual void process(Adafruit_NeoPixel& strip)override;
+      virtual void process(CRGB* strip)override;
+      virtual TypeEffect type(void)const override{return TypeEffect::WANDERING_PXL;}
+      virtual String typeString(void)const override{return String("wandering_pixel");}
     private:
       std::vector<unsigned int> _pxlBuffer;
       std::vector<unsigned int>::const_iterator _current;

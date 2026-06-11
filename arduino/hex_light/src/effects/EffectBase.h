@@ -14,6 +14,7 @@ namespace arduino
     public:
     EffectBase(const unsigned long timeOutChange = 10):_timeOutChange(timeOutChange){}
     virtual ~EffectBase(){}
+    virtual IEffect::TypeEffect stringToTypeEffect(const String& effect)override;
     protected:
       unsigned long _last = millis();
       unsigned long _timeOutChange;  
