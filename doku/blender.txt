@@ -1,3 +1,5 @@
 Bridge Edge Loops   #used to connect edges with faces i.e. two circles as a pipe base
 s + z + 0 (scale along axis z and 0 = flat edge)
 L (mark all connected faces)
+
+non distorted array curve modifier. Create object and add plane. Shift + select first object then plane ctrl+p parent->object. Array, curve instancing faces; object->apply->make_instances_real
